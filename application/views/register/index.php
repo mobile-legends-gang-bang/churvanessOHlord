@@ -54,7 +54,6 @@
         </form>
         <div class="text-center">
           <a class="d-block small mt-3" href="<?php echo base_url()?>login/index">Login Page</a>
-          <a id="test" >asdasdasd</a>
         </div>
       </div>
     </div>
