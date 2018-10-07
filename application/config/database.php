@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '192.168.0.15',
+	'hostname' => 'localhost',
 	'username' => 'postgres',
-	'password' => 'edukit',
-	'database' => 'Edukit',
+	'password' => 'admin',
+	'database' => 'EDUKIT',
 	'dbdriver' => 'postgre',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
