@@ -72,6 +72,7 @@
           type:'post',
           url: '<?php echo base_url()?>register/savedata',
           data: new FormData($(this)[0]),
+          dataType: 'json',
           cache:false,
           contentType:false,
           processData:false,
@@ -80,7 +81,11 @@
           },
           success: function (response){
             // $('#process_indicator').hide();
-            alert(response);
+            if (response.status) {
+              $('input[type=text], input[type=password]').val("");
+              alert("Successfully registered data!");
+            } else 
+              alert(response.message);
           },
           error:function(request,status,error){ 
             // $('#process_indicator').hide();
