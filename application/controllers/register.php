@@ -20,6 +20,7 @@ class Register extends CI_Controller {
 				'username' => $this->input->post('username'),
 				'password' => $this->input->post('password')
 			);
+			print_r($data); return;
 			$this->db->insert('register', $data);
 
 		} else 
