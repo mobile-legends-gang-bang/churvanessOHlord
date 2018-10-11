@@ -5,6 +5,6 @@ class Login extends CI_Controller {
 		if(!$this->session->userdata('logged_in')) {
 			$this->load->view('login/index');
 		} else 
-			$this->load->view('dashboard/index');
+			redirect('dashboard','refresh');
 	}
 }

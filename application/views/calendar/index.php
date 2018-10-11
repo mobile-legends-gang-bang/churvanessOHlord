@@ -1,9 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<?php $this->load->view('load/head')?>
 <link href="<?php echo base_url();?>assets/css/fullcalendar.css" rel="stylesheet"/>
 <link href="<?php echo base_url();?>assets/css/fullcalendar.print.css" rel="stylesheet" media="print" />
+<?php $this->load->view('load/head')?>
+
+
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Page level plugin JavaScript-->
+<script src="vendor/chart.js/Chart.min.js"></script>
+<!-- Custom scripts for all pages-->
+<script src="js/sb-admin.min.js"></script>
+<!-- Custom scripts for this page-->
+<script src="js/sb-admin-charts.min.js"></script>
 
 <script type="text/javascript" src="<?php echo base_url();?>assets/jquery/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/jquery/jquery-ui.custom.min.js"></script>
@@ -166,12 +179,18 @@
 	});
 
 </script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var height = $(window).height();
+		$('#calendar').css('height', height);
+	});
+</script>
 <style>
 
 	body {
 		margin-top: 40px;
-		text-align: center;
-		font-size: 14px;
+		/*text-align: center;*/
+		/*font-size: 14px;*/
 		font-family: "Helvetica Nueue",Arial,Verdana,sans-serif;
 		background-color: #DDDDDD;
 		}
@@ -223,6 +242,27 @@
         box-shadow: 0 1px 2px #C3C3C3;
 		}
 
+</style>
+
+<style type="text/css">
+	@media (min-width: 992px) {
+		#mainNav.navbar-dark .navbar-collapse .navbar-sidenav {
+		    margin-top: 69px;
+		}
+	}
+	@media (min-width: 992px) {
+		#mainNav.fixed-top .sidenav-toggler > .nav-item {
+		    width: 250px;
+		    padding: 0;
+		    margin-top: 7px;
+		}
+	}
+	.bg-dark {
+	    background-color: #212529!important;
+	}
+	body.fixed-nav {
+	     padding-top: 0 !important;
+	}
 </style>
 </head>
 	<body class="fixed-nav sticky-footer bg-dark">
@@ -417,23 +457,12 @@
 		  </div>
 		</nav>
 		<div class="content-wrapper">
-			<div id="wrap">
+			<div id="container">
 
-			<div id="calendar"></div>
+				<div id="calendar"></div>
 
-			<div style="clear:both"></div>
+				<!-- <div style="clear:both"></div> -->
 			</div>
-	    <!-- Bootstrap core JavaScript-->
-	    <script src="vendor/jquery/jquery.min.js"></script>
-	    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	    <!-- Core plugin JavaScript-->
-	    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-	    <!-- Page level plugin JavaScript-->
-	    <script src="vendor/chart.js/Chart.min.js"></script>
-	    <!-- Custom scripts for all pages-->
-	    <script src="js/sb-admin.min.js"></script>
-	    <!-- Custom scripts for this page-->
-	    <script src="js/sb-admin-charts.min.js"></script>
-	  </div>
+	  	</div>
 	</body>
 </html>

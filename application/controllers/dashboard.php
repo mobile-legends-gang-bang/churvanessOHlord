@@ -3,7 +3,7 @@
 class Dashboard extends CI_Controller {
 	public function index() {
 		if(!$this->session->userdata('logged_in')) {
-			$this->load->view('login/index');
+			redirect('login', 'refresh');
 		} else 
 			$this->load->view('dashboard/index');
 	}
