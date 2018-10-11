@@ -19,7 +19,7 @@ class Verify_login extends CI_Controller {
 
 	public function _check_database($password) {
 		$username = $this->input->post('username');
-		$user = $this->db->query("SELECT * FROM edukit.register WHERE username = ?", $username);
+		$user = $this->db->query("SELECT * FROM public.register WHERE username = ?", $username);
 		if ($user->num_rows() > 0) {
 			$user = $user->row();
 			$user_password = $user->password;
@@ -39,6 +39,6 @@ class Verify_login extends CI_Controller {
 	}
 	public function logout() {
 		$this->session->sess_destroy();
-		redirect('dashboard', 'refresh');
+		redirect('login', 'refresh');
 	}
 }

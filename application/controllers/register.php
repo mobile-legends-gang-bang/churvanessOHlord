@@ -15,25 +15,25 @@ class Register extends CI_Controller {
 		$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required');
 		if ($this->form_validation->run()){
 			$response['status'] = FALSE;
-			$existUsername = $this->db->query("SELECT username FROM edukit.register WHERE username = ?", $this->input->post('username'));
+			$existUsername = $this->db->query("SELECT username FROM public.register WHERE username = ?", $this->input->post('username'));
 			if ($existUsername->num_rows() > 0)
 				$response['message'] = "Username already existed!";
 			else {
 				if ($this->input->post('password') != $this->input->post('confirm_password'))
-					$response['message'] = "Password not match!";
+					$response['message'] = "Passwords do not match!";
 				else {
 					$data = array(
-						// 'lname' => $this->input->post('lname'),
-						// 'fname' => $this->input->post('fname'),
+						'lname' => $this->input->post('lname'),
+						'fname' => $this->input->post('fname'),
 						'username' => $this->input->post('username'),
 						'password' => $this->input->post('password')
 					);
-					$this->db->insert('edukit.register', $data);
+					$this->db->insert('public.register', $data);
 					$response['status'] = TRUE;
 					// $response['message'] = "Successfully registered data.";
 				}
 			}
-			echo json_encode($response);
+			// echo json_encode($response);
 		} else 
 			redirect('register','refresh');
 	}
