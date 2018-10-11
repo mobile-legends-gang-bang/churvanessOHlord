@@ -39,6 +39,6 @@ class Verify_login extends CI_Controller {
 	}
 	public function logout() {
 		$this->session->sess_destroy();
-		redirect('dashboard', 'refresh');
+		redirect('login', 'refresh');
 	}
 }

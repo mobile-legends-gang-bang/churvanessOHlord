@@ -1,18 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <title>Edukit - Register</title>
-  <!-- Bootstrap core CSS-->
-  <link href="<?php echo base_url()?>assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Custom fonts for this template-->
-  <link href="<?php echo base_url()?>assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-  <!-- Custom styles for this template-->
-  <link href="<?php echo base_url()?>assets/css/sb-admin.css" rel="stylesheet">
+  <?php $this->load->view('load/head')?>   
+  <title>Edukit - Register Account</title>
 </head>
 
 <body class="bg-dark">
@@ -53,7 +43,8 @@
           <input type="submit" class="btn btn-primary btn-block" name="submit" value="Register">
         </form>
         <div class="text-center">
-          <a class="d-block small mt-3" href="<?php echo base_url()?>login/index">Login Page</a>
+          <p class="d-block small mt-3">Already have and account?</p>
+          <a class="d-block small mt-3" href="<?php echo base_url()?>login/index">Click here to login</a>
         </div>
       </div>
     </div>

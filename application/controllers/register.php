@@ -20,7 +20,7 @@ class Register extends CI_Controller {
 				$response['message'] = "Username already existed!";
 			else {
 				if ($this->input->post('password') != $this->input->post('confirm_password'))
-					$response['message'] = "Password not match!";
+					$response['message'] = "Passwords do not match!";
 				else {
 					$data = array(
 						'lname' => $this->input->post('lname'),
@@ -33,7 +33,7 @@ class Register extends CI_Controller {
 					// $response['message'] = "Successfully registered data.";
 				}
 			}
-			echo json_encode($response);
+			// echo json_encode($response);
 		} else 
 			redirect('register','refresh');
 	}
