@@ -55,83 +55,34 @@
             <span class="nav-link-text">Lesson Plan</span>
           </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-          <a class="nav-link" href="charts.html">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Schedule">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#schedule" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-clock-o"></i>
             <span class="nav-link-text">Schedule</span>
           </a>
+          <ul class="sidenav-second-level collapse" id="schedule">
+            <li>
+              <a href="navbar.html">Notes</a>
+            </li>
+            <li>
+              <a href="<?php echo base_url()?>calendar/index">Calendar</a>
+            </li>
+          </ul>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Settings">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapse_settings" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-cogs"></i>
             <span class="nav-link-text">Settings</span>
           </a>
-          <ul class="sidenav-second-level collapse" id="collapseComponents">
+          <ul class="sidenav-second-level collapse" id="collapse_settings">
             <li>
-              <a href="navbar.html">Navbar</a>
+              <a href="navbar.html">Behavior</a>
             </li>
             <li>
-              <a href="cards.html">Cards</a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-file"></i>
-            <span class="nav-link-text">Example Pages</span>
-          </a>
-          <ul class="sidenav-second-level collapse" id="collapseExamplePages">
-            <li>
-              <a href="login.html">Login Page</a>
-            </li>
-            <li>
-              <a href="register.html">Registration Page</a>
-            </li>
-            <li>
-              <a href="forgot-password.html">Forgot Password Page</a>
-            </li>
-            <li>
-              <a href="blank.html">Blank Page</a>
+              <a href="cards.html">Personal Account</a>
             </li>
           </ul>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-sitemap"></i>
-            <span class="nav-link-text">Menu Levels</span>
-          </a>
-          <ul class="sidenav-second-level collapse" id="collapseMulti">
-            <li>
-              <a href="#">Second Level Item</a>
-            </li>
-            <li>
-              <a href="#">Second Level Item</a>
-            </li>
-            <li>
-              <a href="#">Second Level Item</a>
-            </li>
-            <li>
-              <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti2">Third Level</a>
-              <ul class="sidenav-third-level collapse" id="collapseMulti2">
-                <li>
-                  <a href="#">Third Level Item</a>
-                </li>
-                <li>
-                  <a href="#">Third Level Item</a>
-                </li>
-                <li>
-                  <a href="#">Third Level Item</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
-          <a class="nav-link" href="#">
-            <i class="fa fa-fw fa-link"></i>
-            <span class="nav-link-text">Link</span>
-          </a>
-        </li>
+        </li>        
       </ul>
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
@@ -235,24 +186,24 @@
             <i class="fa fa-fw fa-sign-out"></i>Logout</a>
         </li>
       </ul> 
-    </div>
-  </nav>
+  </div>
+</nav>
   <div class="modal fade" id="logoutmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to Logout?</h5>
-              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div class="modal-footer">
-              <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-              <a class="btn btn-primary" href="<?php echo base_url()?>verify_login/logout">Logout</a>
-            </div>
-          </div>
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to Logout?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="<?php echo base_url()?>verify_login/logout">Logout</a>
         </div>
       </div>
+    </div>
+  </div>
 
   <!-- Bootstrap core JavaScript-->
 <script type="text/javascript" src="<?php echo base_url();?>assets/vendor/jquery/jquery.min.js"></script>

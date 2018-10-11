@@ -13,4 +13,9 @@
 	<link rel="icon" sizes="32*32" href="<?php echo base_url()?>/images/favicon(1).ico" type="image/x-icon">
 	<!-- Page level plugin CSS-->
 	<link href="<?php echo base_url();?>assets/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+<!-- calendar -->
+
+
+	
 </head>
