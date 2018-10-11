@@ -5,6 +5,8 @@ class Calendar extends CI_Controller {
 		if(!$this->session->userdata('logged_in')) {
 			$this->load->view('login/index');
 		} else 
-			$this->load->view('calendar/index');
+			$data['title'] = "Edukit - Calendar";
+			$data['name'] = "CALENDAR OF ACTIVITIES AND SCHEDULE";
+			$this->load->view('calendar/index', $data);
 	}
 }

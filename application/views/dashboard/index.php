@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>Edukit - Dashboard</title>
 <?php $this->load->view('load/head')?>
 <style type="text/css">
 	@media (min-width: 992px) {
 		#mainNav.navbar-dark .navbar-collapse .navbar-sidenav {
-		    margin-top: 69px;
+		    margin-top: 100px;
 		}
 	}
 	@media (min-width: 992px) {
@@ -16,16 +17,16 @@
 		}
 	}
 	.bg-dark {
-	    background-color: #212529!important;
+	    background-color: #000000!important;
 	}
 </style>
 </head>
 <body>
 <?php $this->load->view('load/sidenavigation')?>	
-<div class="content-wrapper">
+<div class="content-wrapper" style="margin-top: 100px!important;">
 	<div class="container">
 		<h3>
-			A PAGE FOR CHARTS AND GRAPHS FOR CLASSROOM AND STUDENT PERFORMANCE MONITORING
+			A PAGE FOR CHARTS AND GRAPHS FOR CLASSROOM AND STUDENT PERFORMANCE MONITORING, EVENTS, AND REMINDERS
 		</h3>
 	</div>
 </div>

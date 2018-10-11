@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>Edukit - Calendar</title>
 <?php $this->load->view('load/head')?>
 
 <link href="<?php echo base_url();?>assets/css/fullcalendar.css" rel="stylesheet"/>
@@ -55,11 +56,12 @@
 
 	#calendar {
 /* 		float: right; */
-        margin: 0 auto;
+        margin: auto;
 		width: 700px;
 		background-color: #FFFFFF;
-		  border-radius: 6px;
+		border-radius: 6px;
         box-shadow: 0 1px 2px #C3C3C3;
+        margin-top: 100px;
 		}
 
 </style>
@@ -67,7 +69,7 @@
 <style type="text/css">
 	@media (min-width: 992px) {
 		#mainNav.navbar-dark .navbar-collapse .navbar-sidenav {
-		    margin-top: 69px;
+		    margin-top: 90px;
 		}
 	}
 	@media (min-width: 992px) {
@@ -78,15 +80,17 @@
 		}
 	}
 	.bg-dark {
-	    background-color: #212529!important;
+	    background-color: #000000!important;
 	}
 	body.fixed-nav {
 	     padding-top: 0 !important;
 	}
+
 </style>
 </head>
 <body>
 <?php $this->load->view('load/sidenavigation')?>	
+
 <div class="content-wrapper">
 	<div class="container">
 		<div id="calendar"></div>
@@ -252,9 +256,10 @@
 </script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		var height = $(window).height();
+		var height = $(window).height('590px');
 		$('#calendar').css('height', height);
 	});
+
 </script>
 </body>
 </html>

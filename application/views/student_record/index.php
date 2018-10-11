@@ -1,9 +1,10 @@
 <head>
+  <title>Edukit - Student Record</title>
 <?php $this->load->view('load/head')?>
 </head>
 <body id="page-top">
 <?php $this->load->view('load/sidenavigation')?>
-<div class="content-wrapper">
+<div class="content-wrapper" style="margin-top: 100px!important;">
     <div class="container-fluid">
       <!-- Example DataTables Card-->
       <div class="row" style="padding: 20px;">

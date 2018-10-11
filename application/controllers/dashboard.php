@@ -5,6 +5,8 @@ class Dashboard extends CI_Controller {
 		if(!$this->session->userdata('logged_in')) {
 			redirect('login', 'refresh');
 		} else 
-			$this->load->view('dashboard/index');
+			$data['title'] = "Edukit - Dashboard";
+			$data['name'] = "DASHBOARD";
+			$this->load->view('dashboard/index',$data);
 	}
 }

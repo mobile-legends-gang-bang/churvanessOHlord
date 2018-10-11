@@ -5,6 +5,8 @@ class Student_record extends CI_Controller {
 		if(!$this->session->userdata('logged_in')) {
 			$this->load->view('login/index');
 		} else 
-			$this->load->view('student_record/index');
+			$data['title'] = "Edukit - Student Record";
+			$data['name'] = "STUDENT RECORDS";
+			$this->load->view('student_record/index', $data);
 	}
 }

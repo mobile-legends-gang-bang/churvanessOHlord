@@ -1,12 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Attendance extends CI_Controller {
+class Lesson_plan extends CI_Controller {
 	public function index() {
 		if(!$this->session->userdata('logged_in')) {
 			$this->load->view('login/index');
-		} else 
-			$data['title'] = "Edukit - Attendance";
-			$data['name'] = "Attendance Monitoring";
-			$this->load->view('attendance/index',$data);
+		} else
+			$data['title'] = "Edukit - Lesson Plan";
+			$data['name'] = "Create Lesson Plan";
+			$this->load->view('lesson_plan/index',$data);
 	}
 }

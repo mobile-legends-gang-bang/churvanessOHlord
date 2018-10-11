@@ -1,9 +1,16 @@
+<style type="text/css">
+  img {
+    vertical-align: middle;
+    border-style: none;
+    height: auto;
+}
+</style>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <a class="navbar-brand" href="<?php echo base_url()?>dashboard/index"><img  src="<?php echo base_url()?>images/edukit_logo.png" width="210" height="43"></a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
+    <div class="collapse navbar-collapse" id="navbarResponsive"> <h4 style="color: #fff;">: <?php echo $name?></h3>
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
           <a class="nav-link" href="<?php echo base_url()?>dashboard/index">
@@ -11,7 +18,7 @@
             <span class="nav-link-text">Dashboard</span>
           </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Students">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#students" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-graduation-cap"></i>
             <span class="nav-link-text">Students</span>
@@ -25,32 +32,32 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Class Section">
           <a class="nav-link" href="<?php echo base_url()?>class_section/index">
             <i class="fa fa-fw fa-table"></i>
             <span class="nav-link-text">Class</span>
           </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Attendance">
           <a class="nav-link" href="<?php echo base_url()?>attendance/index">
             <i class="fa fa-fw fa-calendar-check-o"></i>
             <span class="nav-link-text">Attendance</span>
           </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-          <a class="nav-link" href="charts.html">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reports">
+          <a class="nav-link" href="<?php echo base_url()?>reports/index">
             <i class="fa fa-fw fa-files-o"></i>
             <span class="nav-link-text">Reports</span>
           </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-          <a class="nav-link" href="charts.html">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Lesson Log">
+          <a class="nav-link" href="<?php echo base_url()?>lesson_log/index">
             <i class="fa fa-fw fa-pencil-square-o"></i>
             <span class="nav-link-text">Lesson Log</span>
           </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-          <a class="nav-link" href="charts.html">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Lesson Plan">
+          <a class="nav-link" href="<?php echo base_url()?>lesson_plan/index">
             <i class="fa fa-fw fa-file-text-o"></i>
             <span class="nav-link-text">Lesson Plan</span>
           </a>
@@ -62,7 +69,7 @@
           </a>
           <ul class="sidenav-second-level collapse" id="schedule">
             <li>
-              <a href="navbar.html">Notes</a>
+              <a href="<?php echo base_url()?>notes/index">Notes</a>
             </li>
             <li>
               <a href="<?php echo base_url()?>calendar/index">Calendar</a>

@@ -5,6 +5,8 @@ class Student_profile extends CI_Controller {
 		if(!$this->session->userdata('logged_in')) {
 			$this->load->view('login/index');
 		} else 
-			$this->load->view('student_profile/index');
+			$data['title'] = "Student Profile";
+			$data['name'] = "STUDENT PROFILE";
+			$this->load->view('student_profile/index',$data);
 	}
 }
