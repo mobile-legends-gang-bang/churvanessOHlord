@@ -33,6 +33,11 @@ WW
 <div class="content-wrapper" style="margin-top: 100px!important; margin-left: 300px;">
   <div class="row row_padding">
     <div class="col-md-6">
+      <div class="row row_padding">
+        <div class="col-md-2">IDNO.</div>
+        <div class="col-md-1">:</div>
+        <div class="col-md-3"><input type="text" class="form-control" name="" disabled=""></div>
+      </div>
       <h4 align="center">PERSONAL INFORMATION</h4>
       <div class="row row_padding">
         <div class="col-md-5">First Name</div>
@@ -87,19 +92,35 @@ WW
         <div class="col-md-1">:</div>
         <div class="col-md-6"><input type="text" class="form-control" name=""></div>
       </div>
-      <h4 align="center">GUARDIAN'S INFORMATION</h4>
+      <h4 align="center">EDUCATIONAL INFORMATION</h4>
       <div class="row row_padding">
-        <div class="col-md-5">Full Name</div>
+        <div class="col-md-5">Degree Attained</div>
         <div class="col-md-1">:</div>
         <div class="col-md-6"><input type="text" class="form-control" name=""></div>
       </div>
       <div class="row row_padding">
-        <div class="col-md-5">Contact Number</div>
+        <div class="col-md-5">Institution Name</div>
         <div class="col-md-1">:</div>
         <div class="col-md-6"><input type="text" class="form-control" name=""></div>
       </div>
       <div class="row row_padding">
-        <div class="col-md-5">Relationship</div>
+        <div class="col-md-5">Year Graduated</div>
+        <div class="col-md-1">:</div>
+        <div class="col-md-6"><input type="text" class="form-control" name=""></div>
+      </div>
+      <h4 align="center">CONTACT INFORMATION</h4>
+      <div class="row row_padding">
+        <div class="col-md-5">Mobile No</div>
+        <div class="col-md-1">:</div>
+        <div class="col-md-6"><input type="text" class="form-control" name=""></div>
+      </div>
+      <div class="row row_padding">
+        <div class="col-md-5">Telephone Number</div>
+        <div class="col-md-1">:</div>
+        <div class="col-md-6"><input type="text" class="form-control" name=""></div>
+      </div>
+      <div class="row row_padding">
+        <div class="col-md-5">Email Address</div>
         <div class="col-md-1">:</div>
         <div class="col-md-6"><input type="text" class="form-control" name=""></div>
       </div>
@@ -115,14 +136,17 @@ WW
       <div class="row">
         <h4 style="text-align: center;">Velikkakathu Sankaran Achuthanandan</h4>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-3 offset-md-3">
-        <button class="btn bg-primary">Save Information</button>
+      <div class="row">
+        <h6 style="text-align: center;">OTHER INFORMATION GOES HERE</h6>
       </div>
-      <div class="col-md-3">
+    </div>
+    <div class="row row_padding">
+      <div class="col-md-3 offset-md-3">
+        <button class="btn bg-primary" disabled>Save Information</button>
+      </div>
+      <div class="col-md-3 offset-md-3">
         <label class="btn btn-default bg-success">
-          Batch Student Import <input type="file" accept=".xlsx" hidden>
+          Edit Existing Information
         </label>
       </div>
     </div>
