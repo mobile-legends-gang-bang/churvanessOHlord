@@ -25,7 +25,11 @@
     border-style: inset;
     border-width: 1px;
   }
-WW
+  .align_center{
+    padding-left: 50px!important; 
+    padding-right: 50px!important;
+    text-align: center;
+  }
 </style>
 </head>
 <body>
@@ -124,33 +128,25 @@ WW
         <div class="col-md-1">:</div>
         <div class="col-md-6"><input type="text" class="form-control" name=""></div>
       </div>
+      <div class="row row_padding">
+        <div class="col-md-5"></div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3"><button class="btn bg-primary" disabled>Save Information</button></div>
+        <div class="col-md-3"><button class="btn bg-primary" >Edit Information</button></div>
+    </div> 
     </div>
 
     <div class="col-md-6">
       <div class="container">
         <img src="<?php echo base_url()?>images/avatar.png" class="center">
         <div class="row row_padding" style="margin-top: 30px; border-bottom: 1px black solid;">
-          <h4 style="text-align: center;">Velikkakathu Sankaran Achuthanandan</h4>
+          <h4 class="align_center">Velikkakathu Sankaran Achuthanandan</h4>
         </div>
       </div>
       <div class="row">
-        <h4 style="text-align: center;">Velikkakathu Sankaran Achuthanandan</h4>
+        <h5 class="align_center">A Graduate of Bachelor of Science in General Eucation</h5>
       </div>
-      <div class="row">
-        <h6 style="text-align: center;">OTHER INFORMATION GOES HERE</h6>
-      </div>
-    </div>
-    <div class="row row_padding">
-      <div class="col-md-3 offset-md-3">
-        <button class="btn bg-primary" disabled>Save Information</button>
-      </div>
-      <div class="col-md-3 offset-md-3">
-        <label class="btn btn-default bg-success">
-          Edit Existing Information
-        </label>
-      </div>
-    </div>
-    
+    </div>   
   </div>
 </div>
 </div>
