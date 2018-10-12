@@ -83,10 +83,10 @@
           </a>
           <ul class="sidenav-second-level collapse" id="collapse_settings">
             <li>
-              <a href="navbar.html">Behavior</a>
+              <a href="<?php echo base_url()?>behavior/index">Behavior</a>
             </li>
             <li>
-              <a href="cards.html">Personal Account</a>
+              <a href="<?php echo base_url()?>personal_account/index">Personal Account</a>
             </li>
           </ul>
         </li>        

@@ -65,21 +65,23 @@
                   <td>3</td>
                   <td>Science</td>
                   <td>8:00 AM - 9:00 AM</td>
-                  <td>View Students</td>
+                  <td><button class="btn" style="background: transparent;" data-toggle="modal" data-target="#studentModal"> View Students </button></td>
+
                 </tr>
                 <tr>
                   <td>Wallace</td>
                   <td>3</td>
                   <td>Mathematics</td>
                   <td>2:00 PM - 3:00 PM</td>
-                  <td>View Students</td>
+                  <td><button class="btn" style="background: transparent;" data-toggle="modal" data-target="#studentModal"> View Students </button></td>
+
                 </tr>
                 <tr>
                   <td>Pasteur</td>
                   <td>3</td>
                   <td>Science</td>
                   <td>9:00 AM - 10:00 AM</td>
-                  <td>View Students</td>
+                  <td><button class="btn" style="background: transparent;" data-toggle="modal" data-target="#studentModal"> View Students </button></td>
                 </tr>
               </tbody>
             </table>
