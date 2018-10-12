@@ -74,7 +74,7 @@
             // $('#process_indicator').hide();
             if (response.status) {
               $('input[type=text], input[type=password]').val("");
-              alert("Successfully registered data!");
+              alert("Successfully registered!");
             } else 
               alert(response.message);
           },
