@@ -24,7 +24,8 @@
     margin-right: auto;
     border-style: inset;
     border-width: 1px;
-} 
+  }
+WW
 </style>
 </head>
 <body>
@@ -109,11 +110,10 @@
         <img src="<?php echo base_url()?>images/avatar.png" class="center">
         <div class="row row_padding" style="margin-top: 30px; border-bottom: 1px black solid;">
           <h4 style="text-align: center;">Velikkakathu Sankaran Achuthanandan</h4>
-          <hr>
         </div>
-        <div class="row">
-          <p>Grade 2 Teacher</p>
-        </div>
+      </div>
+      <div class="row">
+        <h4 style="text-align: center;">Velikkakathu Sankaran Achuthanandan</h4>
       </div>
     </div>
     <div class="row">
