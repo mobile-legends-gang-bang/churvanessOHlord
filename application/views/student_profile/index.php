@@ -10,11 +10,24 @@
   .row_padding{
     padding: 5px;
   }
+  .align_center{
+    padding-left: 50px!important; 
+    padding-right: 50px!important;
+    text-align: center;
+  }
 </style>
 </head>
 <body>
 <?php $this->load->view('load/sidenavigation')?>  
 <div class="content-wrapper" style="margin-top: 100px!important; margin-left: 300px;">
+  <div class="col-md-4 offset-md-4">
+      <div class="container" style="padding-bottom: 50px;">
+        <img src="<?php echo base_url()?>images/avatar.png" class="center">
+        <div class="row row_padding" style="margin-top: 30px; border-bottom: 1px black solid;">
+          <h4 class="align_center">Velikkakathu Sankaran Achuthanandan</h4>
+        </div>
+      </div>
+    </div>
   <div class="row row_padding">
     <div class="col-md-6">
       <h4 align="center">PERSONAL INFORMATION</h4>
@@ -93,7 +106,13 @@
       <div class="row row_padding">
         <div class="col-md-5">Section</div>
         <div class="col-md-1">:</div>
-        <div class="col-md-6"><input type="text" class="form-control" name=""></div>
+        <div class="col-md-6">
+          <select class="form-control">
+            <option>Einstein</option>
+            <option>Pascal</option>
+            <option>Newton</option>
+          </select>
+        </div>
       </div>
       <h4 align="center">FATHER'S INFORMATION</h4>
       <div class="row row_padding">

@@ -1,6 +1,12 @@
 <head>
   <title><?php echo $title?></title>
  	<?php $this->load->view('load/head')?>
+  <style type="text/css">
+    th{
+      background: #323231; color:#fff;
+      text-align: center;
+    }
+  </style>
 </head>
 <body id="page-top">
   <?php $this->load->view('load/sidenavigation')?>
@@ -47,7 +53,7 @@
       </div>
       <div class="card mb-3" style="padding-top: 10px;">
         <div class="card-header">
-          <i class="fa fa-table"> &nbsp;&nbsp;<span></i>Check Students Attendance Under Section Einstein, Subject : Social Science</span></div>
+          <i class="fa fa-table"> &nbsp;&nbsp;<span></i>Attendance Checking</span></div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -55,6 +61,7 @@
                 <tr>
                   <th>Name</th>
                   <th>Present</th>
+                  <th>Late</th>
                   <th>Remarks</th>
                 </tr>
               </thead>
@@ -62,74 +69,106 @@
                 <tr>
                   <th>Name</th>
                   <th>Present</th>
+                  <th>Late</th>
                   <th>Remarks</th>
                 </tr>
               </tfoot>
               <tbody>
                 <tr>
                   <td>Jayzon Cabuenas</td>
-                  <td><input type="checkbox" name=""></td>
-                  <td>Einstein</td>
+                  <td><input type="checkbox" class="form-control" name="" checked></td>
+                  <td><input type="checkbox" class="form-control" name=""></td>
+                  <td><input type="text" class="form-control" name="" checked></td>
                 </tr>
-               <tr>
-                  <td>Jayzon Cabuenas</td>
-                  <td><input type="checkbox" name=""></td>
-                  <td>Einstein</td>
+                <tr>
+                  <td>Karystel Alicante</td>
+                  <td><input type="checkbox" class="form-control" name="" checked></td>
+                  <td><input type="checkbox" class="form-control" name=""></td>
+                  <td><input type="text" class="form-control" name="" checked></td>
+                </tr>
+                <tr>
+                  <td>Bernard Joseph Gutierrez</td>
+                  <td><input type="checkbox" class="form-control" name="" checked></td>
+                  <td><input type="checkbox" class="form-control" name=""></td>
+                  <td><input type="text" class="form-control" name="" checked></td>
+                </tr>
+                <tr>
+                  <td>Althea Naga</td>
+                  <td><input type="checkbox" class="form-control" name="" checked></td>
+                  <td><input type="checkbox" class="form-control" name=""></td>
+                  <td><input type="text" class="form-control" name="" checked></td>
                 </tr>
                 <tr>
                   <td>Jayzon Cabuenas</td>
-                  <td><input type="checkbox" name=""></td>
-                  <td>Einstein</td>
+                  <td><input type="checkbox" class="form-control" name="" checked></td>
+                  <td><input type="checkbox" class="form-control" name=""></td>
+                  <td><input type="text" class="form-control" name="" checked></td>
+                </tr>
+                <tr>
+                  <td>Karystel Alicante</td>
+                  <td><input type="checkbox" class="form-control" name="" checked></td>
+                  <td><input type="checkbox" class="form-control" name=""></td>
+                  <td><input type="text" class="form-control" name="" checked></td>
+                </tr>
+                <tr>
+                  <td>Bernard Joseph Gutierrez</td>
+                  <td><input type="checkbox" class="form-control" name="" checked></td>
+                  <td><input type="checkbox" class="form-control" name=""></td>
+                  <td><input type="text" class="form-control" name="" checked></td>
+                </tr>
+                <tr>
+                  <td>Althea Naga</td>
+                  <td><input type="checkbox" class="form-control" name="" checked></td>
+                  <td><input type="checkbox" class="form-control" name=""></td>
+                  <td><input type="text" class="form-control" name="" checked></td>
                 </tr>
                 <tr>
                   <td>Jayzon Cabuenas</td>
-                  <td><input type="checkbox" name=""></td>
-                  <td>Einstein</td>
+                  <td><input type="checkbox" class="form-control" name="" checked></td>
+                  <td><input type="checkbox" class="form-control" name=""></td>
+                  <td><input type="text" class="form-control" name="" checked></td>
+                </tr>
+                <tr>
+                  <td>Karystel Alicante</td>
+                  <td><input type="checkbox" class="form-control" name="" checked></td>
+                  <td><input type="checkbox" class="form-control" name=""></td>
+                  <td><input type="text" class="form-control" name="" checked></td>
+                </tr>
+                <tr>
+                  <td>Bernard Joseph Gutierrez</td>
+                  <td><input type="checkbox" class="form-control" name="" checked></td>
+                  <td><input type="checkbox" class="form-control" name=""></td>
+                  <td><input type="text" class="form-control" name="" checked></td>
+                </tr>
+                <tr>
+                  <td>Althea Naga</td>
+                  <td><input type="checkbox" class="form-control" name="" checked></td>
+                  <td><input type="checkbox" class="form-control" name=""></td>
+                  <td><input type="text" class="form-control" name="" checked></td>
                 </tr>
                 <tr>
                   <td>Jayzon Cabuenas</td>
-                  <td><input type="checkbox" name=""></td>
-                  <td>Einstein</td>
+                  <td><input type="checkbox" class="form-control" name="" checked></td>
+                  <td><input type="checkbox" class="form-control" name=""></td>
+                  <td><input type="text" class="form-control" name="" checked></td>
                 </tr>
                 <tr>
-                  <td>Jayzon Cabuenas</td>
-                  <td><input type="checkbox" name=""></td>
-                  <td>Einstein</td>
+                  <td>Karystel Alicante</td>
+                  <td><input type="checkbox" class="form-control" name="" checked></td>
+                  <td><input type="checkbox" class="form-control" name=""></td>
+                  <td><input type="text" class="form-control" name="" checked></td>
                 </tr>
                 <tr>
-                  <td>Jayzon Cabuenas</td>
-                  <td><input type="checkbox" name=""></td>
-                  <td>Einstein</td>
+                  <td>Bernard Joseph Gutierrez</td>
+                  <td><input type="checkbox" class="form-control" name="" checked></td>
+                  <td><input type="checkbox" class="form-control" name=""></td>
+                  <td><input type="text" class="form-control" name="" checked></td>
                 </tr>
                 <tr>
-                  <td>Jayzon Cabuenas</td>
-                  <td><input type="checkbox" name=""></td>
-                  <td>Einstein</td>
-                </tr>
-                <tr>
-                  <td>Jayzon Cabuenas</td>
-                  <td><input type="checkbox" name=""></td>
-                  <td>Einstein</td>
-                </tr>
-                <tr>
-                  <td>Jayzon Cabuenas</td>
-                  <td><input type="checkbox" name=""></td>
-                  <td>Einstein</td>
-                </tr>
-                <tr>
-                  <td>Jayzon Cabuenas</td>
-                  <td><input type="checkbox" name=""></td>
-                  <td>Einstein</td>
-                </tr>
-                <tr>
-                  <td>Jayzon Cabuenas</td>
-                  <td><input type="checkbox" name=""></td>
-                  <td>Einstein</td>
-                </tr>
-                <tr>
-                  <td>Jayzon Cabuenas</td>
-                  <td><input type="checkbox" name=""></td>
-                  <td>Einstein</td>
+                  <td>Althea Naga</td>
+                  <td><input type="checkbox" class="form-control" name="" checked></td>
+                  <td><input type="checkbox" class="form-control" name=""></td>
+                  <td><input type="text" class="form-control" name="" checked></td>
                 </tr>
               </tbody>
             </table>

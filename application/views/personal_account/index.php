@@ -38,9 +38,9 @@
   <div class="row row_padding">
     <div class="col-md-6">
       <div class="row row_padding">
-        <div class="col-md-2">IDNO.</div>
+        <div class="col-md-5">TEACHER IDNO.</div>
         <div class="col-md-1">:</div>
-        <div class="col-md-3"><input type="text" class="form-control" name="" disabled=""></div>
+        <div class="col-md-6"><input type="text" class="form-control" name="" disabled></div>
       </div>
       <h4 align="center">PERSONAL INFORMATION</h4>
       <div class="row row_padding">
@@ -127,13 +127,7 @@
         <div class="col-md-5">Email Address</div>
         <div class="col-md-1">:</div>
         <div class="col-md-6"><input type="text" class="form-control" name=""></div>
-      </div>
-      <div class="row row_padding">
-        <div class="col-md-5"></div>
-        <div class="col-md-1"></div>
-        <div class="col-md-3"><button class="btn bg-primary" disabled>Save Information</button></div>
-        <div class="col-md-3"><button class="btn bg-primary" >Edit Information</button></div>
-    </div> 
+      </div> 
     </div>
 
     <div class="col-md-6">
@@ -145,6 +139,14 @@
       </div>
       <div class="row">
         <h5 class="align_center">A Graduate of Bachelor of Science in General Eucation</h5>
+      </div>
+      <div class="row row_padding" style="padding-top: 50px;">
+        <div class="col-md-6" align="right">
+          <button class="btn bg-primary" disabled>Save Information</button>
+        </div>
+        <div class="col-md-6" align="left">
+          <button class="btn bg-success">Edit Information</button>
+        </div>
       </div>
     </div>   
   </div>

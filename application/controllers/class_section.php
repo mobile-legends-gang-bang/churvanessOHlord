@@ -6,7 +6,7 @@ class Class_section extends CI_Controller {
 			$this->load->view('login/index');
 		} else
 			$data['title'] = "Edukit - Class Section";
-			$data['name'] = "Class Section";
+			$data['name'] = "CLASS SECTION";
 			$this->load->view('class_section/index',$data);
 	}
 }
