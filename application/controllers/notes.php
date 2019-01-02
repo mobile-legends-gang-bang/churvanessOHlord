@@ -3,10 +3,11 @@
 class Notes extends CI_Controller {
 	public function index() {
 		if(!$this->session->userdata('logged_in')) {
-			$this->load->view('login/index');
+			redirect('login', 'refresh');
 		} else 
 			$data['title'] = "Edukit - Notes";
 			$data['name'] = "NOTES AND REMINDERS";
-			$this->load->view('notes/index', $data);
+			$data['content'] = "notes/index";
+			$this->load->view('main/index', $data);
 	}
 }

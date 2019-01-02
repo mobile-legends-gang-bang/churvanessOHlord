@@ -17,7 +17,7 @@ class Register extends CI_Controller {
 			$response['status'] = FALSE;
 			$existUsername = $this->db->query("SELECT username FROM public.register WHERE username = ?", $this->input->post('username'));
 			if ($existUsername->num_rows() > 0)
-				$response['message'] = "Username already existed!";
+				$response['message'] = "Username already exists!";
 			else {
 				if ($this->input->post('password') != $this->input->post('confirm_password'))
 					$response['message'] = "Passwords do not match!";
@@ -28,12 +28,12 @@ class Register extends CI_Controller {
 						'username' => $this->input->post('username'),
 						'password' => $this->input->post('password')
 					);
-					$this->db->insert('public.register', $data);
 					$response['status'] = TRUE;
-					// $response['message'] = "Successfully registered data.";
+					$response['message'] = "Successfully registered data.";
+					$this->load->view('dashboard/index');
 				}
 			}
-			// echo json_encode($response);
+			echo json_encode($response);
 		} else 
 			redirect('register','refresh');
 	}

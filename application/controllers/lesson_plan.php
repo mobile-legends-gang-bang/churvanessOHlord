@@ -3,10 +3,11 @@
 class Lesson_plan extends CI_Controller {
 	public function index() {
 		if(!$this->session->userdata('logged_in')) {
-			$this->load->view('login/index');
+			redirect('login', 'refresh');
 		} else
 			$data['title'] = "Edukit - Lesson Plan";
 			$data['name'] = "Create Lesson Plan";
-			$this->load->view('lesson_plan/index',$data);
+			$data['content'] = "lesson_plan/index";
+			$this->load->view('main/index', $data);
 	}
 }

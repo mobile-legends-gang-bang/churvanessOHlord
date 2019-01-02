@@ -1,9 +1,7 @@
 <head>
 	<title><?php echo $title?></title>
-	<?php $this->load->view('load/head')?>
 </head>
 <body>
-	<?php $this->load->view('load/sidenavigation')?>
 	<div class="content-wrapper" style="margin-top: 100px!important; margin-left: 270px!important;">
 		<div class="row" style="padding: 10px;">
 			<div class="col-md-2">Classroom </div>

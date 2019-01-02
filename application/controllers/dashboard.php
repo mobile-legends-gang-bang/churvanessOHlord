@@ -7,6 +7,7 @@ class Dashboard extends CI_Controller {
 		} else 
 			$data['title'] = "Edukit - Dashboard";
 			$data['name'] = "DASHBOARD";
-			$this->load->view('dashboard/index',$data);
+			$data['content'] = "dashboard/index";
+			$this->load->view('main/index', $data);
 	}
 }

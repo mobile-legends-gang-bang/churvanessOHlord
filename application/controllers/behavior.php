@@ -3,10 +3,11 @@
 class Behavior extends CI_Controller {
 	public function index() {
 		if(!$this->session->userdata('logged_in')) {
-			$this->load->view('login/index');
+			redirect('login', 'refresh');
 		} else 
 			$data['title'] = "Edukit - Behavior Setup";
 			$data['name'] = "SETUP STUDENT BEHAVIOR";
-			$this->load->view('behavior/index',$data);
+			$data['content'] = "behavior/index";
+			$this->load->view('main/index', $data);
 	}
 }

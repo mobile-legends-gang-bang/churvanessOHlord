@@ -1,6 +1,5 @@
 <head>
   <title>Edukit - Class Section</title>
-  <?php $this->load->view('load/head')?>
   <style type="text/css">
     th{
       background: #323231; color:#fff;
@@ -32,7 +31,6 @@
   </style>
 </head>
 <body id="page-top">
-  <?php $this->load->view('load/sidenavigation')?>
   <div class="content-wrapper" style="margin-top: 100px!important; padding: 15px!important;">
     <div class="container-fluid">
       <ul class="nav nav-pills mb-3 nav-justified" id="pills-tab" role="tablist">
@@ -528,26 +526,26 @@
             </button>
           </div>
           <div class="modal-body">
-            <div> Section Name : </div>
-            <div><input class="form-control" type="text" name="" placeholder="Enter Class Name..."></div>
-            <div> Grade Level : </div>
-            <div><input class="form-control" type="text" name="" placeholder="Enter Grade Level..."></div>
-            <div> Subject : </div>
-            <div><input class="form-control" type="text" name="" placeholder="Enter Subject..."></div>
-            <div> Schedule : </div>
-            <div class="row" style="padding-left: 20px; padding-top: 15px;">
-              From <div><input class="form-control" type="time" name="" style="width: 130px; padding-left: 10px;"></div>
-            To <div><input class="form-control" type="time" name="" style="width: 130px;"></div>
-            </div>
+            <formn id="form_class" action="" method="post">
+              <div> Section Name : </div>
+              <div><input class="form-control" type="text" name="section_name" id="section_name" placeholder="Enter Class Name..."></div>
+              <div> Grade Level : </div>
+              <div><input class="form-control" type="text" name="grade_level" id="grade_level" placeholder="Enter Grade Level..."></div>
+              <div> Subject : </div>
+              <div><input class="form-control" type="text" name="subject" id="subject" placeholder="Enter Subject..."></div>
+              <div> Schedule : </div>
+              <div class="row" style="padding-left: 20px; padding-top: 15px;">
+                From <div><input class="form-control" type="time" name="sched_from" id="sched_from" style="width: 130px; padding-left: 10px;"></div>
+                To <div><input class="form-control" type="time" name="sched_to" id="sched_to" style="width: 130px;"></div>
+              </div>
+            </form>
           </div>
           <div class="modal-footer">
-            <a class="btn btn-primary" href="#" data-dismiss="modal">Save</a>
+            <a class="btn btn-primary" href="#" data-dismiss="modal" id="saveclass">Save</a>
           </div>
         </div>
       </div>
     </div>
-
-
     <!-- Students Modal-->
     <div class="modal fade" id="studentModal" tabindex="-1" role="dialog" aria-labelledby="classModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -605,4 +603,40 @@
       </div>
     </div>
   </div>
+  <script type="text/javascript">
+    $('#saveclass').click(function(){
+      var url = $('#form_class').attr('action','<?php echo base_url() ?>class_section/addClass');
+      var data = $(this).serialize();
+
+      //validate form
+      var section_name = $('input[name=section_name]');
+      var grade_level = $('input[name=grade_level]');
+      var subject = $('input[name=subject]');
+      var sched_from = $('input[name=sched_from]');
+      var sched_to = $('input[name=sched_to]');
+        $.ajax({
+          type: 'post',
+          url: url,
+          data: data,
+          async: false,
+          dataType: 'json',
+          success: function(response){
+            if(response.success){
+              $('#classModal').modal('hide');
+              $('#form_class')[0].reset();
+              if(response.type=='add'){
+                var type = 'added'
+              }else if(response.type=='update'){
+                var type ="updated"
+              }
+            }else{
+              alert('Error');
+            }
+          },
+          error: function(){
+            alert('Could not add data');
+          }
+      });
+    });
+  </script>
 </body>

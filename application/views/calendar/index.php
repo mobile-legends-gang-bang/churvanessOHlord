@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>Edukit - Calendar</title>
-<?php $this->load->view('load/head')?>
 
 <link href="<?php echo base_url();?>assets/css/fullcalendar.css" rel="stylesheet"/>
 <link href="<?php echo base_url();?>assets/css/fullcalendar.print.css" rel="stylesheet" media="print" />
@@ -89,7 +88,6 @@
 </style>
 </head>
 <body>
-<?php $this->load->view('load/sidenavigation')?>	
 
 <div class="content-wrapper">
 	<div class="container">

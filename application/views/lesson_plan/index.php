@@ -1,6 +1,5 @@
 <head>
 	<title><?php echo $title?></title>
-	<?php $this->load->view('load/head')?>
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/tinymce.js"></script>
 	<script type="application/x-javascript">
 		tinymce.init({selector:'#TypeHere'});
@@ -11,7 +10,6 @@
 	  </script>
 </head>
 <body>
-	<?php $this->load->view('load/sidenavigation')?>
 	<div class="content-wrapper" style="margin-top: 110px!important; margin-left:300px!important;">
 		<div class="row" style="padding: 10px;">
 			<div class="col-md-2">Subject Select </div>

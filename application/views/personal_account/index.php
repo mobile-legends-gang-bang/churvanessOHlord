@@ -1,7 +1,6 @@
 
 <head>
   <title><?php echo $title?></title>
-<?php $this->load->view('load/head')?>
 <style type="text/css">
   h4{
     color :#494948;
@@ -33,7 +32,6 @@
 </style>
 </head>
 <body>
-<?php $this->load->view('load/sidenavigation')?>  
 <div class="content-wrapper" style="margin-top: 100px!important; margin-left: 300px;">
   <div class="row row_padding">
     <div class="col-md-6">

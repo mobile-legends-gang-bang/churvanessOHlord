@@ -3,10 +3,11 @@
 class Student_profile extends CI_Controller {
 	public function index() {
 		if(!$this->session->userdata('logged_in')) {
-			$this->load->view('login/index');
+			redirect('login', 'refresh');
 		} else 
 			$data['title'] = "Student Profile";
 			$data['name'] = "STUDENT PROFILE";
-			$this->load->view('student_profile/index',$data);
+			$data['content'] = "student_profile/index";
+			$this->load->view('main/index', $data);
 	}
 }

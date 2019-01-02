@@ -1,6 +1,5 @@
 <head>
   <title><?php echo $title?></title>
- 	<?php $this->load->view('load/head')?>
   <style type="text/css">
     th{
       background: #323231; color:#fff;
@@ -9,7 +8,6 @@
   </style>
 </head>
 <body id="page-top">
-  <?php $this->load->view('load/sidenavigation')?>
   <div class="content-wrapper" style="margin-top: 100px!important; margin-left: 270px!important;">
     <div class="container-fluid">
       <!-- Example DataTables Card-->

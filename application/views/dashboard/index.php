@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>Edukit - Dashboard</title>
-<?php $this->load->view('load/head')?>
 <style type="text/css">
 	@media (min-width: 992px) {
 		#mainNav.navbar-dark .navbar-collapse .navbar-sidenav {
@@ -22,7 +21,6 @@
 </style>
 </head>
 <body>
-<?php $this->load->view('load/sidenavigation')?>	
 <div class="content-wrapper" style="margin-top: 100px!important;">
 	<div class="container">
 		<h3>

@@ -3,10 +3,11 @@
 class Calendar extends CI_Controller {
 	public function index() {
 		if(!$this->session->userdata('logged_in')) {
-			$this->load->view('login/index');
+			redirect('login', 'refresh');
 		} else 
 			$data['title'] = "Edukit - Calendar";
 			$data['name'] = "CALENDAR OF ACTIVITIES AND SCHEDULE";
-			$this->load->view('calendar/index', $data);
+			$data['content'] = "calendar/index";
+			$this->load->view('main/index', $data);
 	}
 }
