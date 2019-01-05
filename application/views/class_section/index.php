@@ -45,9 +45,9 @@
         // data: new FormData($(this)[0]),
         data: { section_name: section_name, grade_level: grade_level, subject: subject },
         dataType: 'json',
-        cache:false,
-        contentType:false,
-        processData:false,
+        // cache:false,
+        // contentType:false,
+        // processData:false,
         success: function(response){
           if (response.status) {
               $('#form_class')[0].reset();
