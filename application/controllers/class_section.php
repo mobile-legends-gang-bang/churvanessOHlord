@@ -23,10 +23,10 @@ class Class_section extends CI_Controller {
 				'grade_level' => $this->input->post('grade_level'),
 				'subject' => $this->input->post('subject')
 			);
-			print_r($data); return;
 			$this->db->insert('public.class_section', $data);
 			$response['status'] = TRUE;
 			$response['message'] = "Successfully added class section.";
+			// $response['data'] = $data;
 			echo json_encode($response);
 		}else 
 			redirect('register','refresh');

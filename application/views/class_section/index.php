@@ -32,27 +32,28 @@
 </style>
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#saveclass').click(function(event){
-      event.preventDefault();
-      var formData = $("#form_class").serialize();
-      var section_name = $('#section_name').val();
-      var grade_level  = $('#grade_level').val();
-      var subject      = $('#subject').val();
+    $('#saveclass').click(function() {
+    // $('#form_class').submit(function(e) {
+      // e.preventDefault();
+      
+      var section_name = $('#form_class #section_name').val();
+      var grade_level = $('#form_class #grade_level').val();
+      var subject = $('#form_class #subject').val();
       $.ajax({
         type: 'post',
         url: '<?php echo base_url('class_section/saveclass')?>',
-        data: formData,
+        // data: new FormData($(this)[0]),
+        data: { section_name: section_name, grade_level: grade_level, subject: subject },
         dataType: 'json',
         cache:false,
         contentType:false,
         processData:false,
         success: function(response){
-          if(response.status){
-            $('#classModal').modal('hide');
-            $('#form_class')[0].reset();
-            swal("Class Section Added!", "", "success");
-            }else{
-            alert(response.message);
+          if (response.status) {
+              $('#form_class')[0].reset();
+              swal("Class Section Added!", "", "success");
+          } else {
+              alert(response.message);
           }
         },
         error:function(request,status,error){ 
@@ -85,7 +86,7 @@
         <div class="tab-pane fade show active" id="tab-class-list" role="tabpanel" aria-labelledby="class-list-tab">
           <div class="card mb-3" style="padding-top:10px;">
             <div class="card-header">
-              <i class="fa fa-table"> &nbsp;&nbsp;<span></i>Class Record</span><button class="btn btn-success btn_right" data-toggle="modal" data-target="#classModal"> Add Class </button>
+              <i class="fa fa-table"> &nbsp;&nbsp;<span></i>Class Record</span><button class="btn btn-success btn_right" data-toggle="modal" data-target="#addClassModal"> Add Class </button>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -550,7 +551,7 @@
     </div>
   
     <!-- Class Modal-->
-    <div class="modal fade" id="classModal" tabindex="-1" role="dialog" aria-labelledby="classModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addClassModal" tabindex="-1" role="dialog" aria-labelledby="classModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -573,7 +574,8 @@
                 To <div><input class="form-control" type="time" name="sched_to" id="sched_to" style="width: 130px;"></div>
               </div> -->
               <div class="modal-footer">
-                <button type = "button" type = "submit" class="btn btn-primary" data-dismiss="modal" id="saveclass"> Save </button>
+                <button type = "submit" class="btn btn-primary" data-dismiss="modal" id="saveclass"> Save </button>
+                <!-- <input type="submit" class="btn btn-primary" name="saveclass" id="saveclass" value="Save"> -->
               </div>
             </form>
           </div>
