@@ -28,9 +28,9 @@ class Register extends CI_Controller {
 						'username' => $this->input->post('username'),
 						'password' => $this->input->post('password')
 					);
+					$this->db->insert('public.register', $data);
 					$response['status'] = TRUE;
 					$response['message'] = "Successfully registered data.";
-					$this->load->view('dashboard/index');
 				}
 			}
 			echo json_encode($response);

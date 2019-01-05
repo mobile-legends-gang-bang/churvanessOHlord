@@ -1,34 +1,68 @@
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');?>
 <head>
-  <title>Edukit - Class Section</title>
-  <style type="text/css">
-    th{
-      background: #323231; color:#fff;
-      text-align: center;
-    }
-    .btn_right{
-      float:right!important;
-    }
-    .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-    color: #007bff;
-    border-bottom: 1px solid #531ebc;
-    border-bottom-width: 5px;
-    background: none!important;
-    }
-    .row_padding{
-    padding: 5px;
-    }
-    .input_width{
-      width: 120px!important;
-    }
-    .bg1{
-      background-color: #cfeaa5;
-      padding: 20px;
-    }
-    .bg2{
-      background-color: #9de26f;
-      padding: 20px;
-    }
-  </style>
+<title>Edukit - Class Section</title>
+<style type="text/css">
+  th{
+    background: #323231; color:#fff;
+    text-align: center;
+  }
+  .btn_right{
+    float:right!important;
+  }
+  .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+  color: #007bff;
+  border-bottom: 1px solid #531ebc;
+  border-bottom-width: 5px;
+  background: none!important;
+  }
+  .row_padding{
+  padding: 5px;
+  }
+  .input_width{
+    width: 120px!important;
+  }
+  .bg1{
+    background-color: #cfeaa5;
+    padding: 20px;
+  }
+  .bg2{
+    background-color: #9de26f;
+    padding: 20px;
+  }
+</style>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#saveclass').click(function(event){
+      event.preventDefault();
+      var formData = $("#form_class").serialize();
+      var section_name = $('#section_name').val();
+      var grade_level  = $('#grade_level').val();
+      var subject      = $('#subject').val();
+      $.ajax({
+        type: 'post',
+        url: '<?php echo base_url('class_section/saveclass')?>',
+        data: formData,
+        dataType: 'json',
+        cache:false,
+        contentType:false,
+        processData:false,
+        success: function(response){
+          if(response.status){
+            $('#classModal').modal('hide');
+            $('#form_class')[0].reset();
+            swal("Class Section Added!", "", "success");
+            }else{
+            alert(response.message);
+          }
+        },
+        error:function(request,status,error){ 
+          // $('#process_indicator').hide();
+          alert('ahhaha sayup yot');
+        }
+      });
+    });
+  });
+</script>
 </head>
 <body id="page-top">
   <div class="content-wrapper" style="margin-top: 100px!important; padding: 15px!important;">
@@ -526,22 +560,22 @@
             </button>
           </div>
           <div class="modal-body">
-            <formn id="form_class" action="" method="post">
+            <form id="form_class" method="post" accept-charset = "utf-8">
               <div> Section Name : </div>
-              <div><input class="form-control" type="text" name="section_name" id="section_name" placeholder="Enter Class Name..."></div>
+              <div><input class="form-control" type="text" name="section_name" id="section_name" placeholder="Enter Class Name..." required></div>
               <div> Grade Level : </div>
-              <div><input class="form-control" type="text" name="grade_level" id="grade_level" placeholder="Enter Grade Level..."></div>
+              <div><input class="form-control" type="text" name="grade_level" id="grade_level" onkeypress="return isNumber(event)" maxlength="2" placeholder="Enter Grade Level..." required></div>
               <div> Subject : </div>
-              <div><input class="form-control" type="text" name="subject" id="subject" placeholder="Enter Subject..."></div>
-              <div> Schedule : </div>
+              <div><input class="form-control" type="text" name="subject" id="subject" placeholder="Enter Subject..." required></div>
+             <!--  <div> Schedule : </div>
               <div class="row" style="padding-left: 20px; padding-top: 15px;">
                 From <div><input class="form-control" type="time" name="sched_from" id="sched_from" style="width: 130px; padding-left: 10px;"></div>
                 To <div><input class="form-control" type="time" name="sched_to" id="sched_to" style="width: 130px;"></div>
+              </div> -->
+              <div class="modal-footer">
+                <button type = "button" type = "submit" class="btn btn-primary" data-dismiss="modal" id="saveclass"> Save </button>
               </div>
             </form>
-          </div>
-          <div class="modal-footer">
-            <a class="btn btn-primary" href="#" data-dismiss="modal" id="saveclass">Save</a>
           </div>
         </div>
       </div>
@@ -603,40 +637,4 @@
       </div>
     </div>
   </div>
-  <script type="text/javascript">
-    $('#saveclass').click(function(){
-      var url = $('#form_class').attr('action','<?php echo base_url() ?>class_section/addClass');
-      var data = $(this).serialize();
-
-      //validate form
-      var section_name = $('input[name=section_name]');
-      var grade_level = $('input[name=grade_level]');
-      var subject = $('input[name=subject]');
-      var sched_from = $('input[name=sched_from]');
-      var sched_to = $('input[name=sched_to]');
-        $.ajax({
-          type: 'post',
-          url: url,
-          data: data,
-          async: false,
-          dataType: 'json',
-          success: function(response){
-            if(response.success){
-              $('#classModal').modal('hide');
-              $('#form_class')[0].reset();
-              if(response.type=='add'){
-                var type = 'added'
-              }else if(response.type=='update'){
-                var type ="updated"
-              }
-            }else{
-              alert('Error');
-            }
-          },
-          error: function(){
-            alert('Could not add data');
-          }
-      });
-    });
-  </script>
 </body>

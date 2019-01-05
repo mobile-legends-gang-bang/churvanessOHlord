@@ -23,15 +23,18 @@
 		<!-- Core plugin JavaScript-->
 		<script type="text/javascript" src="<?php echo base_url();?>assets/vendor/jquery-easing/jquery.easing.min.js"></script>
 		<!-- Page level plugin JavaScript-->
-		<!-- <script type="text/javascript" src="<?php echo base_url();?>assets/vendor/chart.js/Chart.min.js"></script> -->
+		<!-- <script type="text/javascript" src="<?php //echo base_url();?>assets/vendor/chart.js/Chart.min.js"></script> -->
 		<!-- Custom scripts for all pages-->
 		<script type="text/javascript" src="<?php echo base_url();?>assets/js/sb-admin.min.js"></script>
 		<!-- Custom scripts for this page-->
-		<!-- <script type="text/javascript" src="<?php echo base_url();?>assets/js/sb-admin-charts.min.js"></script> -->
-
+		<!-- <script type="text/javascript" src="<?php //echo base_url();?>assets/js/sb-admin-charts.min.js"></script> -->
 		<script type="text/javascript" src="<?php echo base_url();?>assets/jquery/jquery-1.10.2.js"></script>
 		<script type="text/javascript" src="<?php echo base_url();?>assets/jquery/jquery-ui.custom.min.js"></script>
 		<script type="text/javascript" src="<?php echo base_url();?>assets/js/fullcalendar.js"></script>
+		 <!-- Sweet ALert-->
+		<script type="text/javascript" src="<?php echo base_url();?>assets/vendor/sweetalert/sweetalert.min.js"></script>
+		<script type="text/javascript" src="<?php echo base_url();?>assets/js/customjs.js"></script>
+
 	</head>
 	<body>
 		

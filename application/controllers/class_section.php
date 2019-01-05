@@ -1,10 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Class_section extends CI_Controller {
-	function __construct(){
-		parent:: __construct();
-		$this->load->model('section_model', 'm');
-	}
 
 	public function index() {
 		if(!$this->session->userdata('logged_in')) {
@@ -17,16 +13,22 @@ class Class_section extends CI_Controller {
 		}
 	}
 
-	public function addClass(){
-		$result = $this->m->addClass();
-		print_r($result);
-		return;
-		$msg['success'] = false;
-		$msg['type'] = 'add';
-		if($result){
-			$msg['success'] = true;
-		}
-
-		echo json_encode($msg);
+	public function saveclass(){
+		$this->form_validation->set_rules('section_name', 'Section Name', 'trim');
+		$this->form_validation->set_rules('grade_level', 'Grade Level', 'trim');
+		$this->form_validation->set_rules('subject', 'Subject', 'trim');
+		if($this->form_validation->run()==TRUE){
+			$data = array(
+				'section_name' => $this->input->post('section_name'),
+				'grade_level' => $this->input->post('grade_level'),
+				'subject' => $this->input->post('subject')
+			);
+			print_r($data); return;
+			$this->db->insert('public.class_section', $data);
+			$response['status'] = TRUE;
+			$response['message'] = "Successfully added class section.";
+			echo json_encode($response);
+		}else 
+			redirect('register','refresh');
 	}
 }
