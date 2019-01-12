@@ -32,10 +32,33 @@
 </style>
 <script type="text/javascript">
   $(document).ready(function(){
+    get_class();
+    // $('#classTable').dataTable();
+    function get_class(){
+      $.ajax({
+        type  : 'post',
+        url   : '<?php echo site_url('class_section/getclass')?>',
+        dataType : 'json',
+        success : function(data){
+          var html = '';
+          var i;
+          for(i = 0 ; i<data.length; i++){
+            html += '<tr>'+
+                    '<td>'+data[i].section_name+'</td>'+
+                    '<td>'+data[i].grade_level+'</td>'+
+                    '<td>'+data[i].subject+'</td>'+ 
+                    '<td>'+ " " +'</td>'+
+                    '<td><button class="btn" style="background: transparent;" data-toggle="modal" data-target="#studentModal"> View Students </button></td>'+  
+                    '</tr>';
+          }
+          $('#classtablecontent').html(html);
+        }
+      });
+    }
+
     $('#saveclass').click(function() {
     // $('#form_class').submit(function(e) {
       // e.preventDefault();
-      
       var section_name = $('#form_class #section_name').val();
       var grade_level = $('#form_class #grade_level').val();
       var subject = $('#form_class #subject').val();
@@ -50,6 +73,7 @@
         // processData:false,
         success: function(response){
           if (response.status) {
+              get_class();
               $('#form_class')[0].reset();
               swal("Class Section Added!", "", "success");
           } else {
@@ -57,11 +81,11 @@
           }
         },
         error:function(request,status,error){ 
-          // $('#process_indicator').hide();
           alert('ahhaha sayup yot');
         }
       });
     });
+
   });
 </script>
 </head>
@@ -90,7 +114,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="classTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
                       <th>Class Name</th>
@@ -100,7 +124,7 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody id="classtablecontent">
                     <tr>
                       <td>Einstein</td>
                       <td>3</td>
