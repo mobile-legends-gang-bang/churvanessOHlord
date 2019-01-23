@@ -14,6 +14,7 @@ class Class_section extends CI_Controller {
 			$data['title'] = "Edukit - Class Section";
 			$data['name'] = "CLASS SECTION";
 			$data['content'] = "class_section/index";
+			$data['class'] = $this->section_model->getclass();
 			$this->load->view('main/index', $data);
 		}
 	}

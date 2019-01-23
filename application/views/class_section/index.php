@@ -33,7 +33,7 @@
 <script type="text/javascript">
   $(document).ready(function(){
     get_class();
-    // $('#classTable').dataTable();
+    $('#classTable').dataTable();
     function get_class(){
       $.ajax({
         type  : 'post',
@@ -178,9 +178,9 @@
             <div class="col-md-1">:</div>
             <div class="col-md-4">
               <select class="form-control">
-                <option>Section 1</option>
-                <option>Section 2</option>
-                <option>Section 3</option>
+                <?php foreach($class as $c):?>
+                  <option><?php echo $c->section_name?></option>
+                <?php endforeach?>
               </select>
             </div>
           </div>
@@ -332,9 +332,9 @@
             <div class="col-md-1">:</div>
             <div class="col-md-4">
               <select class="form-control">
-                <option>Section 1</option>
-                <option>Section 2</option>
-                <option>Section 3</option>
+                <?php foreach($class as $c):?>
+                  <option><?php echo $c->section_name?></option>
+                <?php endforeach?>
               </select>
             </div>
           </div>

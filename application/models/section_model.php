@@ -18,7 +18,8 @@ class Section_model extends CI_Model{
 	}
 
 	public function getclass(){
-		$result = $this->db->get('class_section');
+		$result = $this->db->query("SELECT * FROM public.class_section
+				ORDER BY section_name ASC ");
 		return $result->result();
 	}
 }
