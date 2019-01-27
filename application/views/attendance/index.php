@@ -74,8 +74,8 @@
               <tbody>
                 <tr>
                   <td>Jayzon Cabuenas</td>
-                  <td><input type="checkbox" class="form-control" name="" checked></td>
-                  <td><input type="checkbox" class="form-control" name=""></td>
+                  <td><input type="checkbox" class="form-control" name="box1"></td>
+                  <td><input type="checkbox" class="form-control" name="box1"></td>
                   <td><input type="text" class="form-control" name="" checked></td>
                 </tr>
                 <tr>

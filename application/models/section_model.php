@@ -2,18 +2,25 @@
 
 class Section_model extends CI_Model{
 
-	public function addClass(){
-		$field = array(
+	public function saveclass(){
+		$data = array(
 			'section_name'=>$this->input->post('section_name'),
 			'grade_level'=>$this->input->post('grade_level'),
 			'subject'=>$this->input->post('subject')
 			);
-		$this->db->insert('class_section', $field);
+		$query = $this->db->insert('class_section', $data);
 		if($this->db->affected_rows() > 0){
 			return true;
 		}else{
 			return false;
 		}
+		return $query;
+	}
+
+	public function getclass(){
+		$result = $this->db->query("SELECT * FROM public.class_section
+				ORDER BY section_name ASC ");
+		return $result->result();
 	}
 
 	[DataContract]
