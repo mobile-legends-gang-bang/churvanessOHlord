@@ -24,10 +24,11 @@ class Verify_login extends CI_Controller {
 			$user = $user->row();
 			$user_password = $user->password;
 			if ($password != $user_password) {
-				$this->form_validation->set_message('_check_database', 'Invalid Username or Password');
+				$this->form_validation->set_message('callback__check_database', 'Invalid Username or Password');
 				return false;
 			}
 			$session_data = array(
+				'teacher_id' => $user->teacher_id,
 				'username'	=> $user->username
 			);
 			$this->session->set_userdata('logged_in', $session_data);

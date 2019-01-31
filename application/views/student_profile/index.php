@@ -1,20 +1,21 @@
 
 <head>
   <title>Edukit - Student Profile</title>
-<style type="text/css">
-  h4{
-    color :#494948;
-    font-weight: strong;
-  }
-  .row_padding{
-    padding: 5px;
-  }
-  .align_center{
-    padding-left: 50px!important; 
-    padding-right: 50px!important;
-    text-align: center;
-  }
-</style>
+  <style type="text/css">
+    h4{
+      color :#494948;
+      font-weight: strong;
+    }
+    .row_padding{
+      padding: 5px;
+    }
+    .align_center{
+      padding-left: 50px!important; 
+      padding-right: 50px!important;
+      text-align: center;
+    }
+  </style>
+
 </head>
 <body>
 <div class="content-wrapper" style="margin-top: 100px!important; margin-left: 300px;">
@@ -186,14 +187,53 @@
       <div class="col-md-3 offset-md-3">
         <button class="btn bg-primary">Save Information</button>
       </div>
-      <div class="col-md-3">
-        <label class="btn btn-default bg-success">
-          Batch Student Import <input type="file" accept=".xlsx" hidden>
-        </label>
-      </div>
+      <form method="post" id="import_form" enctype="multipart/form-data">
+        <div class="col-md-3">
+          <input type="file" accept=".xls, .xlsx" name="file" id="file" >
+          <br>  
+          <br>
+          <input type="submit" name="import" value="Batch Enroll Student" class="btn bg-success">
+        </div>
+      </form>
     </div>
-    
+<!--     <div class="row">
+      <div class="table-responsive" id="student_data">
+      </div>
+    </div> -->
   </div>
 </div>
 </div>
 </body>
+<script>
+$(document).ready(function(){
+
+ load_data();
+
+ function load_data()
+ {
+  $.ajax({
+   url:"<?php echo base_url(); ?>student_profile/fetch",
+   method:"POST",
+   success:function(data){
+    $('#student_data').html(data);
+   }
+  })
+ }
+ $('#import_form').on('submit', function(event){
+  event.preventDefault();
+  $.ajax({
+   url:"<?php echo base_url(); ?>student_profile/import",
+   method:"POST",
+   data:new FormData(this),
+   contentType:false,
+   cache:false,
+   processData:false,
+   success:function(data){
+    $('#file').val('');
+    load_data();
+    alert(data);
+   }
+  })
+ });
+});
+</script>
