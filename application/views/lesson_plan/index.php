@@ -1,6 +1,6 @@
 <head>
 	<title><?php echo $title?></title>
-	<script type="text/javascript" src="<?php echo base_url()?>assets/js/tinymce.js"></script>
+	<script type="text/javascript" src="<?php echo base_url()?>assets/js/tinymce.js"></script>	
 	<script type="application/x-javascript">
 		tinymce.init({selector:'#TypeHere'});
 	</script>
@@ -29,8 +29,12 @@
 	  <h4>
 	    You may now start creating and editing your lesson plan.
 	  </h4>
-	  	<textarea name="area2" style="width: 100%;" rows="15">
-	       Start creating lesson plan.
-	 	</textarea><br/>
+	  <form method="post" action="<?php echo base_url()?>lesson_plan/Word">  
+		  	<textarea name="area2" style="width: 100%;" rows="15">
+		       Start creating lesson plan.
+		 	</textarea>
+		 	<br/>
+	 		<input type="submit" name="create_word" class="btn btn-info" value="Export to Word" />  
+	  </form>  
 	</div>
 </body>
