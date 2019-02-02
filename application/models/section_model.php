@@ -57,7 +57,6 @@ class Section_model extends CI_Model{
 		$this->db->where('class_id', $class_id);
 		$result=$this->db->update('class');
 		return $result;
-	}
 
 	function deleteclass(){
 		$class_id=$this->input->post('class_id');
