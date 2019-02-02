@@ -102,7 +102,7 @@
     <!-- End of Icon Cards-->
 
 
-<!-- Bar Chart-->
+<!--Charts-->
 <?php
 $barData = array( 
   array("y" => 3373.64, "label" => "Germany" ),
@@ -207,7 +207,7 @@ chart.render();
 
 }
 </script>
-<!--Bar Chart-->
+<!--Charts-->
 
 
       <!-- Area Chart Example-->
