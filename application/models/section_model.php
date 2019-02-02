@@ -49,14 +49,14 @@ class Section_model extends CI_Model{
 	}
 	function updateclass(){
 		$class_id=$this->input->post('class_id');
-		$section_name=$this->input->post('section_name');
+		$subject=$this->input->post('subject_name_edit');
 		$grade_level=$this->input->post('grade_level');
 
-		$this->db->set('section_name', $section_name);
-		$this->db->set('grade_level', $grade_level);
-		$this->db->where('class_id', $class_id);
-		$result=$this->db->update('class');
-		return $result;
+		$sql = "UPDATE public.class c JOIN public.subject s on c.subject_id = s.subject_id
+				JOIN public.class_list l on l.classname = c.class_name
+				set s.subject_name =".$subject." where c.class_id = ".$class_id."";
+		return $this->db->query($sql);
+	}
 
 	function deleteclass(){
 		$class_id=$this->input->post('class_id');
@@ -79,4 +79,5 @@ class Section_model extends CI_Model{
 			return false;
 		}
 		return $query;
+	}
 }
