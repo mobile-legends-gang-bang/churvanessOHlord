@@ -18,9 +18,11 @@ class Section_model extends CI_Model{
 	}
 
 	public function getclass(){
+		$teacher_id = $this->session->userdata['logged_in']['teacher_id'];
 		$result = $this->db->query("SELECT * FROM public.class c 
 									JOIN public.subject s on c.subject_id = s.subject_id
-									JOIN public.class_list l on l.classname = c.class_name");
+									JOIN public.class_list l on l.classname = c.class_name
+									WHERE c.teacher_id = ".$teacher_id."");
 		return $result->result();
 	}
 	public function getclasslist(){
@@ -49,21 +51,31 @@ class Section_model extends CI_Model{
 	}
 	function updateclass(){
 		$class_id=$this->input->post('class_id');
-		$subject=$this->input->post('subject_name_edit');
-		$grade_level=$this->input->post('grade_level');
+		$subject_name=$this->input->post('subject_name_edit');
+		$subject_description=$this->input->post('subject_description_edit');
+		$sched_from=$this->input->post('sched_from_edit');
+		$sched_to=$this->input->post('sched_to_edit');
 
-		$sql = "UPDATE public.class c JOIN public.subject s on c.subject_id = s.subject_id
-				JOIN public.class_list l on l.classname = c.class_name
-				set s.subject_name =".$subject." where c.class_id = ".$class_id."";
+		$sql = "UPDATE public.subject s
+				SET subject_description = '".$subject_description."', subject_name = '".$subject_name."', sched_from = '".$sched_from."', sched_to = '".$sched_to."'
+				FROM public.class c 
+				WHERE c.subject_id = s.subject_id
+				AND c.class_id = ".$class_id."";
 		return $this->db->query($sql);
 	}
 
 	function deleteclass(){
-		$class_id=$this->input->post('class_id');
-		$this->db->where('class_id', $class_id);
-		$result=$this->db->delete('class');
-		return $result;
+		$class_id = $this->input->post('class_id');
+		$teacher_id = $this->session->userdata['logged_in']['teacher_id'];
+		// $this->db->where('class_id', $class_id);
+		// $result=$this->db->delete('class');
+		// return $result;
+
+		$sql = "DELETE FROM public.class where class_id = ".$class_id."
+				AND teacher_id = ".$teacher_id."";
+		return $this->db->query($sql);
 	}
+
 	public function savesubject(){
 		$data = array(
 			'teacher_id' => $this->session->userdata['logged_in']['teacher_id'],

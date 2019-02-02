@@ -36,7 +36,9 @@
 <script type="text/javascript">
   $(document).ready(function(){
     get_class();
-    // $('#classTable').dataTable();
+    getstudents();
+    load_data();
+
     function get_class(){
       $.ajax({
         type  : 'post',
@@ -49,14 +51,15 @@
             html += '<tr>'+
                     '<td>'+data[i].class_name+'</td>'+
                     '<td>'+data[i].subject_name+'</td>'+
-                    '<td align="center">'+data[i].sched_from+' - '+data[i].sched_to+'</td>'+
-                    '<td class="small"><button class="btn" style="background: transparent;" data-toggle="modal" data-target="#studentModal"> View Students </button> <button class="btn" style="background: transparent;" data-toggle="modal" data-target="#sectionModal">View Subject Details</button> <a href="javascript:void(0);" class="fa fa-pencil  item_edit" data-subject_description="'+data[i].subject_description+'" data-subject_name="'+data[i].subject_name+'" data-sched_to="'+data[i].sched_to+'" data-sched_from="'+data[i].sched_from+'" data-class_id="'+data[i].class_id+'"></a> <a href="javascript:void(0);" class="fa fa-trash item_delete" data-class_id="'+data[i].class_id+'"></a> </td>'+
+                    '<td align="center">'+tConvert(data[i].sched_from)+' - '+tConvert(data[i].sched_to)+'</td>'+
+                    '<td class="small"><button class="btn" style="background: transparent;" data-toggle="modal" data-target="#studentModal"> View Students </button> <a href="javascript:void(0);" class="fa fa-pencil  item_edit" data-subject_description="'+data[i].subject_description+'" data-subject_name="'+data[i].subject_name+'" data-sched_to="'+(data[i].sched_to)+'" data-sched_from="'+data[i].sched_from+'" data-class_id="'+data[i].class_id+'"></a> <a href="javascript:void(0);" class="fa fa-trash item_delete" data-class_id="'+data[i].class_id+'"></a> </td>'+
                     '</tr>';
           }
           $('#classtablecontent').html(html);
         }
       });
     }
+
     function getsubject(){
       $.ajax({
         type  : 'post',
@@ -73,6 +76,32 @@
                     '</tr>';
           }
           $('#classtablecontent').html(html);
+        }
+      });
+    }
+
+    function getstudents(){
+      $.ajax({
+        type  : 'post',
+        url   : '<?php echo site_url('student_profile/getstudents')?>',
+        dataType : 'json',
+        success : function(data){
+          var html = '';
+          var i;
+          for(i = 0 ; i<data.length; i++){
+            html += '<tr>'+
+                    '<td>'+data[i].lname+'</td>'+
+                    '<td>'+data[i].fname+'</td>'+
+                    '<td>'+data[i].mname+'</td>'+
+                    '<td>'+data[i].extname+'</td>'+
+                    '</tr>';
+            record_student_grade += '<tr>'+
+                    '<td>'+data[i].lname+', '+data[i].fname+', '+data[i].mname+' '+data[i].extname+'</td>'+
+                    '<td>'+'<input class="form-control input_width" type="text" name="" placeholder="Enter score...">'+'</td>'+
+                    '</tr>';
+            }
+          $('#students_enrolled').html(html);
+          $('#record_student_grade').html(record_student_grade);
         }
       });
     }
@@ -128,10 +157,15 @@
           type : "POST",
           url  : "<?php echo site_url('class_section/updateclass')?>",
           dataType : "JSON",
-          data : {class_id:class_id , sched_from:sched_from, sched_to:sched_to, subject_name_edit:subject_name, subject_description:subject_description},
+          data : {class_id:class_id , sched_from_edit:sched_from, sched_to_edit:sched_to, subject_name_edit:subject_name, subject_description_edit:subject_description},
           success: function(data){
-              
+              $('#id_class').val("");
+              $('#sched_from_edit').val("");
+              $('#sched_to_edit').val("");
+              $('#subject_name_edit').val("");
+              $('#subject_description_edit').val("");
               swal("Successfully Updated Class Section!", "", "success");
+              $('#editclassmodal').modal('hide');
               get_class();
           }
       });
@@ -188,6 +222,7 @@
         }
       });
     });
+
     $('#classname').change(function() {
       // var teacher_id = $('#form_subject #teacher_id').val();
       var sched_from = $('#form_subject #sched_from').val();
@@ -214,6 +249,33 @@
       });
     });
 
+    function load_data(){
+      $.ajax({
+        url:"<?php echo base_url(); ?>student_profile/fetch",
+        method:"POST",
+        success:function(data){
+          $('#student_data').html(data);
+        }
+      });
+    }
+    $('#import_form').on('submit', function(event){
+      event.preventDefault();
+      $.ajax({
+        url:"<?php echo base_url(); ?>student_profile/import",
+        method:"POST",
+        data:new FormData(this),
+        contentType:false,
+        cache:false,
+        processData:false,
+        success:function(data){
+          $('#file').val('');
+          $('#classname').val('');
+          $('#enrollstudentsmodal').modal('hide');
+          load_data();
+          alert(data);
+        }
+      })
+    });
   });
 </script>
 </head>
@@ -224,7 +286,6 @@
       <ul class="nav nav-pills mb-3 nav-justified" id="pills-tab" role="tablist">
         <li class="nav-item">
           <a class="nav-link active" id="class-list-tab" data-toggle="pill" href="#tab-class-list" role="tab" aria-controls="tab-class-list" aria-selected="true">Class List</a>
-          <?php echo $teacher_id; ?>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="record-grades-tab" data-toggle="pill" href="#record_grades" role="tab" aria-controls="record_grades" aria-selected="false">Record Grades</a>
@@ -240,7 +301,9 @@
         <div class="tab-pane fade show active" id="tab-class-list" role="tabpanel" aria-labelledby="class-list-tab">
           <div class="card mb-3" style="padding-top:10px;">
             <div class="card-header">
-              <i class="fa fa-table"> &nbsp;&nbsp;<span></i>Class Record</span><button class="btn btn-success btn_right" data-toggle="modal" data-target="#addClassModal"> Add Class </button>
+              <i class="fa fa-table"> &nbsp;&nbsp;<span></i>Class Record</span>
+              <button class="btn btn-success btn_right" data-toggle="modal" data-target="#enrollstudentsmodal">Enroll Students in a Class</button>
+              <button class="btn btn-success btn_right" data-toggle="modal" data-target="#addClassModal"> Add Class </button>
               <button class="btn btn-success btn_right" data-toggle="modal" data-target="#addSubjectsModal"> Add Subjects Handled </button>
             </div>
             <div class="card-body">
@@ -334,71 +397,7 @@
                     <th>Score</th>
                   </tr>
                 </tfoot>
-                <tbody>
-                  <tr>
-                    <td>Alicante, Karystel Zapanta</td>
-                    <td><input class="form-control input_width" type="text" name="" placeholder="Enter score..."></td>
-                  </tr>
-                  <tr>
-                    <td>Cabuenas, Jayzon Generale</td>
-                    <td><input class="form-control input_width" type="text" name="" placeholder="Enter score..."></td>
-                  </tr>
-                  <tr>
-                    <td>Gutierrez, Bernard Joseph</td>
-                    <td><input class="form-control input_width" type="text" name="" placeholder="Enter score..."></td>
-                  </tr>
-                  <tr>
-                    <td>Naga, Althea Marshallate</td>
-                    <td><input class="form-control input_width" type="text" name="" placeholder="Enter score..."></td>
-                  </tr>
-                  <tr>
-                    <td>Alicante, Karystel Zapanta</td>
-                    <td><input class="form-control input_width" type="text" name="" placeholder="Enter score..."></td>
-                  </tr>
-                  <tr>
-                    <td>Cabuenas, Jayzon Generale</td>
-                    <td><input class="form-control input_width" type="text" name="" placeholder="Enter score..."></td>
-                  </tr>
-                  <tr>
-                    <td>Gutierrez, Bernard Joseph</td>
-                    <td><input class="form-control input_width" type="text" name="" placeholder="Enter score..."></td>
-                  </tr>
-                  <tr>
-                    <td>Naga, Althea Marshallate</td>
-                    <td><input class="form-control input_width" type="text" name="" placeholder="Enter score..."></td>
-                  </tr>
-                  <tr>
-                    <td>Alicante, Karystel Zapanta</td>
-                    <td><input class="form-control input_width" type="text" name="" placeholder="Enter score..."></td>
-                  </tr>
-                  <tr>
-                    <td>Cabuenas, Jayzon Generale</td>
-                    <td><input class="form-control input_width" type="text" name="" placeholder="Enter score..."></td>
-                  </tr>
-                  <tr>
-                    <td>Gutierrez, Bernard Joseph</td>
-                    <td><input class="form-control input_width" type="text" name="" placeholder="Enter score..."></td>
-                  </tr>
-                  <tr>
-                    <td>Naga, Althea Marshallate</td>
-                    <td><input class="form-control input_width" type="text" name="" placeholder="Enter score..."></td>
-                  </tr>
-                  <tr>
-                    <td>Alicante, Karystel Zapanta</td>
-                    <td><input class="form-control input_width" type="text" name="" placeholder="Enter score..."></td>
-                  </tr>
-                  <tr>
-                    <td>Cabuenas, Jayzon Generale</td>
-                    <td><input class="form-control input_width" type="text" name="" placeholder="Enter score..."></td>
-                  </tr>
-                  <tr>
-                    <td>Gutierrez, Bernard Joseph</td>
-                    <td><input class="form-control input_width" type="text" name="" placeholder="Enter score..."></td>
-                  </tr>
-                  <tr>
-                    <td>Naga, Althea Marshallate</td>
-                    <td><input class="form-control input_width" type="text" name="" placeholder="Enter score..."></td>
-                  </tr>
+                <tbody id="record_student_grade">
                 </tbody>
               </table>
               <div class="row">
@@ -711,6 +710,7 @@
         </div>
       </div>
     </div>
+
     <!-- Subjects Modal-->
     <div class="modal fade" id="addSubjectsModal" tabindex="-1" role="dialog" aria-labelledby="classModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -741,6 +741,39 @@
         </div>
       </div>
     </div>
+
+    <!-- ENROLL STUDENTS MODAL-->
+    <div class="modal fade" id="enrollstudentsmodal" tabindex="-1" role="dialog" aria-labelledby="classModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="classModalLabel">Enroll Your Students</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="import_form" method="post" accept-charset = "utf-8">
+              <div> Select Section: </div>
+              <div>
+                <select class="form-control" name="classname" id="classname">
+                  <?php foreach ($classlist as $row): ?>
+                    <option><?php echo $row->classname?></option>  
+                  <?php endforeach ?>
+                </select>
+              </div>
+                <div> Select File : </div>
+                <input type="file" accept=".xls, .xlsx" name="file" id="file" >
+                <br>  
+                <br>
+                <input type="submit" name="import" value="Batch Enroll Student" class="btn bg-success">
+            </form>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Studentnts Modal-->
     <div class="modal fade" id="studentModal" tabindex="-1" role="dialog" aria-labelledby="classModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -757,37 +790,7 @@
               <th>First Name</th>
               <th>Middle Name</th>
               <th>Extension Name</th>
-              <tbody>
-                <tr>
-                  <td>Alicante</td>
-                  <td>Karystel</td>
-                  <td>Zapanta</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Cabuenas</td>
-                  <td>Jayzon</td>
-                  <td>Generale</td>
-                  <td>III</td>
-                </tr>
-                <tr>
-                  <td>Gutierrez</td>
-                  <td>Bernard</td>
-                  <td>Joseph</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Naga</td>
-                  <td>Althea Marshallatte</td>
-                  <td>Oyao</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Alicante</td>
-                  <td>Karystel</td>
-                  <td>Zapanta</td>
-                  <td></td>
-                </tr>
+              <tbody id="students_enrolled">
               </tbody>
             </table>
           </div>
@@ -797,6 +800,7 @@
         </div>
       </div>
     </div>
+
     <!-- VIEW SUBJECTS Modal-->
     <div class="modal fade" id="sectionModal" tabindex="-1" role="dialog" aria-labelledby="classModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -842,6 +846,7 @@
         </div>
       </div>
     </div>
+
     <!--MODAL DELETE-->
     <form>
       <div class="modal fade" id="Modal_Delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -866,6 +871,7 @@
       </div>
     </form>
     <!--END MODAL DELETE-->
+
     <!-- EDIT CLASS ID MODAL-->
     <div class="modal fade" id="editclassmodal" tabindex="-1" role="dialog" aria-labelledby="classModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -878,7 +884,7 @@
           </div>
           <div class="modal-body">
             <form id="form_subject" method="post" accept-charset = "utf-8">
-              <input type="" name="id_class" id="id_class">
+              <input type="hidden" name="id_class" id="id_class">
               <div> Schedule : </div>
               <div class="row" style="padding-left: 20px; padding-top: 15px;">
                 From <div><input class="form-control" type="time" name="sched_from_edit" id="sched_from_edit" style="width: 130px; padding-left: 10px;"></div>
@@ -896,6 +902,7 @@
         </div>
       </div>
     </div>
+
     <!-- MODAL EDIT -->
     <div class="modal fade" id="" tabindex="-1" role="dialog" aria-labelledby="classModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">

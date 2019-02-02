@@ -47,10 +47,12 @@ class Class_section extends CI_Controller {
 		}
 		echo json_encode($response);
 	}
-	function updateclass(){
+
+	public function updateclass(){
 		$data=$this->section_model->updateclass();
 		echo json_encode($data);
 	}
+
 	public function deleteclass(){
 		$data=$this->section_model->deleteclass();
 		echo json_encode($data);
@@ -60,10 +62,12 @@ class Class_section extends CI_Controller {
 		$data = $this->section_model->getclass();
 		echo json_encode($data);
 	}
+
 	public function getsubject(){
 		$data = $this->section_model->getsubject();
 		echo json_encode($data);
 	}
+	
 	public function savesubject(){
 		$teacher_id	= $this->session->userdata['logged_in']['teacher_id'];
 		$subject_name = $this->input->post('subject_name');

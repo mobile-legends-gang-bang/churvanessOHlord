@@ -206,34 +206,33 @@
 </body>
 <script>
 $(document).ready(function(){
+  load_data();
 
- load_data();
-
- function load_data()
- {
-  $.ajax({
-   url:"<?php echo base_url(); ?>student_profile/fetch",
-   method:"POST",
-   success:function(data){
-    $('#student_data').html(data);
-   }
-  })
- }
+  function load_data(){
+    $.ajax({
+      url:"<?php echo base_url(); ?>student_profile/fetch",
+      method:"POST",
+      success:function(data){
+        $('#student_data').html(data);
+      }
+    })
+  }
  $('#import_form').on('submit', function(event){
-  event.preventDefault();
-  $.ajax({
-   url:"<?php echo base_url(); ?>student_profile/import",
-   method:"POST",
-   data:new FormData(this),
-   contentType:false,
-   cache:false,
-   processData:false,
-   success:function(data){
-    $('#file').val('');
-    load_data();
-    alert(data);
-   }
-  })
- });
+    event.preventDefault();
+    $.ajax({
+      url:"<?php echo base_url(); ?>student_profile/import",
+      method:"POST",
+      data:new FormData(this),
+      contentType:false,
+      cache:false,
+      processData:false,
+      success:function(data){
+
+        $('#file').val('');
+        load_data();
+        alert(data);
+      }
+    })
+  });
 });
 </script>
