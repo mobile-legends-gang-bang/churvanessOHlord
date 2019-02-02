@@ -48,8 +48,9 @@
           for(i = 0 ; i<data.length; i++){
             html += '<tr>'+
                     '<td>'+data[i].class_name+'</td>'+
-                    '<td>'+data[i].grade_level+'</td>'+
-                    '<td class="small"><button class="btn" style="background: transparent;" data-toggle="modal" data-target="#studentModal"> View Students </button> <button class="btn" style="background: transparent;" data-toggle="modal" data-target="#sectionModal">View Subject Details</button> <a href="javascript:void(0);" class="fa fa-pencil  item_edit" data-class_id="'+data[i].class_id+'"  data-class_name="'+data[i].class_name+'" data-subject_id="'+data[i].subject_id+'"></a> <a href="javascript:void(0);" class="fa fa-trash item_delete" data-class_id="'+data[i].class_id+'"></a> </td>'+
+                    '<td>'+data[i].subject_name+'</td>'+
+                    '<td align="center">'+data[i].sched_from+' - '+data[i].sched_to+'</td>'+
+                    '<td class="small"><button class="btn" style="background: transparent;" data-toggle="modal" data-target="#studentModal"> View Students </button> <button class="btn" style="background: transparent;" data-toggle="modal" data-target="#sectionModal">View Subject Details</button> <a href="javascript:void(0);" class="fa fa-pencil  item_edit" data-subject_description="'+data[i].subject_description+'" data-subject_name="'+data[i].subject_name+'" data-sched_to="'+data[i].sched_to+'" data-sched_from="'+data[i].sched_from+'" data-class_id="'+data[i].class_id+'"></a> <a href="javascript:void(0);" class="fa fa-trash item_delete" data-class_id="'+data[i].class_id+'"></a> </td>'+
                     '</tr>';
           }
           $('#classtablecontent').html(html);
@@ -105,31 +106,31 @@
     //get data for update record
     $('#classtablecontent').on('click','.item_edit',function(){
       var class_id = $(this).data('class_id');
-      var section_name = $(this).data('section_name');
-      var grade_level = $(this).data('grade_level');
-
-      $('#addClassModal').modal('show');
-      $('#btn_updateclass').prop('disabled', false);
-      $('#saveclass').prop('disabled', true);
-      $('#class_id').val(class_id);
-      $('#section_name').val(section_name);
-      $('#grade_level').val(grade_level);
+      var sched_from = $(this).data('sched_from');
+      var sched_to = $(this).data('sched_to');
+      var subject_name = $(this).data('subject_name');
+      var subject_description = $(this).data('subject_description');
+      $('#editclassmodal').modal('show');
+      $('#id_class').val(class_id);
+      $('#sched_from_edit').val(sched_from);
+      $('#sched_to_edit').val(sched_to);
+      $('#subject_name_edit').val(subject_name);
+      $('#subject_description_edit').val(subject_description);
     });
 
-    $('#btn_updateclass').on('click',function(){
-      var class_id = $('#class_id').val();
-      var section_name = $('#section_name').val();
-      var grade_level = $('#grade_level').val();
+    $('#updateclass').on('click',function(){
+      var class_id = $('#id_class').val();
+      var sched_from = $('#sched_from_edit').val();
+      var sched_to = $('#sched_to_edit').val();
+      var subject_name = $('#subject_name_edit').val();
+      var subject_description = $('#subject_description_edit').val();
       $.ajax({
           type : "POST",
           url  : "<?php echo site_url('class_section/updateclass')?>",
           dataType : "JSON",
-          data : {class_id:class_id , section_name:section_name, grade_level:grade_level},
+          data : {class_id:class_id , sched_from:sched_from, sched_to:sched_to, subject_name_edit:subject_name, subject_description:subject_description},
           success: function(data){
-              $('#class_id').val("");
-              $('#section_name').val("");
-              $('#grade_level').val("");
-              $('#addClassModal').modal('hide');
+              
               swal("Successfully Updated Class Section!", "", "success");
               get_class();
           }
@@ -248,7 +249,8 @@
                   <thead>
                     <tr>
                       <th>Class Name</th>
-                      <th>Grade/Year Level</th>
+                      <th>Subject</th>
+                      <th>Schedule</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -703,7 +705,6 @@
               </div>
               <div class="modal-footer">
                 <button type = "submit" class="btn btn-primary" data-dismiss="modal" id="saveclass"> Save </button>
-                <button type = "submit" class="btn btn-primary" data-dismiss="modal" id="btn_updateclass" disabled> Update </button>
               </div>
             </form>
           </div>
@@ -813,7 +814,6 @@
                 From <div><input class="form-control" type="time" name="sched_from" id="sched_from" style="width: 130px; padding-left: 10px;"></div>
                 To <div><input class="form-control" type="time" name="sched_to" id="sched_to" style="width: 130px;"></div>
               </div>
-              <input type="" name="class_id" value="<?php echo $class_id?>">
               <div> Subject Name : </div>
               <div><input class="form-control" type="text" name="subject_name" id="subject_name" placeholder="Enter Subject Name..." required></div>
               <div> Subject Description : </div>
@@ -866,6 +866,36 @@
       </div>
     </form>
     <!--END MODAL DELETE-->
+    <!-- EDIT CLASS ID MODAL-->
+    <div class="modal fade" id="editclassmodal" tabindex="-1" role="dialog" aria-labelledby="classModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="classModalLabel">Edit Class Details</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="form_subject" method="post" accept-charset = "utf-8">
+              <input type="" name="id_class" id="id_class">
+              <div> Schedule : </div>
+              <div class="row" style="padding-left: 20px; padding-top: 15px;">
+                From <div><input class="form-control" type="time" name="sched_from_edit" id="sched_from_edit" style="width: 130px; padding-left: 10px;"></div>
+                To <div><input class="form-control" type="time" name="sched_to_edit" id="sched_to_edit" style="width: 130px;"></div>
+              </div>
+              <div> Subject Name : </div>
+              <div><input class="form-control" type="text" name="subject_name_edit" id="subject_name_edit" placeholder="Enter Subject Name..." required></div>
+              <div> Subject Description : </div>
+              <div><input class="form-control" type="text" name="subject_description_edit" id="subject_description_edit" placeholder="Enter Subject Name..." required></div>
+              <div class="modal-footer">
+                <button type = "submit" class="btn btn-primary" data-dismiss="modal" id="updateclass"> Update </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- MODAL EDIT -->
     <div class="modal fade" id="" tabindex="-1" role="dialog" aria-labelledby="classModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">

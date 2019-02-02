@@ -26,13 +26,12 @@ class Class_section extends CI_Controller {
 		$teacher_id	= $this->session->userdata['logged_in']['teacher_id'];
 		$classname = $this->input->post('classname');
 		$subject_name = $this->input->post('subject_name');
-		$exist = $this->db->query("SELECT subject_id FROM public.class WHERE teacher_id =".$teacher_id." and subject_id = ".$subject_name."");
 		$query = $this->db->get_where('public.class', array('teacher_id' => $teacher_id, 'subject_id' => $subject_name, 'class_name' => $classname));
 		if($query->num_rows()>0){
 			$response['status'] = FALSE;
 			$response['message'] = "This subject name already exists.";
 		}
-		if (!empty($classname) && !empty($subject_name)) {
+		elseif(!empty($classname) && !empty($subject_name)) {
 			$data = array(
 				'teacher_id'	=> $teacher_id,
 				'classname'	=> $classname,
@@ -48,14 +47,14 @@ class Class_section extends CI_Controller {
 		}
 		echo json_encode($response);
 	}
-	// function updateclass(){
-	// 	$data=$this->section_model->updateclass();
-	// 	echo json_encode($data);
-	// }
-	// public function deleteclass(){
-	// 	$data=$this->section_model->deleteclass();
-	// 	echo json_encode($data);
-	// }
+	function updateclass(){
+		$data=$this->section_model->updateclass();
+		echo json_encode($data);
+	}
+	public function deleteclass(){
+		$data=$this->section_model->deleteclass();
+		echo json_encode($data);
+	}
 
 	public function getclass(){
 		$data = $this->section_model->getclass();
