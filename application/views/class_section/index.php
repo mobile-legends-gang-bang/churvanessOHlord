@@ -296,37 +296,54 @@
       })
     });
 
-    $('#class_grade').change(function(){
-      var class_grade = $(this).val();
-      $.ajax({
-        url: '<?php echo site_url('student_profile/getstudentsBySection')?>',
-        method:'post',
-        dataType:'json',
-        data: {class_grade:class_grade},
-        success : function(data){
-          var html = '';
-          var i;
-          for(i = 0 ; i<data.length; i++){
-            record_student_grade += '<tr>'+
-                    '<td>'+'Student ID'+' '+data[i].s_id+' : '+data[i].lname+', '+data[i].fname+' '+data[i].mname+' '+data[i].extname+'</td>'+
-                    '<td><input type="hidden" name="student_id" id="student_id" value='+data[i].s_id+'><input type="text" onkeypress="return isNumber(event)" name="score" id="score" class="form-control" data-s_id="'+data[i].s_id+'" data-class_id="'+data[i].class_id+'"></td>'+
-                    '</tr>';
+    $('#class_grade, #score_subject').change(function(){
+      if ($('#score_subject').val() != "") {
+        var class_grade = $('#class_grade').val();
+        $.ajax({
+          url: '<?php echo site_url('student_profile/getstudentsBySection')?>',
+          method:'post',
+          dataType:'json',
+          data: {class_grade:class_grade},
+          success : function(data){
+            var html = '';
+            var i;
+            var record_student_grade = "";
+            for(i = 0 ; i<data.length; i++){
+              // record_student_grade += '<tr>'+
+              //         '<td>'+'Student ID'+' '+data[i].s_id+' : '+data[i].lname+', '+data[i].fname+' '+data[i].mname+' '+data[i].extname+'</td>'+
+              //         '<td><input type="hidden" name="student_id[]" id="student_id" value='+data[i].s_id+'><input type="text" onkeypress="return isNumber(event)" name="score[]" id="score" class="form-control" data-s_id="'+data[i].s_id+'" data-class_id="'+data[i].class_id+'"></td>'+
+              //         '</tr>';
+
+              // This is ES6 format (new one in jquery) no need for concat 
+              record_student_grade += `<tr>
+                      <td>${data[i].s_id}</td>
+                      <td>${data[i].lname}, ${data[i].fname} ${data[i].mname}</td>
+                      <td><input type="hidden" name="student_id[]" id="student_id" value="${data[i].s_id}"><input type="text" onkeypress="return isNumber(event)" name="score[]" id="score" class="form-control" data-s_id="${data[i].s_id}" data-class_id="${data[i].s_id}"></td>
+                  </tr>`;
             }
-          $('#record_student_grade').html(record_student_grade);
-        }
-      });
+            $('#record_student_grade').html(record_student_grade);
+          }
+        });
+      } else 
+        $('#record_student_grade').html("");
     });
     $('#savescore').click(function() {
       var subject_name = $('#score_form #score_subject').val();
       var score_quarter = $('#score_form #score_quarter').val();
       var scoretype = $('#score_form #score_type').val();
-      var score = $('#score').val();
-      var student_id = $('#student_id').val();
+      // var score = $('#score').val();
+      // var student_id = $('#student_id').val();
+      student_id = $('input[name^="student_id"]').map(function(){
+                return this.value;
+            }).get();
+      score = $('input[name^="score"]').map(function(){
+                return this.value;
+            }).get();
       $.ajax({
         type: 'post',
         url: '<?php echo base_url('class_section/savescore')?>',
         // data: new FormData($(this)[0]),
-        data: {score_subject: subject_name, score_quarter:score_quarter, score_type:scoretype, student_id:student_id, score:score},
+        data: {score_subject: subject_name, score_quarter:score_quarter, score_type:scoretype, student_id:JSON.stringify(student_id), score:JSON.stringify(score)},
         dataType: 'json',
         // cache:false,
         // contentType:false,
@@ -403,6 +420,7 @@
               </div>
               <div class="col-md-4">
                 <select class="form-control" name="score_subject" id="score_subject">
+                  <option value=""></option>
                   <?php foreach($subjectlist as $s):?>
                     <option value="<?php echo $s->subject_id?>"><?php echo $s->subject_name?></option>
                   <?php endforeach?>
@@ -455,16 +473,11 @@
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
+                    <th class="center_th">Student ID</th>
                     <th class="center_th">Name</th>
                     <th class="center_th">Score</th>
                   </tr>
                 </thead>
-                <tfoot>
-                  <tr>
-                    <th>Name</th>
-                    <th>Score</th>
-                  </tr>
-                </tfoot>
                   <tbody id="record_student_grade">
                   </tbody>
               </table>

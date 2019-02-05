@@ -99,26 +99,37 @@ class Class_section extends CI_Controller {
 		echo json_encode($response);
 	}
 
-	public function savescore(){
-		$teacher_id	= $this->session->userdata['logged_in']['teacher_id'];
-		$student_id = $this->input->post('student_id');
-		$subject_name = $this->input->post('score_subject');
-		$score_quarter = $this->input->post('score_quarter');
-		$score_type = $this->input->post('score_type');
-		$score = $this->input->post('score');
-		$data = array(
-			'teacher_id'	=> $teacher_id,
-			's_id'	=> $student_id,
-			'subject_id'	=> $subject_name,
-			'quarter'	=> $score_quarter,
-			'score_type' => $score_type,
-			'score'	=> $score
-		);
-		print_r($data); return;
-		$data = $this->section_model->savescore();
-		$response['status'] = TRUE;
-		$response['message'] = "Successfully saved scores.";
-		$response['data'] = $data;
-		echo json_encode($response);
+	public function savescore() {
+		if($this->session->userdata('logged_in')) {
+			$this->form_validation->set_rules('student_id', '', 'required');
+			$this->form_validation->set_rules('score_subject', '', 'required');
+			$this->form_validation->set_rules('score_quarter', '', 'required');
+			$this->form_validation->set_rules('score_type', '', 'required');
+			$this->form_validation->set_rules('score', '', 'required');
+			$response['status'] = FALSE;
+			if ($this->form_validation->run()) {
+				$teacher_id	= $this->session->userdata['logged_in']['teacher_id'];
+				$student_id = json_decode($this->input->post('student_id'));
+				$subject_name = $this->input->post('score_subject');
+				$score_quarter = $this->input->post('score_quarter');
+				$score_type = $this->input->post('score_type');
+				$score = json_decode($this->input->post('score'));
+				$data = array();
+				for ($i=0; $i < count($student_id); $i++) { 
+					$data['s_id'] = $student_id[$i];
+					$data['subject_id'] = $subject_name;
+					$data['teacher_id'] = $teacher_id;
+					$data['quarter'] = $score_quarter;
+					$data['score'] = $score[$i];
+					$data['score_type'] = $score_type;
+					$this->db->insert('public.student_scores', $data);
+				}
+				$response['status'] = TRUE;
+				$response['message'] = "Successfully saved scores.";
+			} else 
+				$response['message'] = 'Please fill up all required fields';
+			echo json_encode($response);
+		} else 
+			redirect('login', 'refresh');
 	}
 }
