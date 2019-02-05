@@ -18,6 +18,7 @@ class Class_section extends CI_Controller {
 			$data['classlist'] = $this->section_model->getclasslist();
 			$data['subjectlist'] = $this->section_model->getsubject();
 			$data['class_id'] = $this->section_model->getclassid();
+			$data['class'] = $this->section_model->getclass();
 			$this->load->view('main/index', $data);
 		}
 	}
@@ -74,7 +75,6 @@ class Class_section extends CI_Controller {
 		$subject_description = $this->input->post('subject_description');
 		$sched_from = $this->input->post('sched_from');
 		$sched_to = $this->input->post('sched_to');
-		// $exist = $this->db->query("SELECT subject_name from public.subject where teacher_id = ?", $teacher_id);
 		$query = $this->db->get_where('public.subject', array('teacher_id' => $teacher_id, 'subject_name' => $subject_name));
 		if($query->num_rows()>0){
 			$response['status'] = FALSE;
@@ -96,6 +96,29 @@ class Class_section extends CI_Controller {
 			$response['status'] = FALSE;
 			$response['message'] = "Please fill up all required fields!";
 		}
+		echo json_encode($response);
+	}
+
+	public function savescore(){
+		$teacher_id	= $this->session->userdata['logged_in']['teacher_id'];
+		$student_id = $this->input->post('student_id');
+		$subject_name = $this->input->post('score_subject');
+		$score_quarter = $this->input->post('score_quarter');
+		$score_type = $this->input->post('score_type');
+		$score = $this->input->post('score');
+		$data = array(
+			'teacher_id'	=> $teacher_id,
+			's_id'	=> $student_id,
+			'subject_id'	=> $subject_name,
+			'quarter'	=> $score_quarter,
+			'score_type' => $score_type,
+			'score'	=> $score
+		);
+		print_r($data);
+		$data = $this->section_model->savescore();
+		$response['status'] = TRUE;
+		$response['message'] = "Successfully saved scores.";
+		$response['data'] = $data;
 		echo json_encode($response);
 	}
 }

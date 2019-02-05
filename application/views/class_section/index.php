@@ -37,7 +37,7 @@
   $(document).ready(function(){
     get_class();
     getstudents();
-    load_data();
+    // load_data();
 
     function get_class(){
       $.ajax({
@@ -95,17 +95,20 @@
                     '<td>'+data[i].mname+'</td>'+
                     '<td>'+data[i].extname+'</td>'+
                     '</tr>';
-            record_student_grade += '<tr>'+
-                    '<td>'+data[i].lname+', '+data[i].fname+', '+data[i].mname+' '+data[i].extname+'</td>'+
-                    '<td>'+'<input class="form-control input_width" type="text" name="" placeholder="Enter score...">'+'</td>'+
-                    '</tr>';
             }
           $('#students_enrolled').html(html);
-          $('#record_student_grade').html(record_student_grade);
         }
       });
     }
-
+    // function load_data(){
+    //   $.ajax({
+    //     url:"<?php //echo base_url(); ?>student_profile/fetch",
+    //     method:"POST",
+    //     success:function(data){
+    //       $('#student_data').html(data);
+    //     }
+    //   });
+    // }
     $('#saveclass').click(function() {
       var classname = $('#form_class #classname').val();
       var subject_name = $('#form_class #subject_name').val();
@@ -157,7 +160,7 @@
           type : "POST",
           url  : "<?php echo site_url('class_section/updateclass')?>",
           dataType : "JSON",
-          data : {class_id:class_id , sched_from_edit:sched_from, sched_to_edit:sched_to, subject_name_edit:subject_name, subject_description_edit:subject_description},
+          data : {class_id:class_id_del , sched_from_edit:sched_from, sched_to_edit:sched_to, subject_name_edit:subject_name, subject_description_edit:subject_description},
           success: function(data){
               $('#id_class').val("");
               $('#sched_from_edit').val("");
@@ -223,41 +226,32 @@
       });
     });
 
-    $('#classname').change(function() {
-      // var teacher_id = $('#form_subject #teacher_id').val();
-      var sched_from = $('#form_subject #sched_from').val();
-      var sched_to = $('#form_subject #sched_to').val();
-      var subject_name = $('#form_subject #subject_name').val();
-      var subject_description = $('#form_subject #subject_description').val();
-      $.ajax({
-        type: 'post',
-        url: '<?php echo base_url('class_section/savesubject')?>',
-        // data: new FormData($(this)[0]),
-        data: {sched_from: sched_from, sched_to: sched_to, subject_name:subject_name, subject_description:subject_description },
-        dataType: 'json',
-        success: function(response){
-          if (response.status) {
-              $('#form_subject')[0].reset();
-              swal("Subject Added!", "", "success");
-          } else {
-              alert(response.message);
-          }
-        },
-        error:function(request,status,error){ 
-          alert(response.message);
-        }
-      });
-    });
+    // $('#classname').change(function() {
+    //   // var teacher_id = $('#form_subject #teacher_id').val();
+    //   var sched_from = $('#form_subject #sched_from').val();
+    //   var sched_to = $('#form_subject #sched_to').val();
+    //   var subject_name = $('#form_subject #subject_name').val();
+    //   var subject_description = $('#form_subject #subject_description').val();
+    //   $.ajax({
+    //     type: 'post',
+    //     url: '<?php //echo base_url('class_section/savesubject')?>',
+    //     // data: new FormData($(this)[0]),
+    //     data: {sched_from: sched_from, sched_to: sched_to, subject_name:subject_name, subject_description:subject_description },
+    //     dataType: 'json',
+    //     success: function(response){
+    //       if (response.status) {
+    //           $('#form_subject')[0].reset();
+    //           swal("Subject Added!", "", "success");
+    //       } else {
+    //           alert(response.message);
+    //       }
+    //     },
+    //     error:function(request,status,error){ 
+    //       alert(response.message);
+    //     }
+    //   });
+    // });
 
-    function load_data(){
-      $.ajax({
-        url:"<?php echo base_url(); ?>student_profile/fetch",
-        method:"POST",
-        success:function(data){
-          $('#student_data').html(data);
-        }
-      });
-    }
     $('#import_form').on('submit', function(event){
       event.preventDefault();
       $.ajax({
@@ -271,10 +265,59 @@
           $('#file').val('');
           $('#classname').val('');
           $('#enrollstudentsmodal').modal('hide');
-          load_data();
-          alert(data);
+          swal("Successfully Enrolled Students", "", "success");
         }
       })
+    });
+
+    $('#class_grade').change(function(){
+      var class_grade = $(this).val();
+      $.ajax({
+        url: '<?php echo site_url('student_profile/getstudentsBySection')?>',
+        method:'post',
+        dataType:'json',
+        data: {class_grade:class_grade},
+        success : function(data){
+          var html = '';
+          var i;
+          for(i = 0 ; i<data.length; i++){
+            record_student_grade += '<tr>'+
+                    '<td>'+'Student ID'+' '+data[i].s_id+' : '+data[i].lname+', '+data[i].fname+' '+data[i].mname+' '+data[i].extname+'</td>'+
+                    '<td><input type="hidden" name="student_id" id="student_id" value='+data[i].s_id+'><input type="text" onkeypress="return isNumber(event)" name="score" id="score" class="form-control" data-s_id="'+data[i].s_id+'" data-class_id="'+data[i].class_id+'"></td>'+
+                    '</tr>';
+            }
+          $('#record_student_grade').html(record_student_grade);
+        }
+      });
+    });
+    $('#savescore').click(function() {
+      var subject_name = $('#score_form #score_subject').val();
+      var score_quarter = $('#score_form #score_quarter').val();
+      var scoretype = $('#score_form #score_type').val();
+      var score = $('#score').val();
+      var student_id = $('#student_id').val();
+      $.ajax({
+        type: 'post',
+        url: '<?php echo base_url('class_section/savescore')?>',
+        // data: new FormData($(this)[0]),
+        data: {score_subject: subject_name, score_quarter:score_quarter, score_type:scoretype, student_id:student_id, score:score},
+        dataType: 'json',
+        // cache:false,
+        // contentType:false,
+        // processData:false,
+        success: function(response){
+          if (response.status) {
+              $('#score_form')[0].reset();
+              swal("Successfully saved Scores!", "", "success");
+          } else {
+              alert(response.message);
+          }
+        },
+        error:function(request,status,error){ 
+          alert('ahhaha sayup yot');
+        }
+      });
+
     });
   });
 </script>
@@ -324,64 +367,63 @@
             </div>
           </div>
         </div>
+
         <div class="tab-pane fade" id="record_grades" role="tabpanel" aria-labelledby="record-grades-tab">
-          <div class="row row_padding">
-            <div class="col-md-2">Subject</div>
-            <div class="col-md-1">:</div>
-            <div class="col-md-4">
-              <select class="form-control">
-                <option>Subject 1</option>
-                <option>Subject 2</option>
-                <option>Subject 3</option>
-              </select>
+          <form method="post" id="score_form">
+            <div class="row row_padding">
+              <div class="col-md-2">Subject</div>
+              <div class="col-md-1">
+                :
+              </div>
+              <div class="col-md-4">
+                <select class="form-control" name="score_subject" id="score_subject">
+                  <?php foreach($subjectlist as $s):?>
+                    <option value="<?php echo $s->subject_id?>"><?php echo $s->subject_name?></option>
+                  <?php endforeach?>
+                </select>
+              </div>
             </div>
-          </div>
-          <div class="row row_padding">
-            <div class="col-md-2">Class Section</div>
-            <div class="col-md-1">:</div>
-            <div class="col-md-4">
-              <select class="form-control">
-                <?php foreach($class as $c):?>
-                  <option><?php echo $c->section_name?></option>
-                <?php endforeach?>
-              </select>
+            <div class="row row_padding">
+              <div class="col-md-2">Class Section</div>
+              <div class="col-md-1">:</div>
+              <div class="col-md-4">
+                <select class="form-control" name = "class_grade" id="class_grade">
+                  <?php foreach($class as $c):?>
+                    <option><?php echo $c->class_name?></option>
+                  <?php endforeach?>
+                </select>
+              </div>
             </div>
-          </div>
-          <div class="row row_padding">
-            <div class="col-md-2">Level</div>
-            <div class="col-md-1">:</div>
-            <div class="col-md-4"><input class="form-control" type="text" name="" style="width: 50px!important"></div>
-          </div>
-          <div class="row row_padding">
-            <div class="col-md-2">Quarter</div>
-            <div class="col-md-1">:</div>
-            <div class="col-md-4">
-              <select class="form-control">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>Whole Quarter</option>
-              </select>
+            <div class="row row_padding">
+              <div class="col-md-2">Quarter</div>
+              <div class="col-md-1">:</div>
+              <div class="col-md-4">
+                <select class="form-control" name="score_quarter" id="score_quarter">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>Whole Quarter</option>
+                </select>
+              </div>
             </div>
-          </div>
-          <div class="row row_padding">
-            <div class="col-md-2">Score Type</div>
-            <div class="col-md-1">:</div>
-            <div class="col-md-4">
-              <select class="form-control">
-                <option>Assignment</option>
-                <option>Project</option>
-                <option>Quarter Exam</option>
-                <option>Quiz</option>
-                <option>Seatwork</option>
-              </select>
+            <div class="row row_padding">
+              <div class="col-md-2">Score Type</div>
+              <div class="col-md-1">:</div>
+              <div class="col-md-4">
+                <select class="form-control" name="score_type" id="score_type">
+                  <option>Assignment</option>
+                  <option>Project</option>
+                  <option>Quarter Exam</option>
+                  <option>Quiz</option>
+                  <option>Seatwork</option>
+                </select>
+              </div>
             </div>
-          </div>
-          <div class="card mb-3" style="padding-top: 10px; margin-top: 10px;">
-          <div class="card-header">
-              <i class="fa fa-table"> &nbsp;&nbsp;<span></i>Student Roster</span><button class="btn btn-primary" style="float: right!important;">Save Scores</button>
-          </div>
+            <div class="card-header">
+              <i class="fa fa-table"> &nbsp;&nbsp;<span></i>Student Roster</span>
+            </div>
+          </form>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -397,16 +439,15 @@
                     <th>Score</th>
                   </tr>
                 </tfoot>
-                <tbody id="record_student_grade">
-                </tbody>
+                  <tbody id="record_student_grade">
+                  </tbody>
               </table>
               <div class="row">
                 <div class="col-md-12">
-                  <button class="btn btn-primary" style="float: right!important;">Save Scores</button>
+                  <button class="btn btn-primary" style="float: right!important;" name="savescore" id="savescore">Save Scores</button>
                 </div>
               </div>
             </div>
-          </div>
           </div>
         </div>
         <div class="tab-pane fade" id="student_behavior_tab" role="tabpanel" aria-labelledby="behavior-tab">
@@ -457,7 +498,7 @@
           </div>
           <div class="card mb-3" style="padding-top: 10px; margin-top: 10px;">
           <div class="card-header">
-              <i class="fa fa-table"> &nbsp;&nbsp;<span></i>Student Roster</span><button class="btn btn-primary" style="float: right!important;">Save Behavior</button>
+              <i class="fa fa-table"> &nbsp;&nbsp;<span></i>Student Roster</span>
           </div>
           <div class="card-body">
             <div class="table-responsive">

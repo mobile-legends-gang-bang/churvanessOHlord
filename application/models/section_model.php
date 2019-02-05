@@ -92,4 +92,29 @@ class Section_model extends CI_Model{
 		}
 		return $query;
 	}
+
+	public function savescore(){
+		$teacher_id	= $this->session->userdata['logged_in']['teacher_id'];
+		$student_id = $this->input->post('student_id');
+		$subject_name = $this->input->post('score_subject');
+		$score_quarter = $this->input->post('score_quarter');
+		$score_type = $this->input->post('score_type');
+		$score = $this->input->post('score');
+		$data = array(
+			'teacher_id'	=> $teacher_id,
+			's_id'	=> $student_id,
+			'subject_id'	=> $subject_name,
+			'quarter'	=> $score_quarter,
+			'score_type' => $score_type,
+			'score' => $score	
+		);
+		$query = $this->db->insert('student_scores', $data);
+		if($this->db->affected_rows() > 0){
+			return true;
+		}else{
+			return false;
+		}
+		return $query;
+	}
+
 }

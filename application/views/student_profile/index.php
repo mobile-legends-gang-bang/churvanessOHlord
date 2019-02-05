@@ -196,10 +196,6 @@
         </div>
       </form>
     </div>
-<!--     <div class="row">
-      <div class="table-responsive" id="student_data">
-      </div>
-    </div> -->
   </div>
 </div>
 </div>
