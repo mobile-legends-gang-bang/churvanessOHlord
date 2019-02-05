@@ -114,7 +114,7 @@ class Class_section extends CI_Controller {
 			'score_type' => $score_type,
 			'score'	=> $score
 		);
-		print_r($data);
+		print_r($data); return;
 		$data = $this->section_model->savescore();
 		$response['status'] = TRUE;
 		$response['message'] = "Successfully saved scores.";

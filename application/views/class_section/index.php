@@ -36,7 +36,7 @@
 <script type="text/javascript">
   $(document).ready(function(){
     get_class();
-    getstudents();
+    // getstudents();
     // load_data();
 
     function get_class(){
@@ -49,10 +49,10 @@
           var i;
           for(i = 0 ; i<data.length; i++){
             html += '<tr>'+
-                    '<td>'+data[i].class_name+'</td>'+
+                    '<td><input type="hidden" id="student_class" name="student_class">'+data[i].class_name+'</td>'+
                     '<td>'+data[i].subject_name+'</td>'+
                     '<td align="center">'+tConvert(data[i].sched_from)+' - '+tConvert(data[i].sched_to)+'</td>'+
-                    '<td class="small"><button class="btn" style="background: transparent;" data-toggle="modal" data-target="#studentModal"> View Students </button> <a href="javascript:void(0);" class="fa fa-pencil  item_edit" data-subject_description="'+data[i].subject_description+'" data-subject_name="'+data[i].subject_name+'" data-sched_to="'+(data[i].sched_to)+'" data-sched_from="'+data[i].sched_from+'" data-class_id="'+data[i].class_id+'"></a> <a href="javascript:void(0);" class="fa fa-trash item_delete" data-class_id="'+data[i].class_id+'"></a> </td>'+
+                    '<td class="small"><a class="btn"  style="background: transparent;" id="btnstudents"  data-class_name="'+data[i].class_name+'"> View Students </a> <a href="javascript:void(0);" class="fa fa-pencil  item_edit" data-subject_description="'+data[i].subject_description+'" data-subject_name="'+data[i].subject_name+'" data-sched_to="'+(data[i].sched_to)+'" data-sched_from="'+data[i].sched_from+'" data-class_id="'+data[i].class_id+'"></a> <a href="javascript:void(0);" class="fa fa-trash item_delete" data-class_id="'+data[i].class_id+'"></a> </td>'+
                     '</tr>';
           }
           $('#classtablecontent').html(html);
@@ -80,11 +80,37 @@
       });
     }
 
-    function getstudents(){
+    // function getstudents(){
+    //   $.ajax({
+    //     type  : 'post',
+    //     url   : '<?php //echo site_url('student_profile/getstudents')?>',
+    //     dataType : 'json',
+    //     success : function(data){
+    //       var html = '';
+    //       var i;
+    //       for(i = 0 ; i<data.length; i++){
+    //         html += '<tr>'+
+    //                 '<td>'+data[i].lname+'</td>'+
+    //                 '<td>'+data[i].fname+'</td>'+
+    //                 '<td>'+data[i].mname+'</td>'+
+    //                 '<td>'+data[i].extname+'</td>'+
+    //                 '</tr>';
+    //         }
+    //       $('#students_enrolled').html(html);
+    //     }
+    //   });
+    // }
+
+    $('#classtablecontent').on('click','#btnstudents',function(){
+      var class_name = $(this).data('class_name');
+      $('#studentModal').modal('show');
+      $('#student_class').val(class_name);
+      var class_id = $('#student_class').val()
       $.ajax({
         type  : 'post',
         url   : '<?php echo site_url('student_profile/getstudents')?>',
         dataType : 'json',
+        data : {student_class:class_id},
         success : function(data){
           var html = '';
           var i;
@@ -99,7 +125,7 @@
           $('#students_enrolled').html(html);
         }
       });
-    }
+    });
     // function load_data(){
     //   $.ajax({
     //     url:"<?php //echo base_url(); ?>student_profile/fetch",

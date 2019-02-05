@@ -14,8 +14,10 @@ class Student_profile_model extends CI_Model{
 
 	public function getstudents(){
 		$teacher_id = $this->session->userdata['logged_in']['teacher_id'];
+		$class_name = $this->input->post('student_class');
 		$result = $this->db->query("SELECT * FROM public.student_profile
 									WHERE teacher_id = ".$teacher_id."
+									AND class_name = '".$class_name."'
 									ORDER BY lname");
 		return $result->result();
 	}
