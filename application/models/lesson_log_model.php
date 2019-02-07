@@ -49,11 +49,7 @@ class Lesson_log_model extends CI_Model{
 			'day5_description4' 	=>	$this->input->post('day5_description4')
 			);
 		$query = $this->db->insert('public.lesson_log', $data);
-		if($this->db->affected_rows() > 0){
-			return true;
-		}else{
-			return false;
-		}
+
 		return $query;
 	}
 }

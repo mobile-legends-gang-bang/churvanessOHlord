@@ -19,6 +19,14 @@ class Section_model extends CI_Model{
 
 	public function getclass(){
 		$teacher_id = $this->session->userdata['logged_in']['teacher_id'];
+		$result = $this->db->query("SELECT * FROM public.class c 
+									JOIN public.subject s on c.subject_id = s.subject_id
+									JOIN public.class_list l on l.classname = c.class_name
+									WHERE c.teacher_id = ".$teacher_id."");
+		return $result->result();
+	}
+	public function getUniqueclass(){
+		$teacher_id = $this->session->userdata['logged_in']['teacher_id'];
 		$result = $this->db->query("SELECT distinct(class_name) FROM public.class c 
 									JOIN public.subject s on c.subject_id = s.subject_id
 									JOIN public.class_list l on l.classname = c.class_name
