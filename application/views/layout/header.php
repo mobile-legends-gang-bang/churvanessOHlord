@@ -28,7 +28,6 @@
 
 		<script type="text/javascript" src="<?php echo base_url();?>assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 		<script type="text/javascript" src="<?php echo base_url();?>assets/js/sb-admin.min.js"></script>
-		<script type="text/javascript" src="<?php echo base_url();?>assets/js/fullcalendar.js"></script>
 		 <!-- Sweet ALert-->
 		<script type="text/javascript" src="<?php echo base_url();?>assets/vendor/sweetalert/sweetalert.min.js"></script>
 		<script type="text/javascript" src="<?php echo base_url();?>assets/js/customjs.js"></script>
