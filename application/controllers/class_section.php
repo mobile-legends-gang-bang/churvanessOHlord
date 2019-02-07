@@ -19,6 +19,7 @@ class Class_section extends CI_Controller {
 			$data['subjectlist'] = $this->section_model->getsubject();
 			$data['class_id'] = $this->section_model->getclassid();
 			$data['class'] = $this->section_model->getclass();
+			$data['uniqueclass'] = $this->section_model->getUniqueclass();
 			$this->load->view('main/index', $data);
 		}
 	}

@@ -17,6 +17,8 @@
 		<link rel="icon" sizes="32*32" href="<?php echo base_url()?>/images/favicon(1).ico" type="image/x-icon">
 		<!-- Page level plugin CSS-->
 		<link href="<?php echo base_url();?>assets/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+		<!-- JQUERY CONFIRM SHIT -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 		 <!-- Bootstrap core JavaScript-->
 		<script type="text/javascript" src="<?php echo base_url();?>assets/vendor/jquery/jquery.min.js"></script>
 		<!-- Core plugin JavaScript-->
@@ -36,6 +38,8 @@
 		<!-- <script type="text/javascript" src="<?php //echo base_url();?>assets/js/sb-admin-charts.min.js"></script> -->
 		<!-- Page level plugin JavaScript-->
 		<!-- <script type="text/javascript" src="<?php //echo base_url();?>assets/vendor/chart.js/Chart.min.js"></script> -->
+		<!-- JQUERY CONFIRM SHIT -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
 	</head>
 	<body>
