@@ -46,41 +46,30 @@ class Calendar extends CI_Controller {
      exit();
  }
  public function add_event() {
-    /* Our calendar data */
-    $name = $this->input->post("name", TRUE);
-    $start_date = $this->input->post("start_date", TRUE);
-    $end_date = $this->input->post("end_date", TRUE);
-    $teacher_id = $this->session->userdata['logged_in']['teacher_id'];
+   
+        if($this->session->userdata('logged_in')) {
+            $this->form_validation->set_rules('name', '', 'required');
+            $this->form_validation->set_rules('start_date', '', 'required');
+            $this->form_validation->set_rules('end_date', '', 'required');
+            if ($this->form_validation->run()) {
+                $name = $this->input->post('name');
+                $start_date = date('Y-m-d H:i:s', strtotime($this->input->post('start_date')));
+                $end_date = date('Y-m-d H:i:s', strtotime($this->input->post('end_date')));
+                $teacher_id = $this->session->userdata['logged_in']['teacher_id'];
 
-    if(!empty($start_date)) {
-       $sd = DateTime::createFromFormat("Y/m/d H:i", $start_date);
-       $start_date = $sd->format('Y-m-d H:i:s');
-       $start_date_timestamp = $sd->getTimestamp();
-    } else {
-       $start_date = date("Y-m-d H:i:s", time());
-       $start_date_timestamp = time();
+                $data = array(
+                    'teacher_id' => $teacher_id,
+                    'title' => $name,
+                    'start' => $start_date,
+                    'end' => $end_date
+                );
+                $this->calendar_model->add_event($data);
+                redirect(site_url("calendar"));
+            } else 
+                echo 'Please fill up all required fields!';
+        } else 
+            redirect('login', 'refresh');
     }
-
-    if(!empty($end_date)) {
-       $ed = DateTime::createFromFormat("Y/m/d H:i", $end_date);
-       $end_date = $ed->format('Y-m-d H:i:s');
-       $end_date_timestamp = $ed->getTimestamp();
-    } else {
-       $end_date = date("Y-m-d H:i:s", time());
-       $end_date_timestamp = time();
-    }
-
-    $this->calendar_model->add_event(array(
-      "teacher_id" => $teacher_id,
-       "title" => $name,
-       "start" => $start_date,
-       "end" => $end_date
-       )
-    );
-
-    redirect(site_url("calendar"));
-}
-
 public function edit_event() 
     {
         $eventid = intval($this->input->post("eventid"));
@@ -96,7 +85,6 @@ public function edit_event()
         $name = $this->common->nohtml($this->input->post("name"));
         $start_date = $this->common->nohtml($this->input->post("start_date"));
         $end_date = $this->common->nohtml($this->input->post("end_date"));
-        $teacher_id= $this->common->nohtml($this->input->post("teacher_id"));
         $delete = intval($this->input->post("delete"));
 
         if(!$delete) {

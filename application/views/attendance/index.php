@@ -8,7 +8,20 @@
   </style>
 </head>
 <body id="page-top">
-  <div class="content-wrapper" style="margin-top: 100px!important; margin-left: 270px!important;">
+  <div class="content-wrapper" style="margin-top: 100px!important; padding: 15px!important;">
+    <div class="container-fluid">
+      <ul class="nav nav-pills mb-3 nav-justified" id="pills-tab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="check-attendance-tab" data-toggle="pill" href="#checkattendance" role="tab" aria-controls="checkattendance" aria-selected="true">Check Attendance</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="seat-plan-tab" data-toggle="pill" href="#seatplan" role="tab" aria-controls="seatplan" aria-selected="false">Seat Plan</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="checkattendance" role="tabpanel" aria-labelledby="check-attendance-tab">
     <div class="container-fluid">
       <!-- Example DataTables Card-->
       <div class="row" style="padding: 20px;">
@@ -102,66 +115,7 @@
                   <td><input type="checkbox" class="form-control" name=""></td>
                   <td><input type="text" class="form-control" name="" checked></td>
                 </tr>
-                <tr>
-                  <td>Karystel Alicante</td>
-                  <td><input type="checkbox" class="form-control" name="" checked></td>
-                  <td><input type="checkbox" class="form-control" name=""></td>
-                  <td><input type="text" class="form-control" name="" checked></td>
-                </tr>
-                <tr>
-                  <td>Bernard Joseph Gutierrez</td>
-                  <td><input type="checkbox" class="form-control" name="" checked></td>
-                  <td><input type="checkbox" class="form-control" name=""></td>
-                  <td><input type="text" class="form-control" name="" checked></td>
-                </tr>
-                <tr>
-                  <td>Althea Naga</td>
-                  <td><input type="checkbox" class="form-control" name="" checked></td>
-                  <td><input type="checkbox" class="form-control" name=""></td>
-                  <td><input type="text" class="form-control" name="" checked></td>
-                </tr>
-                <tr>
-                  <td>Jayzon Cabuenas</td>
-                  <td><input type="checkbox" class="form-control" name="" checked></td>
-                  <td><input type="checkbox" class="form-control" name=""></td>
-                  <td><input type="text" class="form-control" name="" checked></td>
-                </tr>
-                <tr>
-                  <td>Karystel Alicante</td>
-                  <td><input type="checkbox" class="form-control" name="" checked></td>
-                  <td><input type="checkbox" class="form-control" name=""></td>
-                  <td><input type="text" class="form-control" name="" checked></td>
-                </tr>
-                <tr>
-                  <td>Bernard Joseph Gutierrez</td>
-                  <td><input type="checkbox" class="form-control" name="" checked></td>
-                  <td><input type="checkbox" class="form-control" name=""></td>
-                  <td><input type="text" class="form-control" name="" checked></td>
-                </tr>
-                <tr>
-                  <td>Althea Naga</td>
-                  <td><input type="checkbox" class="form-control" name="" checked></td>
-                  <td><input type="checkbox" class="form-control" name=""></td>
-                  <td><input type="text" class="form-control" name="" checked></td>
-                </tr>
-                <tr>
-                  <td>Jayzon Cabuenas</td>
-                  <td><input type="checkbox" class="form-control" name="" checked></td>
-                  <td><input type="checkbox" class="form-control" name=""></td>
-                  <td><input type="text" class="form-control" name="" checked></td>
-                </tr>
-                <tr>
-                  <td>Karystel Alicante</td>
-                  <td><input type="checkbox" class="form-control" name="" checked></td>
-                  <td><input type="checkbox" class="form-control" name=""></td>
-                  <td><input type="text" class="form-control" name="" checked></td>
-                </tr>
-                <tr>
-                  <td>Bernard Joseph Gutierrez</td>
-                  <td><input type="checkbox" class="form-control" name="" checked></td>
-                  <td><input type="checkbox" class="form-control" name=""></td>
-                  <td><input type="text" class="form-control" name="" checked></td>
-                </tr>
+              
                 <tr>
                   <td>Althea Naga</td>
                   <td><input type="checkbox" class="form-control" name="" checked></td>
@@ -174,6 +128,27 @@
         </div>
       </div>
     </div>
+    </div>
+
+      <div class="tab-pane fade show active" id="seatplan" role="tabpanel" aria-labelledby="seat-plan-tab">
+        <div style="padding-right: 20px; width: 50px; padding-top: 5px; padding-left: 10px;">Class Section</div>
+        <div>
+          <select class="form-control">
+          <optgroup>
+            <option>
+              Einstein
+            </option>
+            <option>
+              Newton
+            </option>
+            <option>
+              Pascal
+            </option>
+          </optgroup>
+        </select>
+        </div>
+      </div>
+      </div>
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
       <i class="fa fa-angle-up"></i>

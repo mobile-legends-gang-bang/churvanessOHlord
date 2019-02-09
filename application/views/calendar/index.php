@@ -97,15 +97,27 @@ $(document).ready(function() {
         <div class="form-group">
                 <label for="p-in" class="col-md-4 label-heading">Start Date</label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" name="start_date">
+                    <input type="datetime-local" class="form-control" name="start_date">
                 </div>
         </div>
+       <!--  <div class="form-group">
+                <label for="p-in" class="col-md-4 label-heading">Start Time </label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="start_date">
+                </div>
+        </div> -->
         <div class="form-group">
                 <label for="p-in" class="col-md-4 label-heading">End Date</label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" name="end_date">
+                    <input type="datetime-local" class="form-control" name="end_date">
                 </div>
         </div>
+        <!-- <div class="form-group">
+                <label for="p-in" class="col-md-4 label-heading">End Time</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="start_date">
+                </div>
+        </div> -->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -146,10 +158,10 @@ $(document).ready(function() {
         <div class="form-group">
                     <label for="p-in" class="col-md-4 label-heading">Delete Event</label>
                     <div class="col-md-8">
-                        <input type="checkbox" name="delete" value="1">
+                        <input type="checkbox" width="10px" name="delete" value="1">
                     </div>
             </div>
-            <input type="hidden" name="eventid" id="event_id" value="0" />
+            <input type="" name="eventid" id="event_id" value="0" />
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
