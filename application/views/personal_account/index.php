@@ -38,13 +38,14 @@
       <div class="row row_padding">
         <div class="col-md-5">TEACHER IDNO.</div>
         <div class="col-md-1">:</div>
-        <div class="col-md-6"><input type="text" class="form-control" name="" disabled></div>
+        <?php foreach ($teacherinfo as $row): ?>
+        <div class="col-md-6"><input type="text" class="form-control" value="<?php echo $row->teacher_id?>" name="" disabled></div>
       </div>
       <h4 align="center">PERSONAL INFORMATION</h4>
       <div class="row row_padding">
         <div class="col-md-5">First Name</div>
         <div class="col-md-1">:</div>
-        <div class="col-md-6"><input type="text" class="form-control" name=""></div>
+        <div class="col-md-6"><input type="text" class="form-control" value="<?php echo $row->fname?>" name=""></div>
       </div>
       <div class="row row_padding">
         <div class="col-md-5">Middle Name</div>
@@ -54,7 +55,7 @@
       <div class="row row_padding">
         <div class="col-md-5">Last Name</div>
         <div class="col-md-1">:</div>
-        <div class="col-md-6"><input type="text" class="form-control" name=""></div>
+        <div class="col-md-6"><input type="text" class="form-control" value="<?php echo $row->lname?>" name=""></div>
       </div>
       <div class="row row_padding">
         <div class="col-md-5">Extension Name</div>
@@ -132,7 +133,7 @@
       <div class="container">
         <img src="<?php echo base_url()?>images/avatar.png" class="center">
         <div class="row row_padding" style="margin-top: 30px; border-bottom: 1px black solid;">
-          <h4 class="align_center">Velikkakathu Sankaran Achuthanandan</h4>
+          <h4 class="align_center"><?php echo $row->fname?>&nbsp;<?php echo $row->lname?></h4>
         </div>
       </div>
       <div class="row">
@@ -140,7 +141,7 @@
       </div>
       <div class="row row_padding" style="padding-top: 50px;">
         <div class="col-md-6" align="right">
-          <button class="btn bg-primary" disabled>Save Information</button>
+          <button class="btn bg-primary">Save Information</button>
         </div>
         <div class="col-md-6" align="left">
           <button class="btn bg-success">Edit Information</button>
@@ -148,6 +149,7 @@
       </div>
     </div>   
   </div>
+  <?php endforeach ?>
 </div>
 </div>
 </body>
