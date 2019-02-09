@@ -80,27 +80,6 @@
       });
     }
 
-    // function getstudents(){
-    //   $.ajax({
-    //     type  : 'post',
-    //     url   : '<?php //echo site_url('student_profile/getstudents')?>',
-    //     dataType : 'json',
-    //     success : function(data){
-    //       var html = '';
-    //       var i;
-    //       for(i = 0 ; i<data.length; i++){
-    //         html += '<tr>'+
-    //                 '<td>'+data[i].lname+'</td>'+
-    //                 '<td>'+data[i].fname+'</td>'+
-    //                 '<td>'+data[i].mname+'</td>'+
-    //                 '<td>'+data[i].extname+'</td>'+
-    //                 '</tr>';
-    //         }
-    //       $('#students_enrolled').html(html);
-    //     }
-    //   });
-    // }
-
     $('#classtablecontent').on('click','#btnstudents',function(){
       var class_name = $(this).data('class_name');
       $('#studentModal').modal('show');
@@ -126,22 +105,13 @@
         }
       });
     });
-    // function load_data(){
-    //   $.ajax({
-    //     url:"<?php //echo base_url(); ?>student_profile/fetch",
-    //     method:"POST",
-    //     success:function(data){
-    //       $('#student_data').html(data);
-    //     }
-    //   });
-    // }
+
     $('#saveclass').click(function() {
       var classname = $('#form_class #classname').val();
       var subject_name = $('#form_class #subject_name').val();
       $.ajax({
         type: 'post',
         url: '<?php echo base_url('class_section/saveclass')?>',
-        // data: new FormData($(this)[0]),
         data: { classname: classname, subject_name: subject_name },
         dataType: 'json',
         // cache:false,
@@ -252,32 +222,6 @@
       });
     });
 
-    // $('#classname').change(function() {
-    //   // var teacher_id = $('#form_subject #teacher_id').val();
-    //   var sched_from = $('#form_subject #sched_from').val();
-    //   var sched_to = $('#form_subject #sched_to').val();
-    //   var subject_name = $('#form_subject #subject_name').val();
-    //   var subject_description = $('#form_subject #subject_description').val();
-    //   $.ajax({
-    //     type: 'post',
-    //     url: '<?php //echo base_url('class_section/savesubject')?>',
-    //     // data: new FormData($(this)[0]),
-    //     data: {sched_from: sched_from, sched_to: sched_to, subject_name:subject_name, subject_description:subject_description },
-    //     dataType: 'json',
-    //     success: function(response){
-    //       if (response.status) {
-    //           $('#form_subject')[0].reset();
-    //           swal("Subject Added!", "", "success");
-    //       } else {
-    //           alert(response.message);
-    //       }
-    //     },
-    //     error:function(request,status,error){ 
-    //       alert(response.message);
-    //     }
-    //   });
-    // });
-
     $('#import_form').on('submit', function(event){
       event.preventDefault();
       $.ajax({
@@ -309,11 +253,6 @@
             var i;
             var record_student_grade = "";
             for(i = 0 ; i<data.length; i++){
-              // record_student_grade += '<tr>'+
-              //         '<td>'+'Student ID'+' '+data[i].s_id+' : '+data[i].lname+', '+data[i].fname+' '+data[i].mname+' '+data[i].extname+'</td>'+
-              //         '<td><input type="hidden" name="student_id[]" id="student_id" value='+data[i].s_id+'><input type="text" onkeypress="return isNumber(event)" name="score[]" id="score" class="form-control" data-s_id="'+data[i].s_id+'" data-class_id="'+data[i].class_id+'"></td>'+
-              //         '</tr>';
-
               // This is ES6 format (new one in jquery) no need for concat 
               record_student_grade += `<tr>
                       <td>${data[i].s_id}</td>
@@ -331,8 +270,7 @@
       var subject_name = $('#score_form #score_subject').val();
       var score_quarter = $('#score_form #score_quarter').val();
       var scoretype = $('#score_form #score_type').val();
-      // var score = $('#score').val();
-      // var student_id = $('#student_id').val();
+
       student_id = $('input[name^="student_id"]').map(function(){
                 return this.value;
             }).get();
@@ -342,12 +280,8 @@
       $.ajax({
         type: 'post',
         url: '<?php echo base_url('class_section/savescore')?>',
-        // data: new FormData($(this)[0]),
         data: {score_subject: subject_name, score_quarter:score_quarter, score_type:scoretype, student_id:JSON.stringify(student_id), score:JSON.stringify(score)},
         dataType: 'json',
-        // cache:false,
-        // contentType:false,
-        // processData:false,
         success: function(response){
           if (response.status) {
               $('#score_form')[0].reset();
@@ -432,7 +366,7 @@
               <div class="col-md-1">:</div>
               <div class="col-md-4">
                 <select class="form-control" name = "class_grade" id="class_grade">
-                  <?php foreach($class as $c):?>
+                  <?php foreach($uniqueclass as $c):?>
                     <option><?php echo $c->class_name?></option>
                   <?php endforeach?>
                 </select>

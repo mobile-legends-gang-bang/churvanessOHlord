@@ -2,8 +2,7 @@
 	<title><?php echo $title?></title>
 <script type="text/javascript">
 	$(document).ready(function(){
-
-	    $('#savelessonlog').click(function() {
+		$('#savelessonlog').click(function() {
 	      var subject_name = $('#form_lesson_log #subject_name').val();
 	      var week_no = $('#form_lesson_log #week_no').val();
 	      var day1_time1 = $('#form_lesson_log #day1_time1').val();
@@ -13,6 +12,7 @@
 	      var day1_description1 = $('#form_lesson_log #day1_description1').val();
 	      var day1_description2 = $('#form_lesson_log #day1_description2').val();
 	      var day1_description3 = $('#form_lesson_log #day1_description3').val();
+	      var day1_description4 = $('#form_lesson_log #day1_description4').val();
 	      var day1_description4 = $('#form_lesson_log #day1_description4').val();
 	      var day2_time1 = $('#form_lesson_log #day2_time1').val();
 	      var day2_time2 = $('#form_lesson_log #day2_time2').val();
@@ -47,12 +47,9 @@
 	      var day5_description3 = $('#form_lesson_log #day5_description3').val();
 	      var day5_description4 = $('#form_lesson_log #day5_description4').val();
 	      $.ajax({
-	        type: 'post',
+	      	type: 'post',
 	        url: '<?php echo base_url('lesson_log/savelessonlog')?>',
-	        data: {
-	        	subject_name : subject_name,
-	        	week_no : week_no,
-	        	day1_time1 : day1_time1,
+	        data: { subject_name : subject_name, week_no : week_no, day1_time1 : day1_time1,
 	        	day1_time2 : day1_time2,
 	        	day1_time3 : day1_time3,
 	        	day1_time4 : day1_time4,
@@ -91,21 +88,20 @@
 	        	day5_description1 : day5_description1,
 	        	day5_description2 : day5_description2,
 	        	day5_description3 : day5_description3,
-	       		day5_description4 : day5_description4
-	        },
-	        dataType: 'json',
-	       	success: function(response){
-	          if (response.status) {
-	              $('#form_lesson_log')[0].reset();
-	              swal("Lesson Log Saved!", "", "success");
-	          } else {
-	              alert(response.message);
-	          }
-	        },
-	        error:function(request,status,error){ 
-	          alert(response.message);
-	        }
-	      });
+	       		day5_description4 : day5_description4 },
+	        	dataType: 'json',
+		        success: function(response){
+		          if (response.status) {
+		              $('#form_lesson_log')[0].reset();
+		              swal("Lesson Log Added!", "", "success");
+		          } else {
+		              alert(response.message);
+		          }
+		        },
+		        error:function(request,status,error){ 
+		          alert('ahhaha sayup yot');
+		        }
+		    });
 	    });
 	});
 </script>
@@ -141,17 +137,17 @@
 				<div class="row">
 				<div class="col-md-3">Day 1</div>
 				</div>
-				<div class="row" style="padding: 10px;">
+				<div class="row" style="padding: 10px;">	
 					<input type="time" name="day1_time1" id="day1_time1" style="margin-left: 20px; width: 10%;">
 					<input type="time" name="day1_time2" id="day1_time2" style="margin-left: 130px; width: 10%;">
 					<input type="time" name="day1_time3" id="day1_time3" style="margin-left: 140px; width: 10%;">
 					<input type="time" name="day1_time4" id="day1_time4" style="margin-left: 130px; width: 10%;">
 				</div>
 				<div class="row" style="background: #cfeaa5; padding:10px; width: 100%;">
-					<textarea name="day1_desciption1" id="day1_desciption1" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 15px;"></textarea>
-					<textarea name="day1_desciption2" id="day1_desciption2" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></textarea>
-					<textarea name="day1_desciption3" id="day1_desciption3" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></textarea>
-					<textarea name="day1_desciption4" id="day1_desciption4" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></textarea>
+					<input type="text" name="day1_description1" id="day1_description1" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 15px;"></input>
+					<input type="text" name="day1_description2" id="day1_description2" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></input>
+					<input type="text" name="day1_description3" id="day1_description3" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></input>
+					<input type="text" name="day1_description4" id="day1_description4" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></input>
 				</div>
 			</div><br>
 			<div id="add">
@@ -165,10 +161,10 @@
 					<input type="time" name="day2_time4" id="day2_time4" style="margin-left: 130px; width: 10%;">
 				</div>
 				<div class="row" style="background: #9de26f; padding:10px; width: 100%;">
-					<textarea name="day2_desciption1" id="day2_desciption1" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 15px;"></textarea>
-					<textarea name="day2_desciption2" id="day2_desciption2" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></textarea>
-					<textarea name="day2_desciption3" id="day2_desciption3" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></textarea>
-					<textarea name="day2_desciption4" id="day2_desciption4" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></textarea>
+					<input type="text" name="day2_description1" id="day2_description1" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 15px;"></input>
+					<input type="text" name="day2_description2" id="day2_description2" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></input>
+					<input type="text" name="day2_description3" id="day2_description3" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></input>
+					<input type="text" name="day2_description4" id="day2_description4" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></input>
 				</div>
 			</div><br>
 			<div id="add">
@@ -182,10 +178,10 @@
 					<input type="time" name="day3_time4" id="day3_time4" style="margin-left: 130px; width: 10%;">
 				</div>
 				<div class="row" style="background: #cfeaa5; padding:10px; width: 100%;">
-					<textarea name="day3_desciption1" id="day3_desciption1" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 15px;"></textarea>
-					<textarea name="day3_desciption2" id="day3_desciption2" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></textarea>
-					<textarea name="day3_desciption3" id="day3_desciption3" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></textarea>
-					<textarea name="day3_desciption4" id="day3_desciption4" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></textarea>
+					<input type="text" name="day3_description1" id="day3_description1" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 15px;"></input>
+					<input type="text" name="day3_description2" id="day3_description2" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></input>
+					<input type="text" name="day3_description3" id="day3_description3" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></input>
+					<input type="text" name="day3_description4" id="day3_description4" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></input>
 				</div>
 			</div><br>
 			<div id="add">
@@ -199,10 +195,10 @@
 					<input type="time" name="day4_time4" id="day4_time4" style="margin-left: 130px; width: 10%;">
 				</div>
 				<div class="row" style="background: #9de26f; padding:10px; width: 100%;">
-					<textarea name="day4_desciption1" id="day4_desciption1" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 15px;"></textarea>
-					<textarea name="day4_desciption2" id="day4_desciption2" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></textarea>
-					<textarea name="day4_desciption3" id="day4_desciption3" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></textarea>
-					<textarea name="day4_desciption4" id="day4_desciption4" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></textarea>
+					<input type="text" name="day4_description1" id="day4_description1" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 15px;"></input>
+					<input type="text" name="day4_description2" id="day4_description2" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></input>
+					<input type="text" name="day4_description3" id="day4_description3" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></input>
+					<input type="text" name="day4_description4" id="day4_description4" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></input>
 				</div>
 			</div><br>
 			<div id="add">
@@ -216,10 +212,10 @@
 					<input type="time" name="day5_time4" id="day5_time4" style="margin-left: 130px; width: 10%;">
 				</div>
 				<div class="row" style="background: #cfeaa5; padding:10px; width: 100%;">
-					<textarea name="day5_description1" id="day5_description1" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 15px;"></textarea>
-					<textarea name="day5_description2" id="day5_description2" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></textarea>
-					<textarea name="day5_description3" id="day5_description3" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></textarea>
-					<textarea name="day5_description4" id="day5_description4" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></textarea>
+					<input type="text" name="day5_description1" id="day5_description1" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 15px;"></input>
+					<input type="text" name="day5_description2" id="day5_description2" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></input>
+					<input type="text" name="day5_description3" id="day5_description3" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></input>
+					<input type="text" name="day5_description4" id="day5_description4" class="form-control" style="width:20%; height: 10%; resize: none; margin-left: 40px;"></input>
 				</div>
 			</div><br>
 			<button type="submit" class="btn bg-primary" id="savelessonlog">SAVE</button>	

@@ -18,11 +18,6 @@ class Lesson_log extends CI_Controller {
 			$this->load->view('main/index', $data);
 	}
 	public function savelessonlog(){
-		$data = $this->lesson_log_model->savelessonlog();
-		print_r($data); return;
-		$response['status'] = TRUE;
-		$response['message'] = "Successfully added class section.";
-		$response['data'] = $data;
-		echo json_encode($response);
+		echo "hello world";
 	}
 }
