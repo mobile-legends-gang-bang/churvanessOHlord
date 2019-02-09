@@ -188,7 +188,7 @@ var chart = new CanvasJS.Chart("myPieChart", {
   theme: "light2",
   animationEnabled: true,
   title: {
-    text: "World Energy Consumption by Sector - 2012"
+    text: "Students passitive vs negative behaviour"
   },
   data: [{
     type: "pie",

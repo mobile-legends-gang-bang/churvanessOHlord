@@ -37,7 +37,6 @@ class Calendar extends CI_Controller {
          $data_events[] = array(
              "id" => $r->id,
              "title" => $r->title,
-             "description" => $r->description,
              "end" => $r->end,
              "start" => $r->start
          );
@@ -49,9 +48,9 @@ class Calendar extends CI_Controller {
  public function add_event() {
     /* Our calendar data */
     $name = $this->input->post("name", TRUE);
-    $desc = $this->input->post("description", TRUE);
     $start_date = $this->input->post("start_date", TRUE);
     $end_date = $this->input->post("end_date", TRUE);
+    $teacher_id = $this->session->userdata['logged_in']['teacher_id'];
 
     if(!empty($start_date)) {
        $sd = DateTime::createFromFormat("Y/m/d H:i", $start_date);
@@ -72,8 +71,8 @@ class Calendar extends CI_Controller {
     }
 
     $this->calendar_model->add_event(array(
+      "teacher_id" => $teacher_id,
        "title" => $name,
-       "description" => $desc,
        "start" => $start_date,
        "end" => $end_date
        )
@@ -82,5 +81,57 @@ class Calendar extends CI_Controller {
     redirect(site_url("calendar"));
 }
 
-}
+public function edit_event() 
+    {
+        $eventid = intval($this->input->post("eventid"));
+        $event = $this->calendar_model->get_event($eventid);
+        if($event->num_rows() == 0) {
+            echo"Invalid Event";
+            exit();
+        }
 
+        $event->row();
+
+        /* Our calendar data */
+        $name = $this->common->nohtml($this->input->post("name"));
+        $start_date = $this->common->nohtml($this->input->post("start_date"));
+        $end_date = $this->common->nohtml($this->input->post("end_date"));
+        $teacher_id= $this->common->nohtml($this->input->post("teacher_id"));
+        $delete = intval($this->input->post("delete"));
+
+        if(!$delete) {
+
+            if(!empty($start_date)) {
+                $sd = DateTime::createFromFormat("Y/m/d H:i", $start_date);
+                $start_date = $sd->format('Y-m-d H:i:s');
+                $start_date_timestamp = $sd->getTimestamp();
+            } else {
+                $start_date = date("Y-m-d H:i:s", time());
+                $start_date_timestamp = time();
+            }
+
+            if(!empty($end_date)) {
+                $ed = DateTime::createFromFormat("Y/m/d H:i", $end_date);
+                $end_date = $ed->format('Y-m-d H:i:s');
+                $end_date_timestamp = $ed->getTimestamp();
+            } else {
+                $end_date = date("Y-m-d H:i:s", time());
+                $end_date_timestamp = time();
+            }
+
+            $this->calendar_model->update_event($eventid, array(
+                "title" => $name,
+                "start" => $start_date,
+                "end" => $end_date,
+                )
+            );
+            
+        } else {
+            $this->calendar_model->delete_event($eventid);
+        }
+
+        redirect(site_url("calendar"));
+    }
+
+}
+?>
