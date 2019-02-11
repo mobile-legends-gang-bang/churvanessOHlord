@@ -142,4 +142,45 @@ class Class_section extends CI_Controller {
 		} else 
 			redirect('login', 'refresh');
 	}
+
+	public function savebehavior() {
+		if($this->session->userdata('logged_in')) {
+			$this->form_validation->set_rules('s_id', '', 'required');
+			$this->form_validation->set_rules('behavior_date', '', 'required');
+			$this->form_validation->set_rules('behavior_subject', '', 'required');
+			$this->form_validation->set_rules('behavior_class', '', 'required');
+			$this->form_validation->set_rules('behavior_quarter', '', 'required');
+			$response['status'] = FALSE;
+			if ($this->form_validation->run()) {
+				$teacher_id	= $this->session->userdata['logged_in']['teacher_id'];
+				$student_id = json_decode($this->input->post('s_id'));
+				$class_name = $this->input->post('behavior_class');
+				$behavior_date = $this->input->post('behavior_date');
+				$subject_name = $this->input->post('behavior_subject');
+				$behavior_quarter = $this->input->post('behavior_quarter');
+				$remarks = json_decode($this->input->post('remarks'));
+				$behavior_name = json_decode($this->input->post('behavior_name'));
+				$data = array();
+				for ($i=0; $i < count($student_id); $i++) { 
+					$data['s_id'] = $student_id[$i];
+					$data['subject_id'] = $subject_name;
+					$data['teacher_id'] = $teacher_id;
+					$data['behavior_id'] = $behavior_name;
+					$data['class_name'] = $class_name;
+					$data['date'] = $behavior_date;
+					$data['quarter'] = $behavior_quarter;
+					$data['remarks'] = $remarks[$i];
+					$data['behavior_id'] = $behavior_name[$i];
+					$this->db->insert('public.behavior_record', $data);
+				}
+				// print_r($data);return;
+				$response['status'] = TRUE;
+				$response['message'] = "Successfully saved scores.";
+			} else 
+				$response['message'] = 'Please fill up all required fields';
+			echo json_encode($response);
+		} else 
+			redirect('login', 'refresh');
+	}
+
 }
