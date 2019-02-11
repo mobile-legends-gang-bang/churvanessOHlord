@@ -118,7 +118,8 @@
       </form>
       <div class="card mb-3" style="padding-top: 10px;">
         <div class="card-header">
-          <i class="fa fa-table"> &nbsp;&nbsp;<span></i>Attendance Checking</span></div>
+          <i class="fa fa-table"> &nbsp;&nbsp;<span></i>Attendance Checking</span>
+        </div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

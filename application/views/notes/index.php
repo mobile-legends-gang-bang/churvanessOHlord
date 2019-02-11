@@ -8,8 +8,9 @@
 			<div class="col-md-1">:</div>
 			<div class="col-md-4">
 				<select class="form-control">
-					<option>Subject 1</option>
-					<option>Subject 2</option>
+					<?php foreach ($subjectlist as $s): ?>
+						<option><?php echo $s->subject_name?></option>	
+					<?php endforeach ?>
 				</select>
 			</div>
 		</div>
@@ -18,8 +19,9 @@
 			<div class="col-md-1">:</div>
 			<div class="col-md-4">
 				<select class="form-control">
-					<option>Classroom 1</option>
-					<option>Classroom 2</option>
+					<?php foreach ($uniqueclass as $u): ?>
+						<option value="<?php echo $u->class_id?>"><?php echo $u->class_name?></option>	
+					<?php endforeach ?>
 				</select>
 			</div>
 		</div>
@@ -42,5 +44,4 @@
 				<button class="btn bg-success">Save Reminder</button>
 			</div>
 		</div>
-
 </body>
