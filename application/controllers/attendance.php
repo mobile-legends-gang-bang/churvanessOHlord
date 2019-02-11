@@ -5,6 +5,8 @@ class Attendance extends CI_Controller {
 		parent::__construct();
 		$this->load->model('section_model');
 		$this->load->model('behavior_model');
+		$this->load->model('attendance_model');
+
 	}
 
 	public function index() {
@@ -57,4 +59,9 @@ class Attendance extends CI_Controller {
 		} else 
 			redirect('login', 'refresh');
 	}
+	public function getstudentsBySection(){
+        $data = $this->attendance_model->getstudentsBySection();
+        echo json_encode($data);
+    }
+	
 }

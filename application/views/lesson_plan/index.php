@@ -59,13 +59,10 @@
 	  <h4>
 	    You may now start creating and editing your lesson plan.
 	  </h4>	
-	 <form method="post" action="<?php echo base_url()?>lesson_plan/Word">  
-		  	<div id="editor">
-      			<div id='edit' style="margin-top: 30px;" name="area2"></div>
-  			</div>
-		 	<br/>
-	 		<input type="submit" name="create_word" class="btn btn-info" value="Export to Word" />  
-	  </form>  
+		<div id="editor">
+      	<div id='edit' style="margin-top: 30px;" name="area2"></div>
+  	</div>
+ 
   
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

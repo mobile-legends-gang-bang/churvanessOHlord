@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <head>
+=======
+head>
+>>>>>>> 2f7cc8bd3c323c6559b6a814015b4cf1d5d21e7e
   <title><?php echo $title?></title>
   <style type="text/css">
     th{
