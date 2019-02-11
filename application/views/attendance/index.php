@@ -1,4 +1,4 @@
-  <head>
+head>
   <title><?php echo $title?></title>
   <style type="text/css">
     th{
@@ -36,6 +36,75 @@
         } else 
           $('#student_roster').html("");
       });
+
+      $('#class_seat').change(function(){
+          var class_grade = $('#class_seat').val();
+          $.ajax({
+            url: '<?php echo base_url('attendance/getstudentsBySection')?>',
+            method:'post',
+            dataType:'json',
+            data: {class_seat:class_grade},
+            success : function(data){
+              var html = '';
+              var i;
+              var record_student_grade = "";
+              for(i = 0 ; i<data.length; i++){
+                // This is ES6 format (new one in jquery) no need for concat 
+                record_student_grade += `<option>
+                        ${data[i].lname}, ${data[i].fname}
+                    </option>`;
+              }
+              $('#student_seat1').html(record_student_grade);
+              $('#student_seat2').html(record_student_grade);
+              $('#student_seat3').html(record_student_grade);
+              $('#student_seat4').html(record_student_grade);
+              $('#student_seat5').html(record_student_grade);
+              $('#student_seat6').html(record_student_grade);
+              $('#student_seat7').html(record_student_grade);
+              $('#student_seat8').html(record_student_grade);
+              $('#student_seat9').html(record_student_grade);
+              $('#student_seat10').html(record_student_grade);
+              $('#student_seat11').html(record_student_grade);
+              $('#student_seat12').html(record_student_grade);
+              $('#student_seat13').html(record_student_grade);
+              $('#student_seat14').html(record_student_grade);
+              $('#student_seat15').html(record_student_grade);
+              $('#student_seat16').html(record_student_grade);
+              $('#student_seat17').html(record_student_grade);
+              $('#student_seat18').html(record_student_grade);
+              $('#student_seat19').html(record_student_grade);
+              $('#student_seat20').html(record_student_grade);
+              $('#student_seat21').html(record_student_grade);
+              $('#student_seat22').html(record_student_grade);
+              $('#student_seat23').html(record_student_grade);
+              $('#student_seat24').html(record_student_grade);
+              $('#student_seat25').html(record_student_grade);
+              $('#student_seat26').html(record_student_grade);
+              $('#student_seat27').html(record_student_grade);
+              $('#student_seat28').html(record_student_grade);
+              $('#student_seat29').html(record_student_grade);
+              $('#student_seat30').html(record_student_grade);
+              $('#student_seat31').html(record_student_grade);
+              $('#student_seat32').html(record_student_grade);
+              $('#student_seat33').html(record_student_grade);
+              $('#student_seat34').html(record_student_grade);
+              $('#student_seat35').html(record_student_grade);
+              $('#student_seat35').html(record_student_grade);
+              $('#student_seat36').html(record_student_grade);
+              $('#student_seat37').html(record_student_grade);
+              $('#student_seat38').html(record_student_grade);
+              $('#student_seat39').html(record_student_grade);
+              $('#student_seat40').html(record_student_grade);
+              $('#student_seat41').html(record_student_grade);
+              $('#student_seat42').html(record_student_grade);
+              $('#student_seat43').html(record_student_grade);
+              $('#student_seat44').html(record_student_grade);
+              $('#student_seat45').html(record_student_grade);
+
+            }
+          });
+      });
+
       $('#saveattendance').click(function() {
         var subject_name = $('#attendance_form #subject_name').val();
         var class_grade = $('#attendance_form #class_grade').val();
@@ -93,9 +162,9 @@
     <div class="container-fluid">
       <form method="post" id="attendance_form">
         <div class="row" style="padding: 20px;">
-        	<div style="padding-right: 20px; padding-top: 5px;">Date</div>
+          <div style="padding-right: 20px; padding-top: 5px;">Date</div>
           <div>
-          	<input name="attendance_date" id="attendance_date" class="form-control" value="<?php echo date('m/d/Y')?>" disabled>
+            <input name="attendance_date" id="attendance_date" class="form-control" value="<?php echo date('m/d/Y')?>" disabled>
           </div>
           <div style="padding-right: 20px; padding-top: 5px;">Subject Select</div>
           <div>
@@ -151,22 +220,182 @@
         </div>
       </div>
     </div>
-    <div class="tab-pane fade" id="seatplan" role="tabpanel" aria-labelledby="seat-plan-tab">
-      <div style="padding-right: 20px; width: 50px; padding-top: 5px; padding-left: 10px;">Class Section</div>
-      <div>
-        <select class="form-control">
-        <optgroup>
-          <option>
-            Einstein
-          </option>
-          <option>
-            Newton
-          </option>
-          <option>
-            Pascal
-          </option>
-        </optgroup>
-      </select>
+  </div>
+
+<div class="tab-pane fade" id="seatplan" role="tabpanel" aria-labelledby="seat-plan-tab">
+    <div>
+        <form method="post" id="attendance_form">
+        <div class="row" style="padding: 20px;">
+          <div style="padding-right: 20px; padding-top: 5px; padding-left: 10px;">Class Section</div>
+          <div>
+            <select class="form-control" name="class_seat" id="class_seat">
+              <option></option>
+              <?php foreach($uniqueclass as $c):?>
+                <option><?php echo $c->class_name?></option>
+              <?php endforeach?>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+        <div class="container">
+          <div class="row" style="margin-left: 437px;">
+         <div class="cell">Teacher</div>
+       </div>
+    <div class="row">
+        <div class="cell">
+          <select id="student_seat1"></select>
+        </div>
+        <div class="cell">    
+          <select id="student_seat2"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat3"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat4"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat5"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat6"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat7"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat8"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="cell">
+          <select id="student_seat9"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat10"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat11"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat12"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat13"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat14"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat15"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat16"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="cell">
+          <select id="student_seat17"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat18"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat19"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat20"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat21"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat22"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat23"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat24"></select>
+        </div>
+    </div>
+      <div class="row">
+        <div class="cell">
+          <select id="student_seat25"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat26"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat27"></select>
+        </div>
+        <div class="cell"> 
+         <select id="student_seat28"></select>
+        </div>
+        <div class="cell">
+         <select id="student_seat29"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat30"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat31"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat32"></select>
+        </div>
+    </div>
+      <div class="row">
+        <div class="cell">
+          <select id="student_seat33"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat34"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat35"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat36"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat37"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat38"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat39"></select>
+        </div>
+        <div class="cell">
+          <select id="student_seat40"></select>
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+<style type="text/css">
+.container{
+  margin-top: 40px; 
+  align-self: center;
+}
+.row {
+    display: flex;
+}
+.cell {
+    background: #98FB98;
+    color:  white;
+    width: 130px;
+    height: 80px;
+    flex: 0 0 auto;
+    text-align: center;
+    padding: 12px;
+    margin: 5px;
+    border-right: 3px solid #fff;
+    border-bottom: 3px solid #fff;
+}
+</style>
       </div>
     </div>
     <!-- Scroll to Top Button-->
