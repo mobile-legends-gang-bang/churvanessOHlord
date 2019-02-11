@@ -76,7 +76,7 @@ class Behavior extends CI_Controller {
 					$response['status'] = FALSE;
 					$response['message'] = "Nothing's been updated";
 				}
-				else{
+			else{
 					$data = $this->behavior_model->updatebehavior();
 					$response['status'] = TRUE;
 					$response['message'] = "Successfully updated behavior details.";
