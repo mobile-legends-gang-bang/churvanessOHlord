@@ -112,7 +112,6 @@ class Student_profile extends CI_Controller {
 					);
 			    }
 			}
-			// print_r($data); return;
             $this->student_profile_model->insert($data);
 		} 
 	}

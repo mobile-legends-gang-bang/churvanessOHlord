@@ -5,6 +5,7 @@ class Class_section extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('section_model');
+		$this->load->model('behavior_model');
 	}
 
 	public function index() {
@@ -19,6 +20,7 @@ class Class_section extends CI_Controller {
 			$data['subjectlist'] = $this->section_model->getsubject();
 			$data['class_id'] = $this->section_model->getclassid();
 			$data['class'] = $this->section_model->getclass();
+			$data['behavior'] = $this->behavior_model->getbehavior();
 			$data['uniqueclass'] = $this->section_model->getUniqueclass();
 			$this->load->view('main/index', $data);
 		}
@@ -106,25 +108,32 @@ class Class_section extends CI_Controller {
 			$this->form_validation->set_rules('score_subject', '', 'required');
 			$this->form_validation->set_rules('score_quarter', '', 'required');
 			$this->form_validation->set_rules('score_type', '', 'required');
+			$this->form_validation->set_rules('class_grade', '', 'required');
 			$this->form_validation->set_rules('score', '', 'required');
+			$this->form_validation->set_rules('over', '', 'required');
 			$response['status'] = FALSE;
 			if ($this->form_validation->run()) {
 				$teacher_id	= $this->session->userdata['logged_in']['teacher_id'];
 				$student_id = json_decode($this->input->post('student_id'));
+				$class_name = $this->input->post('class_grade');
 				$subject_name = $this->input->post('score_subject');
 				$score_quarter = $this->input->post('score_quarter');
 				$score_type = $this->input->post('score_type');
 				$score = json_decode($this->input->post('score'));
+				$over = $this->input->post('over');
 				$data = array();
 				for ($i=0; $i < count($student_id); $i++) { 
 					$data['s_id'] = $student_id[$i];
 					$data['subject_id'] = $subject_name;
 					$data['teacher_id'] = $teacher_id;
 					$data['quarter'] = $score_quarter;
+					$data['class_name'] = $class_name;
 					$data['score'] = $score[$i];
+					$data['over'] = $over;
 					$data['score_type'] = $score_type;
 					$this->db->insert('public.student_scores', $data);
 				}
+				// print_r($data);return;
 				$response['status'] = TRUE;
 				$response['message'] = "Successfully saved scores.";
 			} else 

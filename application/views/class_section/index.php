@@ -270,22 +270,30 @@
       var subject_name = $('#score_form #score_subject').val();
       var score_quarter = $('#score_form #score_quarter').val();
       var scoretype = $('#score_form #score_type').val();
-
+      var class_name = $('#score_form #class_grade').val();
+      var over = $('#score_form #over').val();
       student_id = $('input[name^="student_id"]').map(function(){
                 return this.value;
             }).get();
       score = $('input[name^="score"]').map(function(){
                 return this.value;
             }).get();
+      // alert(student_id); return;
       $.ajax({
         type: 'post',
         url: '<?php echo base_url('class_section/savescore')?>',
-        data: {score_subject: subject_name, score_quarter:score_quarter, score_type:scoretype, student_id:JSON.stringify(student_id), score:JSON.stringify(score)},
+        data: {score_subject: subject_name, score_quarter:score_quarter, class_grade:class_name, over:over, score_type:scoretype, student_id:JSON.stringify(student_id), score:JSON.stringify(score)},
         dataType: 'json',
         success: function(response){
           if (response.status) {
               $('#score_form')[0].reset();
               swal("Successfully saved Scores!", "", "success");
+              $('#score').val("");
+              $('#score_subject').val("");
+              $('#score_quarter').val("");
+              $('#score_type').val("");
+              $('#class_grade').val("");
+              $('#over').val("");
           } else {
               alert(response.message);
           }
@@ -294,7 +302,6 @@
           alert('ahhaha sayup yot');
         }
       });
-
     });
   });
 </script>
@@ -398,6 +405,13 @@
                 </select>
               </div>
             </div>
+            <div class="row row_padding">
+              <div class="col-md-2">Perfect Score</div>
+              <div class="col-md-1">:</div>
+              <div class="col-md-4">
+                <input type="number" name="over" id="over" class="form-control">
+              </div>
+            </div>
             <div class="card-header">
               <i class="fa fa-table"> &nbsp;&nbsp;<span></i>Student Roster</span>
             </div>
@@ -434,9 +448,9 @@
             <div class="col-md-1">:</div>
             <div class="col-md-4">
               <select class="form-control">
-                <option>Subject 1</option>
-                <option>Subject 2</option>
-                <option>Subject 3</option>
+                <?php foreach($subjectlist as $c):?>
+                  <option><?php echo $c->subject_name?></option>
+                <?php endforeach?>
               </select>
             </div>
           </div>
@@ -445,16 +459,11 @@
             <div class="col-md-1">:</div>
             <div class="col-md-4">
               <select class="form-control">
-                <?php foreach($class as $c):?>
-                  <option><?php echo $c->section_name?></option>
-                <?php endforeach?>
+                <?php foreach($uniqueclass as $c):?>
+                    <option><?php echo $c->class_name?></option>
+                  <?php endforeach?>
               </select>
             </div>
-          </div>
-          <div class="row row_padding">
-            <div class="col-md-2">Level</div>
-            <div class="col-md-1">:</div>
-            <div class="col-md-4"><input class="form-control" type="text" name="" style="width: 50px!important"></div>
           </div>
           <div class="row row_padding">
             <div class="col-md-2">Quarter</div>
@@ -493,149 +502,6 @@
                 <tbody>
                   <tr>
                     <td>Alicante, Karystel Zapanta</td>
-                    <td>
-                      <select class="form-control">
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" name="" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Cabuenas, Jayzon Generale</td>
-                    <td>
-                      <select class="form-control">
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" name="" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Gutierrez, Bernard Joseph</td>
-                    <td>
-                      <select class="form-control">
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" name="" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Naga, Althea Marshallatte Oyao</td>
-                    <td>
-                      <select class="form-control">
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" name="" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Alicante, Karystel Zapanta</td>
-                    <td>
-                      <select class="form-control">
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" name="" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Cabuenas, Jayzon Generale</td>
-                    <td>
-                      <select class="form-control">
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" name="" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Gutierrez, Bernard Joseph</td>
-                    <td>
-                      <select class="form-control">
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" name="" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Naga, Althea Marshallatte Oyao</td>
-                    <td>
-                      <select class="form-control">
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" name="" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Alicante, Karystel Zapanta</td>
-                    <td>
-                      <select class="form-control">
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" name="" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Cabuenas, Jayzon Generale</td>
-                    <td>
-                      <select class="form-control">
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" name="" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Gutierrez, Bernard Joseph</td>
-                    <td>
-                      <select class="form-control">
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" name="" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Naga, Althea Marshallatte Oyao</td>
                     <td>
                       <select class="form-control">
                         <option>Behavior 1</option>
