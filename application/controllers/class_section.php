@@ -6,6 +6,7 @@ class Class_section extends CI_Controller {
 		parent::__construct();
 		$this->load->model('section_model');
 		$this->load->model('behavior_model');
+		$this->load->model('note_model');
 	}
 
 	public function index() {
@@ -22,6 +23,7 @@ class Class_section extends CI_Controller {
 			$data['class'] = $this->section_model->getclass();
 			$data['behavior'] = $this->behavior_model->getbehavior();
 			$data['uniqueclass'] = $this->section_model->getUniqueclass();
+			$data['notesview'] = $this->note_model->getnotesToday();
 			$this->load->view('main/index', $data);
 		}
 	}
