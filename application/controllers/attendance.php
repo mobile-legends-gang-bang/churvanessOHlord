@@ -6,7 +6,6 @@ class Attendance extends CI_Controller {
 		$this->load->model('section_model');
 		$this->load->model('behavior_model');
 		$this->load->model('attendance_model');
-
 	}
 
 	public function index() {
