@@ -36,8 +36,8 @@
 <script type="text/javascript">
   $(document).ready(function(){
     get_class();
+    // getnotesToday();
     // getstudents();
-    // load_data();
 
     function get_class(){
       $.ajax({
@@ -595,9 +595,11 @@
         </div>
 
         <div class="tab-pane fade" id="notesTab" role="tabpanel" aria-labelledby="notes-tab">
-          <div class="row"> 
-            <div class="col-md-8 bg1">RANDOM NOTE</div>
-            <div class="col-md-4 bg2">DATE AND TIME</div>
+          <div class="row" id="notesview"> 
+            <?php foreach ($notesview as $n): ?>
+                <div class='col-md-8 bg1'><?php echo $n->note_description?></div>
+                <div class='col-md-4 bg2'><?php echo $n->note_date?></div><br>
+            <?php endforeach ?>
         </div>
       </div>
     </div>

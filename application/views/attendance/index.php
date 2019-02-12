@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 <head>
-=======
-head>
->>>>>>> 2f7cc8bd3c323c6559b6a814015b4cf1d5d21e7e
+
   <title><?php echo $title?></title>
   <style type="text/css">
     th{
@@ -54,59 +51,153 @@ head>
               var record_student_grade = "";
               for(i = 0 ; i<data.length; i++){
                 // This is ES6 format (new one in jquery) no need for concat 
-                record_student_grade += `<option>
+                record_student_grade += `<option value=" ${data[i].lname} , ${data[i].fname}"> 
                         ${data[i].lname}, ${data[i].fname}
                     </option>`;
               }
-              $('#student_seat1').html(record_student_grade);
-              $('#student_seat2').html(record_student_grade);
-              $('#student_seat3').html(record_student_grade);
-              $('#student_seat4').html(record_student_grade);
-              $('#student_seat5').html(record_student_grade);
-              $('#student_seat6').html(record_student_grade);
-              $('#student_seat7').html(record_student_grade);
-              $('#student_seat8').html(record_student_grade);
-              $('#student_seat9').html(record_student_grade);
-              $('#student_seat10').html(record_student_grade);
-              $('#student_seat11').html(record_student_grade);
-              $('#student_seat12').html(record_student_grade);
-              $('#student_seat13').html(record_student_grade);
-              $('#student_seat14').html(record_student_grade);
-              $('#student_seat15').html(record_student_grade);
-              $('#student_seat16').html(record_student_grade);
-              $('#student_seat17').html(record_student_grade);
-              $('#student_seat18').html(record_student_grade);
-              $('#student_seat19').html(record_student_grade);
-              $('#student_seat20').html(record_student_grade);
-              $('#student_seat21').html(record_student_grade);
-              $('#student_seat22').html(record_student_grade);
-              $('#student_seat23').html(record_student_grade);
-              $('#student_seat24').html(record_student_grade);
-              $('#student_seat25').html(record_student_grade);
-              $('#student_seat26').html(record_student_grade);
-              $('#student_seat27').html(record_student_grade);
-              $('#student_seat28').html(record_student_grade);
-              $('#student_seat29').html(record_student_grade);
-              $('#student_seat30').html(record_student_grade);
-              $('#student_seat31').html(record_student_grade);
-              $('#student_seat32').html(record_student_grade);
-              $('#student_seat33').html(record_student_grade);
-              $('#student_seat34').html(record_student_grade);
-              $('#student_seat35').html(record_student_grade);
-              $('#student_seat35').html(record_student_grade);
-              $('#student_seat36').html(record_student_grade);
-              $('#student_seat37').html(record_student_grade);
-              $('#student_seat38').html(record_student_grade);
-              $('#student_seat39').html(record_student_grade);
-              $('#student_seat40').html(record_student_grade);
-              $('#student_seat41').html(record_student_grade);
-              $('#student_seat42').html(record_student_grade);
-              $('#student_seat43').html(record_student_grade);
-              $('#student_seat44').html(record_student_grade);
-              $('#student_seat45').html(record_student_grade);
-
+              $('#seat1').html(record_student_grade);
+              $('#seat2').html(record_student_grade);
+              $('#seat3').html(record_student_grade);
+              $('#seat4').html(record_student_grade);
+              $('#seat5').html(record_student_grade);
+              $('#seat6').html(record_student_grade);
+              $('#seat7').html(record_student_grade);
+              $('#seat8').html(record_student_grade);
+              $('#seat9').html(record_student_grade);
+              $('#seat10').html(record_student_grade);
+              $('#seat11').html(record_student_grade);
+              $('#seat12').html(record_student_grade);
+              $('#seat13').html(record_student_grade);
+              $('#seat14').html(record_student_grade);
+              $('#seat15').html(record_student_grade);
+              $('#seat16').html(record_student_grade);
+              $('#seat17').html(record_student_grade);
+              $('#seat18').html(record_student_grade);
+              $('#seat19').html(record_student_grade);
+              $('#seat20').html(record_student_grade);
+              $('#seat21').html(record_student_grade);
+              $('#seat22').html(record_student_grade);
+              $('#seat23').html(record_student_grade);
+              $('#seat24').html(record_student_grade);
+              $('#seat25').html(record_student_grade);
+              $('#seat26').html(record_student_grade);
+              $('#seat27').html(record_student_grade);
+              $('#seat28').html(record_student_grade);
+              $('#seat29').html(record_student_grade);
+              $('#seat30').html(record_student_grade);
+              $('#seat31').html(record_student_grade);
+              $('#seat32').html(record_student_grade);
+              $('#seat33').html(record_student_grade);
+              $('#seat34').html(record_student_grade);
+              $('#seat35').html(record_student_grade);
+              $('#seat35').html(record_student_grade);
+              $('#seat36').html(record_student_grade);
+              $('#seat37').html(record_student_grade);
+              $('#seat38').html(record_student_grade);
+              $('#seat39').html(record_student_grade);
+              $('#seat40').html(record_student_grade);
             }
           });
+      });
+
+      $('#saveseatplan').click(function(){
+        var class_grade = $('#seatplan_form #class_seat').val();
+        var seat1 = $('#seat1').val();
+        var seat2 = $('#seat2').val();
+        var seat3 = $('#seat3').val();
+        var seat4 = $('#seat4').val();
+        var seat5 = $('#seat5').val();
+        var seat6 = $('#seat6').val();
+        var seat7 = $('#seat7').val();
+        var seat8 = $('#seat8').val();
+        var seat9 = $('#seat9').val();
+        var seat10 = $('#seat10').val();
+        var seat11 = $('#seat11').val();
+        var seat12 = $('#seat12').val();
+        var seat13 = $('#seat13').val();
+        var seat14 = $('#seat14').val();
+        var seat15 = $('#seat15').val();
+        var seat16 = $('#seat16').val();
+        var seat17 = $('#seat17').val();
+        var seat18 = $('#seat18').val();
+        var seat19 = $('#seat19').val();
+        var seat20 = $('#seat20').val();
+        var seat21 = $('#seat21').val();
+        var seat22 = $('#seat22').val();
+        var seat23 = $('#seat23').val();
+        var seat24 = $('#seat24').val();
+        var seat25 = $('#seat25').val();
+        var seat26 = $('#seat26').val();
+        var seat27 = $('#seat27').val();
+        var seat28 = $('#seat28').val();
+        var seat29 = $('#seat29').val();
+        var seat30 = $('#seat30').val();
+        var seat31 = $('#seat31').val();
+        var seat32 = $('#seat32').val();
+        var seat33 = $('#seat33').val();
+        var seat34 = $('#seat34').val();
+        var seat35 = $('#seat35').val();
+        var seat36 = $('#seat36').val();
+        var seat37 = $('#seat37').val();
+        var seat38 = $('#seat38').val();
+        var seat39 = $('#seat39').val();
+        var seat40 = $('#seat40').val();
+
+        $.ajax({
+          type: 'post',
+            url: '<?php echo base_url('attendance/saveseatplan')?>',
+            data: {class_seat:class_grade,
+              seat1 : seat1,
+              seat2 : seat2,
+              seat3 : seat3,
+              seat4 : seat4,
+              seat5 : seat5,
+              seat6 : seat6,
+              seat7 : seat7,
+              seat8 : seat8,
+              seat9 : seat9,
+              seat10 : seat10,
+              seat11 : seat11,
+              seat12 : seat12,
+              seat13 : seat13,
+              seat14 : seat14,
+              seat15 : seat15,
+              seat16 : seat16,
+              seat17 : seat17,
+              seat18 : seat18,
+              seat19 : seat19,
+              seat20 : seat20,
+              seat21 : seat21,
+              seat22 : seat22,
+              seat23 : seat23,
+              seat24 : seat24,
+              seat25 : seat25,
+              seat26 : seat26,
+              seat27 : seat27,
+              seat28 : seat28,
+              seat29 : seat29,
+              seat30 : seat30,
+              seat31 : seat31,
+              seat32 : seat32,
+              seat33 : seat33,
+              seat34 : seat34,
+              seat35 : seat35,
+              seat36 : seat36, 
+              seat37 : seat37,
+              seat39 : seat39,
+              seat40 : seat40 },
+            dataType: 'json',
+            success: function(response){
+              if (response.status) {
+                  swal("Seat Plan Added!", "", "success");
+              } else {
+                  alert(response.message);
+              }
+            },
+            error:function(request,status,error){ 
+              alert('ahhaha sayup yot');
+            }
+        });
       });
 
       $('#saveattendance').click(function() {
@@ -145,6 +236,58 @@ head>
           }
         });
       });
+      $('#subject_name, #class_seatcheck').change(function(){
+          var class_grade = $('#class_seatcheck').val();
+
+          $.ajax({
+            url: '<?php echo base_url('attendance/getseat')?>',
+            method:'post',
+            dataType:'json',
+            data: {class_seatcheck:class_grade},
+            success : function(data){
+            $('#checkseat_form #seat1').val(data[0].seat1);
+            $('#checkseat_form #seat2').val(data[0].seat2);
+            $('#checkseat_form #seat3').val(data[0].seat3);
+            $('#checkseat_form #seat4').val(data[0].seat4);
+            $('#checkseat_form #seat5').val(data[0].seat5);
+            $('#checkseat_form #seat6').val(data[0].seat6);
+            $('#checkseat_form #seat7').val(data[0].seat7);
+            $('#checkseat_form #seat8').val(data[0].seat8);
+            $('#checkseat_form #seat9').val(data[0].seat9);
+            $('#checkseat_form #seat10').val(data[0].seat10);
+            $('#checkseat_form #seat11').val(data[0].seat11);
+            $('#checkseat_form #seat12').val(data[0].seat12);
+            $('#checkseat_form #seat13').val(data[0].seat13);
+            $('#checkseat_form #seat14').val(data[0].seat14);
+            $('#checkseat_form #seat15').val(data[0].seat15);
+            $('#checkseat_form #seat16').val(data[0].seat16);
+            $('#checkseat_form #seat17').val(data[0].seat17);
+            $('#checkseat_form #seat18').val(data[0].seat18);
+            $('#checkseat_form #seat19').val(data[0].seat19);
+            $('#checkseat_form #seat20').val(data[0].seat20);
+            $('#checkseat_form #seat21').val(data[0].seat21);
+            $('#checkseat_form #seat22').val(data[0].seat22);
+            $('#checkseat_form #seat23').val(data[0].seat23);
+            $('#checkseat_form #seat24').val(data[0].seat24);
+            $('#checkseat_form #seat25').val(data[0].seat25);
+            $('#checkseat_form #seat26').val(data[0].seat26);
+            $('#checkseat_form #seat27').val(data[0].seat27);
+            $('#checkseat_form #seat28').val(data[0].seat28);
+            $('#checkseat_form #seat29').val(data[0].seat29);
+            $('#checkseat_form #seat30').val(data[0].seat30);
+            $('#checkseat_form #seat31').val(data[0].seat31);
+            $('#checkseat_form #seat32').val(data[0].seat32);
+            $('#checkseat_form #seat33').val(data[0].seat33);
+            $('#checkseat_form #seat34').val(data[0].seat34);
+            $('#checkseat_form #seat35').val(data[0].seat35);
+            $('#checkseat_form #seat36').val(data[0].seat36);
+            $('#checkseat_form #seat37').val(data[0].seat37);
+            $('#checkseat_form #seat38').val(data[0].seat38);
+            $('#checkseat_form #seat39').val(data[0].seat39);
+            $('#checkseat_form #seat40').val(data[0].seat40);
+            }
+          });
+      });
     });
   </script>
 </head>
@@ -158,6 +301,10 @@ head>
         <li class="nav-item">
           <a class="nav-link" id="seat-plan-tab" data-toggle="pill" href="#seatplan" role="tab" aria-controls="seatplan" aria-selected="false">Seat Plan</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" id="check-seat-plan-tab" data-toggle="pill" href="#checkseatplan" role="tab" aria-controls="checkseatplan" aria-selected="false">Check Attendance by Seat Plan</a>
+        </li>
+
       </ul>
     </div>
 
@@ -226,9 +373,9 @@ head>
     </div>
   </div>
 
-<div class="tab-pane fade" id="seatplan" role="tabpanel" aria-labelledby="seat-plan-tab">
+  <div class="tab-pane fade" id="seatplan" role="tabpanel" aria-labelledby="seat-plan-tab">
     <div>
-        <form method="post" id="attendance_form">
+        <form method="post" id="seatplan_form">
         <div class="row" style="padding: 20px;">
           <div style="padding-right: 20px; padding-top: 5px; padding-left: 10px;">Class Section</div>
           <div>
@@ -242,150 +389,323 @@ head>
         </div>
       </form>
     </div>
+    <div class="container">
+          <div class="row" style="margin-left: 437px;">
+         <div class="cell">Teacher</div>
+         </div>
+    <div class="row">
+        <div class="cell">
+          <select id="seat1" name="seat1"></select>
+        </div>
+        <div class="cell">    
+          <select id="seat2" name="seat2"></select>
+        </div>
+        <div class="cell">
+          <select id="seat3" name="seat3"></select>
+        </div>
+        <div class="cell">
+          <select id="seat4" name="seat4"></select>
+        </div>
+        <div class="cell">
+          <select id="seat5" name="seat5"></select>
+        </div>
+        <div class="cell">
+          <select id="seat6" name="seat6"></select>
+        </div>
+        <div class="cell">
+          <select id="seat7" name="seat7"></select>
+        </div>
+        <div class="cell">
+          <select id="seat8" name="seat8"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="cell">
+          <select id="seat9" name="seat9"></select>
+        </div>
+        <div class="cell">
+          <select id="seat10" name="seat10"></select>
+        </div>
+        <div class="cell">
+          <select id="seat11" name="seat11"></select>
+        </div>
+        <div class="cell">
+          <select id="seat12" name="seat12"></select>
+        </div>
+        <div class="cell">
+          <select id="seat13" name="seat13"></select>
+        </div>
+        <div class="cell">
+          <select id="seat14" name="seat14"></select>
+        </div>
+        <div class="cell">
+          <select id="seat15" name="seat15"></select>
+        </div>
+        <div class="cell">
+          <select id="seat16" name="seat16"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="cell">
+          <select id="seat17" name="seat17"></select>
+        </div>
+        <div class="cell">
+          <select id="seat18" name="seat18"></select>
+        </div>
+        <div class="cell">
+          <select id="seat19" name="seat19"></select>
+        </div>
+        <div class="cell">
+          <select id="seat20" name="seat20"></select>
+        </div>
+        <div class="cell">
+          <select id="seat21" name="seat21"></select>
+        </div>
+        <div class="cell">
+          <select id="seat22" name="seat22"></select>
+        </div>
+        <div class="cell">
+          <select id="seat23" name="seat23"></select>
+        </div>
+        <div class="cell">
+          <select id="seat24" name="seat24"></select>
+        </div>
+    </div>
+      <div class="row">
+        <div class="cell">
+          <select id="seat25" name="seat25"></select>
+        </div>
+        <div class="cell">
+          <select id="seat26" name="seat26"></select>
+        </div>
+        <div class="cell">
+          <select id="seat27" name="seat27"></select>
+        </div>
+        <div class="cell"> 
+         <select id="seat28" name="seat28"></select>
+        </div>
+        <div class="cell">
+         <select id="seat29" name="seat29"></select>
+        </div>
+        <div class="cell">
+          <select id="seat30" name="seat30"></select>
+        </div>
+        <div class="cell">
+          <select id="seat31" name="seat31"></select>
+        </div>
+        <div class="cell">
+          <select id="seat32" name="seat32"></select>
+        </div>
+    </div>
+      <div class="row">
+        <div class="cell">
+          <select id="seat33" name="seat33"></select>
+        </div>
+        <div class="cell">
+          <select id="seat34" name="seat34"></select>
+        </div>
+        <div class="cell">
+          <select id="seat35" name="seat35"></select>
+        </div>
+        <div class="cell">
+          <select id="seat36" name="seat36"></select>
+        </div>
+        <div class="cell">
+          <select id="seat37" name="seat37"></select>
+        </div>
+        <div class="cell">
+          <select id="seat38" name="seat38"></select>
+        </div>
+        <div class="cell">
+          <select id="seat39" name="seat39"></select>
+        </div>
+        <div class="cell">
+          <select id="seat40" name="seat40"></select>
+        </div>
+    </div>
+   </div>
+   <div class="row">
+                <div class="col-md-12">
+                  <button class="btn btn-primary" style="float: right!important;" name="saveseatplan" id="saveseatplan">Save Seat Plan</button>
+                </div>
+  </div>
+  </div>
+ <div class="tab-pane fade" id="checkseatplan" role="tabpanel" aria-labelledby="check-seat-plan-tab">
+   <div class="container-fluid">
+     <form method="post" id="checkseat_form">
+        <div class="row" style="padding: 20px;">
+          <div style="padding-right: 20px; padding-top: 5px;">Date</div>
+          <div>
+            <input name="attendance_datebyseat" id="attendance_datebyseat" class="form-control" value="<?php echo date('m/d/Y')?>" disabled>
+          </div>
+          <div style="padding-right: 20px; padding-top: 5px;">Subject Select</div>
+          <div>
+            <select class="form-control" name="subject_name" id="subject_name">
+              <option></option>
+              <?php foreach($subjectlist as $c):?>
+                <option value="<?php echo $c->subject_id?>"><?php echo $c->subject_name?></option>
+              <?php endforeach?>
+            </select>
+          </div>
+          <div style="padding-right: 20px; padding-top: 5px; padding-left: 10px;">Class Section</div>
+          <div>
+            <select class="form-control" name="class_grade" id="class_seatcheck">
+              <?php foreach($uniqueclass as $c):?>
+                <option><?php echo $c->class_name?></option>
+              <?php endforeach?>
+            </select>
+          </div>
+        </div>
         <div class="container">
           <div class="row" style="margin-left: 437px;">
          <div class="cell">Teacher</div>
-       </div>
+         </div>
     <div class="row">
         <div class="cell">
-          <select id="student_seat1"></select>
+          <input type="text" disabled id="seat1" name="seat1"></input>
         </div>
         <div class="cell">    
-          <select id="student_seat2"></select>
+          <input type="text" disabled id="seat2" name="seat2"></input>
         </div>
         <div class="cell">
-          <select id="student_seat3"></select>
+          <input type="text" disabled id="seat3" name="seat3"></input>
         </div>
         <div class="cell">
-          <select id="student_seat4"></select>
+          <input type="text" disabled id="seat4" name="seat4"></input>
         </div>
         <div class="cell">
-          <select id="student_seat5"></select>
+          <input type="text" disabled id="seat5" name="seat5"></input>
         </div>
         <div class="cell">
-          <select id="student_seat6"></select>
+          <input type="text" disabled id="seat6" name="seat6"></input>
         </div>
         <div class="cell">
-          <select id="student_seat7"></select>
+          <input type="text" disabled id="seat7" name="seat7"></input>
         </div>
         <div class="cell">
-          <select id="student_seat8"></select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="cell">
-          <select id="student_seat9"></select>
-        </div>
-        <div class="cell">
-          <select id="student_seat10"></select>
-        </div>
-        <div class="cell">
-          <select id="student_seat11"></select>
-        </div>
-        <div class="cell">
-          <select id="student_seat12"></select>
-        </div>
-        <div class="cell">
-          <select id="student_seat13"></select>
-        </div>
-        <div class="cell">
-          <select id="student_seat14"></select>
-        </div>
-        <div class="cell">
-          <select id="student_seat15"></select>
-        </div>
-        <div class="cell">
-          <select id="student_seat16"></select>
+          <input type="text" disabled id="seat8" name="seat8"></input>
         </div>
     </div>
     <div class="row">
         <div class="cell">
-          <select id="student_seat17"></select>
+          <input type="text" disabled id="seat9" name="seat9"></input>
         </div>
         <div class="cell">
-          <select id="student_seat18"></select>
+          <input type="text" disabled id="seat10" name="seat10"></input>
         </div>
         <div class="cell">
-          <select id="student_seat19"></select>
+          <input type="text" disabled id="seat11" name="seat11"></input>
         </div>
         <div class="cell">
-          <select id="student_seat20"></select>
+          <input type="text" disabled id="seat12" name="seat12"></input>
         </div>
         <div class="cell">
-          <select id="student_seat21"></select>
+          <input type="text" disabled id="seat13" name="seat13"></input>
         </div>
         <div class="cell">
-          <select id="student_seat22"></select>
+          <input type="text" disabled id="seat14" name="seat14"></input>
         </div>
         <div class="cell">
-          <select id="student_seat23"></select>
+          <input type="text" disabled id="seat15" name="seat15"></input>
         </div>
         <div class="cell">
-          <select id="student_seat24"></select>
+          <input type="text" disabled id="seat16" name="seat16"></input>
+        </div>
+    </div>
+    <div class="row">
+        <div class="cell">
+          <input type="text" disabled id="seat17" name="seat17"></input>
+        </div>
+        <div class="cell">
+          <input type="text" disabled id="seat18" name="seat18"></input>
+        </div>
+        <div class="cell">
+          <input type="text" disabled id="seat19" name="seat19"></input>
+        </div>
+        <div class="cell">
+          <input type="text" disabled id="seat20" name="seat20"></input>
+        </div>
+        <div class="cell">
+          <input type="text" disabled id="seat21" name="seat21"></input>
+        </div>
+        <div class="cell">
+          <input type="text" disabled id="seat22" name="seat22"></input>
+        </div>
+        <div class="cell">
+          <input type="text" disabled id="seat23" name="seat23"></input>
+        </div>
+        <div class="cell">
+          <input type="text" disabled id="seat24" name="seat24"></input>
         </div>
     </div>
       <div class="row">
         <div class="cell">
-          <select id="student_seat25"></select>
+          <input type="text" disabled id="seat25" name="seat25"></input>
         </div>
         <div class="cell">
-          <select id="student_seat26"></select>
+          <input type="text" disabled id="seat26" name="seat26"></input>
         </div>
         <div class="cell">
-          <select id="student_seat27"></select>
+          <input type="text" disabled id="seat27" name="seat27"></input>
         </div>
         <div class="cell"> 
-         <select id="student_seat28"></select>
+         <input type="text" disabled id="seat28" name="seat28"></input>
         </div>
         <div class="cell">
-         <select id="student_seat29"></select>
+         <input type="text" disabled id="seat29" name="seat29"></input>
         </div>
         <div class="cell">
-          <select id="student_seat30"></select>
+          <input type="text" disabled id="seat30" name="seat30"></input>
         </div>
         <div class="cell">
-          <select id="student_seat31"></select>
+          <input type="text" disabled id="seat31" name="seat31"></input>
         </div>
         <div class="cell">
-          <select id="student_seat32"></select>
+          <input type="text" disabled id="seat32" name="seat32"></input>
         </div>
-    </div>
+       </div>
       <div class="row">
         <div class="cell">
-          <select id="student_seat33"></select>
+          <input type="text" disabled id="seat33" name="seat33"></input>
         </div>
         <div class="cell">
-          <select id="student_seat34"></select>
+          <input type="text" disabled id="seat34" name="seat34"></input>
         </div>
         <div class="cell">
-          <select id="student_seat35"></select>
+          <input type="text" disabled id="seat35" name="seat35"></input>
         </div>
         <div class="cell">
-          <select id="student_seat36"></select>
+          <input type="text" disabled id="seat36" name="seat36"></input>
         </div>
         <div class="cell">
-          <select id="student_seat37"></select>
+          <input type="text" disabled id="seat37" name="seat37"></input>
         </div>
         <div class="cell">
-          <select id="student_seat38"></select>
+          <input type="text" disabled id="seat38" name="seat38"></input>
         </div>
         <div class="cell">
-          <select id="student_seat39"></select>
+          <input type="text" disabled id="seat39" name="seat39"></input>
         </div>
         <div class="cell">
-          <select id="student_seat40"></select>
+          <input type="text" disabled id="seat40" name="seat40"></input>
         </div>
     </div>
+    <div class="row">
+                <div class="col-md-12">
+                  <button class="btn btn-primary" style="float: right!important;" name="saveseatplan" id="saveseatplan">Record Attendance</button>
+                </div>
   </div>
-</div>
+   </div>
+     </form>
+   </div>
+ </div>
 </div>
 <style type="text/css">
+input{
+  width: 50px;
+}
 .container{
   margin-top: 40px; 
-  align-self: center;
-}
-.row {
-    display: flex;
 }
 .cell {
     background: #98FB98;
@@ -393,8 +713,6 @@ head>
     width: 130px;
     height: 80px;
     flex: 0 0 auto;
-    text-align: center;
-    padding: 12px;
     margin: 5px;
     border-right: 3px solid #fff;
     border-bottom: 3px solid #fff;

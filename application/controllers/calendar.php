@@ -14,7 +14,6 @@ class Calendar extends CI_Controller {
 			$data['content'] = "calendar/index";
 			$this->load->view('main/index', $data);
 	}
-
 	public function get_events() {
      // Our Start and End Dates
      $start = $this->input->get("start");
