@@ -30,12 +30,16 @@ class Dashboard extends CI_Controller {
     }
 
     public function getbehaviorPositive(){
-        $data = $this->dashboard_model->getbehaviorPositive();
-        echo json_encode($data);
-    }
+    	$countpositive = $this->dashboard_model->getbehaviorPositive()->row()->behavior_type;
+    	$countnegative = $this->dashboard_model->getbehaviorNegative()->row()->behavior_type;
+    	$percent1 = ($countpositive/($countpositive+$countnegative))*100;
+    	$percent2 = ($countnegative/($countpositive+$countnegative))*100;
 
-    public function getbehaviorNegative(){
-        $data = $this->dashboard_model->getbehaviorNegative();
+        $data['point1'] = number_format($percent1, 2,'.','');
+        $data['name1'] = 'Positive';
+        $data['point2'] =number_format($percent2, 2,'.','');
+        $data['name2'] = 'Negative';
+
         echo json_encode($data);
     }
 }

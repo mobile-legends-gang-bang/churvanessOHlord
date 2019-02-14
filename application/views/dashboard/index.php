@@ -19,29 +19,6 @@
 	    background-color: #000000!important;
 	}
 </style>
-<script type="text/javascript">
-    $(document).ready(function(){
-      $('#class_grade, #subject_name').change(function(){
-        if ($('#subject_name').val() != "") {
-          var class_grade = $('#class_grade').val();
-          var subject_id = $('#subject_name').val();
-          // alert(subject_id);
-          // return;
-          $.ajax({
-            url: '<?php echo base_url('dashboard/getbehaviorPositive')?>',
-            method:'post',
-            dataType:'json',
-            data: {class_grade:class_grade, subject_name: subject_id},
-            success : function(data){
-            }
-            });
-          } 
-        else{}
-
-      }); 
-    });
-
-  </script>
 </head>
 <body>
 <div class="content-wrapper" style="margin-top: 100px!important;">
@@ -111,7 +88,7 @@ $barData = array(
 );
 
 $pieData = array( 
-  array("label"=>"Positive", "y"=>var_dump(json_decode(data[0].count, true))),
+  array("label"=>"Positive", "y"=>126),
   array("label"=>"Negative", "y"=>232)
 );
 
@@ -136,12 +113,12 @@ $areaData = array(
 ?>
 <script>
 window.onload = function() {
-
+var dataPoints = [];
 var chart = new CanvasJS.Chart("myAreaChart", {
   animationEnabled: true,
   theme: "light2",
   title:{
-    text: "Site Traffic"
+    text: "Student Attendance"
   },
   axisX: {
     valueFormatString: "DD MMM"
@@ -165,7 +142,7 @@ var chart = new CanvasJS.Chart("myBarChart", {
   animationEnabled: true,
   theme: "light2",
   title:{
-    text: "Gold Reserves"
+    text: "Student Record"
   },
   axisY: {
     title: "Gold Reserves (in tonnes)"
@@ -178,30 +155,82 @@ var chart = new CanvasJS.Chart("myBarChart", {
 });
 chart.render();
 
-var chart = new CanvasJS.Chart("myPieChart", {
-  theme: "light2",
-  animationEnabled: true,
-  title: {
-    text: "Students passitive vs negative behaviour"
-  },
-  data: [{
-    type: "pie",
-    indexLabel: "{y}",
-    yValueFormatString: "###",
-    indexLabelPlacement: "inside",
-    indexLabelFontColor: "#36454F",
-    indexLabelFontSize: 18,
-    indexLabelFontWeight: "bolder",
-    showInLegend: true,
-    legendText: "{label}",
-    dataPoints: <?php echo json_encode($pieData, JSON_NUMERIC_CHECK); ?>
-  }]
-});
-chart.render();
+// chart.render();
 
 }
 </script>
 <!--Charts-->
+
+<script type="text/javascript">
+    $(document).ready(function(){
+      var dataPoints = [];
+      // var pieChart = new CanvasJS.Chart("myPieChart", {
+      //     theme: "light2",
+      //     animationEnabled: true,
+      //     title: {
+      //       text: "Students Positive vs Negative behaviour"
+      //     },
+      //     data: [{
+      //       type: "pie",
+      //       // indexLabel: "{y}",
+      //       // yValueFormatString: "###",
+      //       // indexLabelPlacement: "inside",
+      //       // indexLabelFontColor: "#36454F",
+      //       // indexLabelFontSize: 18,
+      //       // indexLabelFontWeight: "bolder",
+      //       // showInLegend: true,
+      //       // legendText: "{label}",
+      //       showInLegend: true,
+      //       toolTipContent: "{name}: <strong>{y}%</strong>",
+      //       indexLabel: "{name} - {y}%",
+      //       dataPoints: dataPoints
+      //     }]
+      //   });
+      var pieChart = new CanvasJS.Chart("myPieChart", {
+        exportEnabled: true,
+        animationEnabled: true,
+        title:{
+          text: "Students Positive vs Negative behaviour"
+        },
+        legend:{
+          cursor: "pointer"
+        },
+        data: [{
+          type: "pie",
+          showInLegend: true,
+          toolTipContent: "{name}: <strong>{y}%</strong>",
+          indexLabel: "{name} - {y}%",
+          dataPoints: dataPoints
+        }]
+      });
+      // chart.render();
+      // }
+      $('#class_grade, #subject_name').change(function(){
+        if ($('#subject_name').val() != "") {
+          var class_grade = $('#class_grade').val();
+          var subject_id = $('#subject_name').val();
+          // alert(subject_id);
+          // return;
+          $.ajax({
+            url: '<?php echo base_url('dashboard/getbehaviorPositive')?>',
+            method:'post',
+            dataType:'json',
+            data: {class_grade:class_grade, subject_name: subject_id},
+            success : function(data){
+                console.log(data.point1);
+                console.log(data.name1);
+                dataPoints.push({y: data.point1, name: data.name1});
+                dataPoints.push({y: data.point2, name: data.name2});
+                pieChart.render();
+            }
+            });
+          } 
+        else{}
+
+      }); 
+    });
+
+  </script>
 
 
       <!-- Area Chart Example-->
@@ -260,6 +289,6 @@ chart.render();
 
 	</div>
 </div>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src='<?php echo base_url('assets/canvasjs/canvas.min.js')?>'></script>
 </body>
 </html>
