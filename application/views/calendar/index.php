@@ -65,11 +65,11 @@ $(document).ready(function() {
     },
     eventClick: function(event, jsEvent, view) {
           $('#name').val(event.title);
-          $('#start_date').val(moment(event.start).format('YYYY/MM/DD HH:mm'));
+          $('#start_date').val(moment(event.start).format('YYYY/MM/DD HH:mm A'));
           if(event.end) {
-            $('#end_date').val(moment(event.end).format('YYYY/MM/DD HH:mm'));
+            $('#end_date').val(moment(event.end).format('YYYY/MM/DD HH:mm A'));
           } else {
-            $('#end_date').val(moment(event.start).format('YYYY/MM/DD HH:mm'));
+            $('#end_date').val(moment(event.start).format('YYYY/MM/DD HH:mm A'));
           }
           $('#event_id').val(event.id);
           $('#editModal').modal('show');
@@ -82,8 +82,8 @@ $(document).ready(function() {
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Add Calendar Event</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
       <?php echo form_open(site_url("calendar/add_event"), array("class" => "form-horizontal")) ?>
