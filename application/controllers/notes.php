@@ -17,6 +17,7 @@ class Notes extends CI_Controller {
 			$data['uniqueclass'] = $this->section_model->getUniqueclass();
 			$data['class'] = $this->section_model->getclass();
 			$data['subjectlist'] = $this->section_model->getsubject();
+			$data['notesview'] = $this->note_model->getnotesToday();
 			$data['content'] = "notes/index";
 			$this->load->view('main/index', $data);
 	}

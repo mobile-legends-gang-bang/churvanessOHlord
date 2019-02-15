@@ -4,6 +4,7 @@ class Calendar extends CI_Controller {
     function __construct(){
         parent::__construct();
         $this->load->model('calendar_model');
+        $this->load->model('note_model');
     }
 	public function index() {
 		if(!$this->session->userdata('logged_in')) {
@@ -11,6 +12,7 @@ class Calendar extends CI_Controller {
 		} else {
 			$data['title'] = "Edukit - Calendar";
 			$data['name'] = "CALENDAR OF ACTIVITIES AND SCHEDULE";
+            $data['notesview'] = $this->note_model->getnotesToday();
 			$data['content'] = "calendar/index";
             $this->load->view('main/index', $data);
         }

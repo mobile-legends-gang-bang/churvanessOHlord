@@ -4,6 +4,7 @@ class Behavior extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('behavior_model');
+		$this->load->model('note_model');
 	}
 
 	public function index() {
@@ -12,6 +13,7 @@ class Behavior extends CI_Controller {
 		} else 
 			$data['title'] = "Edukit - Behavior Setup";
 			$data['name'] = "SETUP STUDENT BEHAVIOR";
+			$data['notesview'] = $this->note_model->getnotesToday();
 			$data['content'] = "behavior/index";
 			$this->load->view('main/index', $data);
 	}

@@ -4,6 +4,7 @@ class Student_profile extends CI_Controller {
       parent::__construct();
       $this->load->model('student_profile_model');
       $this->load->library('excel');
+      $this->load->model('note_model');
     }
     public function index() {
         if(!$this->session->userdata('logged_in')) {
@@ -12,6 +13,7 @@ class Student_profile extends CI_Controller {
             $data['title'] = "Student Profile";
             $data['name'] = "STUDENT PROFILE";
             $data['content'] = "student_profile/index";
+            $data['notesview'] = $this->note_model->getnotesToday();
             $this->load->view('main/index', $data);
     }
     public function fetch(){
