@@ -35,60 +35,12 @@
 	<!-- Icon Cards-->
       <div class="row">
         <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card text-white bg-primary o-hidden h-100">
-            <div class="card-body">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-comments"></i>
-              </div>
-              <div class="mr-5">26 New Messages!</div>
-            </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
-            </a>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
           <div class="card text-white bg-warning o-hidden h-100">
             <div class="card-body">
               <div class="card-body-icon">
                 <i class="fa fa-fw fa-list"></i>
               </div>
-              <div class="mr-5">11 New Tasks!</div>
-            </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
-            </a>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card text-white bg-success o-hidden h-100">
-            <div class="card-body">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-shopping-cart"></i>
-              </div>
-              <div class="mr-5">123 New Orders!</div>
-            </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
-            </a>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card text-white bg-danger o-hidden h-100">
-            <div class="card-body">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-support"></i>
-              </div>
-              <div class="mr-5">13 New Tickets!</div>
+              <div class="mr-5">11 New Notes!</div>
             </div>
             <a class="card-footer text-white clearfix small z-1" href="#">
               <span class="float-left">View Details</span>
@@ -101,6 +53,27 @@
       </div>
     <!-- End of Icon Cards-->
 
+<form method="post" id="attendance_form">
+        <div class="row" style="padding: 20px;">
+          <div style="padding-right: 20px; padding-top: 5px;">Subject Select</div>
+          <div>
+            <select class="form-control" name="subject_name" id="subject_name">
+              <option></option>
+              <?php foreach($subjectlist as $c):?>
+                <option value="<?php echo $c->subject_id?>"><?php echo $c->subject_name?></option>
+              <?php endforeach?>
+            </select>
+          </div>
+          <div style="padding-right: 20px; padding-top: 5px; padding-left: 10px;">Class Section</div>
+          <div>
+            <select class="form-control" name="class_grade" id="class_grade">
+              <?php foreach($uniqueclass as $c):?>
+                <option><?php echo $c->class_name?></option>
+              <?php endforeach?>
+            </select>
+          </div>
+        </div>
+</form>
 
 <!--Charts-->
 <?php
@@ -115,10 +88,8 @@ $barData = array(
 );
 
 $pieData = array( 
-  array("label"=>"Industrial", "y"=>51.7),
-  array("label"=>"Transportation", "y"=>26.6),
-  array("label"=>"Residential", "y"=>13.9),
-  array("label"=>"Commercial", "y"=>7.8)
+  array("label"=>"Positive", "y"=>126),
+  array("label"=>"Negative", "y"=>232)
 );
 
 $areaData = array(
@@ -142,12 +113,12 @@ $areaData = array(
 ?>
 <script>
 window.onload = function() {
-
+var dataPoints = [];
 var chart = new CanvasJS.Chart("myAreaChart", {
   animationEnabled: true,
   theme: "light2",
   title:{
-    text: "Site Traffic"
+    text: "Student Attendance"
   },
   axisX: {
     valueFormatString: "DD MMM"
@@ -171,7 +142,7 @@ var chart = new CanvasJS.Chart("myBarChart", {
   animationEnabled: true,
   theme: "light2",
   title:{
-    text: "Gold Reserves"
+    text: "Student Record"
   },
   axisY: {
     title: "Gold Reserves (in tonnes)"
@@ -184,30 +155,82 @@ var chart = new CanvasJS.Chart("myBarChart", {
 });
 chart.render();
 
-var chart = new CanvasJS.Chart("myPieChart", {
-  theme: "light2",
-  animationEnabled: true,
-  title: {
-    text: "Students passitive vs negative behaviour"
-  },
-  data: [{
-    type: "pie",
-    indexLabel: "{y}",
-    yValueFormatString: "#,##0.00\"%\"",
-    indexLabelPlacement: "inside",
-    indexLabelFontColor: "#36454F",
-    indexLabelFontSize: 18,
-    indexLabelFontWeight: "bolder",
-    showInLegend: true,
-    legendText: "{label}",
-    dataPoints: <?php echo json_encode($pieData, JSON_NUMERIC_CHECK); ?>
-  }]
-});
-chart.render();
+// chart.render();
 
 }
 </script>
 <!--Charts-->
+
+<script type="text/javascript">
+    $(document).ready(function(){
+      var dataPoints = [];
+      // var pieChart = new CanvasJS.Chart("myPieChart", {
+      //     theme: "light2",
+      //     animationEnabled: true,
+      //     title: {
+      //       text: "Students Positive vs Negative behaviour"
+      //     },
+      //     data: [{
+      //       type: "pie",
+      //       // indexLabel: "{y}",
+      //       // yValueFormatString: "###",
+      //       // indexLabelPlacement: "inside",
+      //       // indexLabelFontColor: "#36454F",
+      //       // indexLabelFontSize: 18,
+      //       // indexLabelFontWeight: "bolder",
+      //       // showInLegend: true,
+      //       // legendText: "{label}",
+      //       showInLegend: true,
+      //       toolTipContent: "{name}: <strong>{y}%</strong>",
+      //       indexLabel: "{name} - {y}%",
+      //       dataPoints: dataPoints
+      //     }]
+      //   });
+      var pieChart = new CanvasJS.Chart("myPieChart", {
+        exportEnabled: true,
+        animationEnabled: true,
+        title:{
+          text: "Students Positive vs Negative behaviour"
+        },
+        legend:{
+          cursor: "pointer"
+        },
+        data: [{
+          type: "pie",
+          showInLegend: true,
+          toolTipContent: "{name}: <strong>{y}%</strong>",
+          indexLabel: "{name} - {y}%",
+          dataPoints: dataPoints
+        }]
+      });
+      // chart.render();
+      // }
+      $('#class_grade, #subject_name').change(function(){
+        if ($('#subject_name').val() != "") {
+          var class_grade = $('#class_grade').val();
+          var subject_id = $('#subject_name').val();
+          // alert(subject_id);
+          // return;
+          $.ajax({
+            url: '<?php echo base_url('dashboard/getbehaviorPositive')?>',
+            method:'post',
+            dataType:'json',
+            data: {class_grade:class_grade, subject_name: subject_id},
+            success : function(data){
+                console.log(data.point1);
+                console.log(data.name1);
+                dataPoints.push({y: data.point1, name: data.name1});
+                dataPoints.push({y: data.point2, name: data.name2});
+                pieChart.render();
+            }
+            });
+          } 
+        else{}
+
+      }); 
+    });
+
+  </script>
 
 
       <!-- Area Chart Example-->
@@ -266,6 +289,6 @@ chart.render();
 
 	</div>
 </div>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src='<?php echo base_url('assets/canvasjs/canvas.min.js')?>'></script>
 </body>
 </html>

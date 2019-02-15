@@ -36,8 +36,8 @@
 <script type="text/javascript">
   $(document).ready(function(){
     get_class();
+    // getnotesToday();
     // getstudents();
-    // load_data();
 
     function get_class(){
       $.ajax({
@@ -266,26 +266,35 @@
       } else 
         $('#record_student_grade').html("");
     });
+
     $('#savescore').click(function() {
       var subject_name = $('#score_form #score_subject').val();
       var score_quarter = $('#score_form #score_quarter').val();
       var scoretype = $('#score_form #score_type').val();
-
+      var class_name = $('#score_form #class_grade').val();
+      var over = $('#score_form #over').val();
       student_id = $('input[name^="student_id"]').map(function(){
                 return this.value;
             }).get();
       score = $('input[name^="score"]').map(function(){
                 return this.value;
             }).get();
+      // alert(student_id); return;
       $.ajax({
         type: 'post',
         url: '<?php echo base_url('class_section/savescore')?>',
-        data: {score_subject: subject_name, score_quarter:score_quarter, score_type:scoretype, student_id:JSON.stringify(student_id), score:JSON.stringify(score)},
+        data: {score_subject: subject_name, score_quarter:score_quarter, class_grade:class_name, over:over, score_type:scoretype, student_id:JSON.stringify(student_id), score:JSON.stringify(score)},
         dataType: 'json',
         success: function(response){
           if (response.status) {
               $('#score_form')[0].reset();
               swal("Successfully saved Scores!", "", "success");
+              $('#score').val("");
+              $('#score_subject').val("");
+              $('#score_quarter').val("");
+              $('#score_type').val("");
+              $('#class_grade').val("");
+              $('#over').val("");
           } else {
               alert(response.message);
           }
@@ -294,7 +303,81 @@
           alert('ahhaha sayup yot');
         }
       });
+    });
 
+    $('#behavior_class, #behavior_subject').change(function(){
+      if ($('#behavior_subject').val() != "") {
+        var class_grade = $('#behavior_class').val();
+        $.ajax({
+          url: '<?php echo site_url('student_profile/getstudentsBySection')?>',
+          method:'post',
+          dataType:'json',
+          data: {class_grade:class_grade},
+          success : function(data){
+            var html = '';
+            var i;
+            var note_behavior = "";
+            for(i = 0 ; i<data.length; i++){
+              // This is ES6 format (new one in jquery) no need for concat 
+              note_behavior += `<tr>
+                      <td>${data[i].s_id}</td>
+                      <td>${data[i].lname}, ${data[i].fname} ${data[i].mname}</td>
+                      <td><input type="hidden" name="s_id[]" id="s_id" value="${data[i].s_id}">
+                          <select name="behavior_name[]" id="behavior_name" class="form-control" data-s_id="${data[i].s_id}" data-class_id="${data[i].s_id}">
+                            <option></option>
+                            <?php foreach ($behavior as $b): ?>
+                              <option value="<?php echo $b->behavior_id?>"><?php echo $b->behavior_name?></option>
+                            <?php endforeach ?>
+                          </select>
+                      </td>
+                      <td><input type="text" class="form-control" name="remarks[]" id="remarks"></td>
+                  </tr>`;
+            }
+            $('#note_behavior_tab').html(note_behavior);
+          }
+        });
+      } else 
+        $('#note_behavior_tab').html("");
+    });
+
+    $('#savebehavior').click(function() {
+      var date = $('#behavior_form #behavior_date').val();
+      var subject_name = $('#behavior_form #behavior_subject').val();
+      var class_name = $('#behavior_form #behavior_class').val();
+      var quarter = $('#behavior_form #behavior_quarter').val();
+      s_id = $('input[name^="s_id"]').map(function(){
+                return this.value;
+            }).get();
+      behavior_name = $('select[name^="behavior_name"]').map(function(){
+                return this.value;
+            }).get();
+      remarks = $('input[name^="remarks"]').map(function(){
+                return this.value;
+            }).get();
+      // alert(remarks); return;
+      $.ajax({
+        type: 'post',
+        url: '<?php echo base_url('class_section/savebehavior')?>',
+        data: {behavior_date: date, behavior_quarter:quarter, behavior_class:class_name, behavior_subject:subject_name, behavior_quarter:quarter, s_id:JSON.stringify(s_id), remarks:JSON.stringify(remarks), behavior_name:JSON.stringify(behavior_name)},
+        dataType: 'json',
+        success: function(response){
+          if (response.status) {
+              $('#behavior_form')[0].reset();
+              swal("Successfully saved behaviors!", "", "success");
+              // $('#score').val("");
+              // $('#score_subject').val("");
+              // $('#score_quarter').val("");
+              // $('#score_type').val("");
+              // $('#class_grade').val("");
+              // $('#over').val("");
+          } else {
+              alert(response.message);
+          }
+        },
+        error:function(request,status,error){ 
+          alert('ahhaha sayup yot');
+        }
+      });
     });
   });
 </script>
@@ -381,7 +464,6 @@
                   <option>2</option>
                   <option>3</option>
                   <option>4</option>
-                  <option>Whole Quarter</option>
                 </select>
               </div>
             </div>
@@ -396,6 +478,13 @@
                   <option>Quiz</option>
                   <option>Seatwork</option>
                 </select>
+              </div>
+            </div>
+            <div class="row row_padding">
+              <div class="col-md-2">Perfect Score</div>
+              <div class="col-md-1">:</div>
+              <div class="col-md-4">
+                <input type="number" name="over" id="over" class="form-control">
               </div>
             </div>
             <div class="card-header">
@@ -423,52 +512,51 @@
             </div>
           </div>
         </div>
+
         <div class="tab-pane fade" id="student_behavior_tab" role="tabpanel" aria-labelledby="behavior-tab">
-          <div class="row row_padding">
-            <div class="col-md-2">Date</div>
-            <div class="col-md-1">:</div>
-            <div class="col-md-4"><input class="form-control" type="date" name=""></div>
-          </div>
-          <div class="row row_padding">
-            <div class="col-md-2">Subject</div>
-            <div class="col-md-1">:</div>
-            <div class="col-md-4">
-              <select class="form-control">
-                <option>Subject 1</option>
-                <option>Subject 2</option>
-                <option>Subject 3</option>
-              </select>
+          <form method="post" id="behavior_form">
+            <div class="row row_padding">
+              <div class="col-md-2">Date</div>
+              <div class="col-md-1">:</div>
+              <div class="col-md-4"><input class="form-control" type="date" name="behavior_date" id="behavior_date"></div>
             </div>
-          </div>
-          <div class="row row_padding">
-            <div class="col-md-2">Class Section</div>
-            <div class="col-md-1">:</div>
-            <div class="col-md-4">
-              <select class="form-control">
-                <?php foreach($class as $c):?>
-                  <option><?php echo $c->section_name?></option>
-                <?php endforeach?>
-              </select>
+            <div class="row row_padding">
+              <div class="col-md-2">Subject</div>
+              <div class="col-md-1">:</div>
+              <div class="col-md-4">
+                <select class="form-control" name="behavior_subject" id="behavior_subject">
+                  <option></option>
+                  <?php foreach($subjectlist as $c):?>
+                    <option value="<?php echo $c->subject_id?>"><?php echo $c->subject_name?></option>
+                  <?php endforeach?>
+                </select>
+              </div>
             </div>
-          </div>
-          <div class="row row_padding">
-            <div class="col-md-2">Level</div>
-            <div class="col-md-1">:</div>
-            <div class="col-md-4"><input class="form-control" type="text" name="" style="width: 50px!important"></div>
-          </div>
-          <div class="row row_padding">
-            <div class="col-md-2">Quarter</div>
-            <div class="col-md-1">:</div>
-            <div class="col-md-4">
-              <select class="form-control">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>Whole Quarter</option>
-              </select>
+            <div class="row row_padding">
+              <div class="col-md-2">Class Section</div>
+              <div class="col-md-1">:</div>
+              <div class="col-md-4">
+                <select class="form-control" name="behavior_class" id="behavior_class">
+                  <?php foreach($uniqueclass as $c):?>
+                      <option><?php echo $c->class_name?></option>
+                    <?php endforeach?>
+                </select>
+              </div>
             </div>
-          </div>
+            <div class="row row_padding">
+              <div class="col-md-2">Quarter</div>
+              <div class="col-md-1">:</div>
+              <div class="col-md-4">
+                <select class="form-control" name="behavior_quarter" id="behavior_quarter">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>Whole Quarter</option>
+                </select>
+              </div>
+            </div>
+          </form>
           <div class="card mb-3" style="padding-top: 10px; margin-top: 10px;">
           <div class="card-header">
               <i class="fa fa-table"> &nbsp;&nbsp;<span></i>Student Roster</span>
@@ -478,6 +566,7 @@
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
+                    <th class="center_th">Student ID</th>
                     <th class="center_th">Name</th>
                     <th class="center_th">Behavior</th>
                     <th class="center_th">Remarks</th>
@@ -485,183 +574,31 @@
                 </thead>
                 <tfoot>
                   <tr>
-                    <th>Name</th>
-                    <th>Behavior</th>
+                    <th class="center_th">Student ID</th>
+                    <th class="center_th">Name</th>
+                    <th class="center_th">Behavior</th>
                     <th class="center_th">Remarks</th>
                   </tr>
                 </tfoot>
-                <tbody>
-                  <tr>
-                    <td>Alicante, Karystel Zapanta</td>
-                    <td>
-                      <select class="form-control">
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" name="" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Cabuenas, Jayzon Generale</td>
-                    <td>
-                      <select class="form-control">
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" name="" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Gutierrez, Bernard Joseph</td>
-                    <td>
-                      <select class="form-control">
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" name="" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Naga, Althea Marshallatte Oyao</td>
-                    <td>
-                      <select class="form-control">
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" name="" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Alicante, Karystel Zapanta</td>
-                    <td>
-                      <select class="form-control">
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" name="" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Cabuenas, Jayzon Generale</td>
-                    <td>
-                      <select class="form-control">
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" name="" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Gutierrez, Bernard Joseph</td>
-                    <td>
-                      <select class="form-control">
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" name="" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Naga, Althea Marshallatte Oyao</td>
-                    <td>
-                      <select class="form-control">
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" name="" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Alicante, Karystel Zapanta</td>
-                    <td>
-                      <select class="form-control">
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" name="" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Cabuenas, Jayzon Generale</td>
-                    <td>
-                      <select class="form-control">
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" name="" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Gutierrez, Bernard Joseph</td>
-                    <td>
-                      <select class="form-control">
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" name="" class="form-control">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Naga, Althea Marshallatte Oyao</td>
-                    <td>
-                      <select class="form-control">
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                        <option>Behavior 1</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input type="text" name="" class="form-control">
-                    </td>
-                  </tr>
+                <tbody id="note_behavior_tab">
                 </tbody>
               </table>
               <div class="row">
                 <div class="col-md-12">
-                  <button class="btn btn-primary" style="float: right!important;">Save Behavior</button>
+                  <button class="btn btn-primary" id="savebehavior" name="savebehavior" style="float: right!important;">Save Behavior</button>
                 </div>
               </div>
             </div>
           </div>
           </div>
         </div>
+
         <div class="tab-pane fade" id="notesTab" role="tabpanel" aria-labelledby="notes-tab">
-          <div class="row"> 
-            <div class="col-md-8 bg1">RANDOM NOTE</div>
-            <div class="col-md-4 bg2">DATE AND TIME</div>
+          <div class="row" id="notesview"> 
+            <?php foreach ($notesview as $n): ?>
+                <div class='col-md-8 bg1'><?php echo $n->note_description?></div>
+                <div class='col-md-4 bg2'><?php echo $n->note_date?></div><br>
+            <?php endforeach ?>
         </div>
       </div>
     </div>
@@ -724,7 +661,6 @@
         </div>
       </div>
     </div>
-
     <!-- Subjects Modal-->
     <div class="modal fade" id="addSubjectsModal" tabindex="-1" role="dialog" aria-labelledby="classModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -755,7 +691,6 @@
         </div>
       </div>
     </div>
-
     <!-- ENROLL STUDENTS MODAL-->
     <div class="modal fade" id="enrollstudentsmodal" tabindex="-1" role="dialog" aria-labelledby="classModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -787,7 +722,6 @@
         </div>
       </div>
     </div>
-
     <!-- Studentnts Modal-->
     <div class="modal fade" id="studentModal" tabindex="-1" role="dialog" aria-labelledby="classModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -814,7 +748,6 @@
         </div>
       </div>
     </div>
-
     <!-- VIEW SUBJECTS Modal-->
     <div class="modal fade" id="sectionModal" tabindex="-1" role="dialog" aria-labelledby="classModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -860,7 +793,6 @@
         </div>
       </div>
     </div>
-
     <!--MODAL DELETE-->
     <form>
       <div class="modal fade" id="Modal_Delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -916,7 +848,6 @@
         </div>
       </div>
     </div>
-
     <!-- MODAL EDIT -->
     <div class="modal fade" id="" tabindex="-1" role="dialog" aria-labelledby="classModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">

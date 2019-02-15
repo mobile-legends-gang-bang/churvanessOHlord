@@ -91,7 +91,7 @@
         <div class="row row_padding">
           <div class="col-md-5">Username</div>
           <div class="col-md-1">:</div>
-          <div class="col-md-6"><input type="text" class="form-control" value"" name="personal_username" id="personal_username" maxlength="30"></div>
+          <div class="col-md-6"><input type="text" class="form-control" value="<?php echo $row->username?>" name="personal_username" id="personal_username" maxlength="30"></div>
         </div>
         <h4 align="center">PERSONAL INFORMATION</h4>
         <div class="row row_padding">

@@ -45,10 +45,27 @@
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reports">
-          <a class="nav-link" href="<?php echo base_url()?>reports/index">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#reports">
             <i class="fa fa-fw fa-files-o"></i>
             <span class="nav-link-text">Reports</span>
           </a>
+          <ul class="sidenav-second-level collapse" id="reports">
+            <li>
+              <a href="<?php echo base_url()?>scores_report/index">Scores</a>
+            </li>
+            <li>
+              <a href="<?php echo base_url()?>student_record/index">Grades</a>
+            </li>
+            <li>
+              <a href="<?php echo base_url()?>student_record/index">Attendance</a>
+            </li>
+            <li>
+              <a href="<?php echo base_url()?>student_record/index">Behavior</a>
+            </li>
+            <li>
+              <a href="<?php echo base_url()?>student_record/index">Personal Information</a>
+            </li>
+          </ul>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Lesson Log">
           <a class="nav-link" href="<?php echo base_url()?>lesson_log/index">
