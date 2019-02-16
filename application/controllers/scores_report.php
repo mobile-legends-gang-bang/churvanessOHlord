@@ -20,9 +20,11 @@ class Scores_report extends CI_Controller {
             $this->load->view('main/index', $data);
     }
     public function getscores(){
-        $data = $this->scores_report_model->getscores();
-        echo json_encode($data);
+        $data['records'] = $this->scores_report_model->getscores();
+        $this->load->view('reports/scores/records', $data);
     }
+    
+
     // function index(){
     //   $this->load->model("excel_export_model");
     //   $data["employee_data"] = $this->excel_export_model->fetch_data();
