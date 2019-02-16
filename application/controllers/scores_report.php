@@ -40,7 +40,7 @@ class Scores_report extends CI_Controller {
 
       foreach($table_columns as $field)
       {
-       $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+      $object->getActiveSheet()->setCellValue('A1', "ajshgdajkhsgd");
        $column++;
       }
 
@@ -57,13 +57,16 @@ class Scores_report extends CI_Controller {
        $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, "yes");
        $excel_row++;
       }
-
-      
-        $this->output->set_content_type('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        $this->output->set_header('Content-Disposition: attachment;filename="' . 'test' . '.xlsx"');
-        $this->output->set_header('Cache-Control: max-age=0');
         $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+        header("Pragma: public");
+        header("Expires: 0");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Content-Type: application/force-download");
+        header("Content-Type: application/octet-stream");
+        header("Content-Type: application/download");;
+        header('Content-Disposition: attachment;filename="data.xls"');
+        header("Content-Transfer-Encoding: binary ");
         $object_writer->save('php://output');
 
     }
-}
+ }

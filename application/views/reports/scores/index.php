@@ -48,7 +48,7 @@
 </head>
 <body>
 	<div class="content-wrapper" style="margin-top: 100px!important; margin-left: 270px!important;">
-		<form method="post" id="scoreform">
+		<form method="post" id="scoreform" action="<?php echo base_url();?>scores_report/action">
 			<div class="row" style="padding: 10px;">
 				<div class="col-md-2"> Subject</div>
 				<div class="col-md-1">:</div>
@@ -116,11 +116,7 @@
 	                </table>
 	              </div>
 	        </div>
+	        <input type="submit" name="export" class="btn btn-success" value="Export">
 		</form>
-		<div class="row" style="padding: 10px;">
-				<div class="col-md-2 offset-md-3">
-					<button class="btn btn-primary" id="create_report" name="create_report" style="float: right!important;">Download Report</button>
-				</div>
-			</div>
 	</div>
 </body>

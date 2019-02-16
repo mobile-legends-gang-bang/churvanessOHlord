@@ -15,7 +15,16 @@
       text-align: center;
     }
   </style>
-
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+  </script>
 </head>
 <body>
 <div class="content-wrapper" style="margin-top: 100px!important; margin-left: 300px;">
@@ -24,10 +33,11 @@
         <img src="<?php echo base_url()?>images/avatar.png" class="center">
         <div class="row row_padding" style="margin-top: 30px; border-bottom: 1px black solid;">
           <h4 class="align_center">Velikkakathu Sankaran Achuthanandan</h4>
+          <input id="myInput" type="text" placeholder="Search.." class="form-control">
         </div>
       </div>
     </div>
-  <div class="row row_padding">
+  <div class="row row_padding" id="myTable">
     <div class="col-md-6">
       <h4 align="center">PERSONAL INFORMATION</h4>
       <div class="row row_padding">

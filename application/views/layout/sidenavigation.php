@@ -63,7 +63,7 @@
               <a href="<?php echo base_url()?>student_record/index">Behavior</a>
             </li>
             <li>
-              <a href="<?php echo base_url()?>student_record/index">Personal Information</a>
+              <a href="<?php echo base_url()?>personal_info_report/index">Personal Information</a>
             </li>
           </ul>
         </li>
