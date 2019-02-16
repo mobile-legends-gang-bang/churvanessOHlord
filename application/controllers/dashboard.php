@@ -7,6 +7,7 @@ class Dashboard extends CI_Controller {
 		$this->load->model('behavior_model');
 		$this->load->model('attendance_model');
 		$this->load->model('section_model');
+		$this->load->model('note_model');
 	}
 
 	public function index() {
@@ -21,6 +22,7 @@ class Dashboard extends CI_Controller {
 			$data['class'] = $this->section_model->getclass();
 			$data['uniqueclass'] = $this->section_model->getUniqueclass();
 			$data['content'] = "dashboard/index";
+			$data['notesview'] = $this->note_model->getnotesToday();
 			$this->load->view('main/index', $data);
 	}
 
