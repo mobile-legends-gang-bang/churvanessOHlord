@@ -176,5 +176,40 @@ class Attendance extends CI_Controller {
         $data = $this->attendance_model->getseat();
         echo json_encode($data);
     }
+    public function checkbyseatplan(){
+    if($this->session->userdata('logged_in')) {
+			$this->form_validation->set_rules('student_id', '', 'required');
+			$this->form_validation->set_rules('subject_name', '', 'required');
+			$this->form_validation->set_rules('class_grade', '', 'required');	
+			if ($this->form_validation->run()) {
+				$teacher_id	= $this->session->userdata['logged_in']['teacher_id'];
+				$student_id = json_decode($this->input->post('student_id'));
+				$class_seat = $this->input->post('class_seatcheck');
+				$subject_name = $this->input->post('subject_name');
+				$attendance_date = $this->input->post('attendance_datebyseat');
+				
+				$attend1 =json_decode($this->input->post('attend1'));
 	
+				$data = array();
+				for ($i=0; $i < count($student_id); $i++) { 
+					$data['s_id'] = $student_id[$i];
+					$data['subject_id'] = $subject_name;
+					$data['class_name'] = $class_seat;
+					$data['attendance_date'] = $attendance_datebyseat;
+					$data['teacher_id'] = $teacher_id;
+					$data['present'] = $attend1[$i];
+					if($data['present']==NULL)
+						$data['present']= "false";
+					$this->db->insert('public.attendance', $data);
+				}
+				$response['status'] = TRUE;
+				$response['message'] = "Successfully saved scores.";
+		} else 
+				$response['message'] = 'Please fill up all required fields';
+			echo json_encode($response);
+    }
+    else 
+			redirect('login', 'refresh');
+  }
+
 }
