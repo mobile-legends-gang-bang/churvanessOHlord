@@ -5,6 +5,7 @@ class Lesson_log extends CI_Controller {
 		parent::__construct();
 		$this->load->model('section_model');
 		$this->load->model('lesson_log_model');
+		$this->load->model('note_model');
 	}
 
 	public function index() {
@@ -15,6 +16,7 @@ class Lesson_log extends CI_Controller {
 			$data['name'] = "Manage Lesson Log";
 			$data['content'] = "lesson_log/index";
 			$data['subjectlist'] = $this->section_model->getsubject();
+			$data['notesview'] = $this->note_model->getnotesToday();
 			$this->load->view('main/index', $data);
 	}
 	public function savelessonlog() {

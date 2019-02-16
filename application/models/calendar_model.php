@@ -5,32 +5,30 @@ class Calendar_Model extends CI_Model
 
     public function get_events($start, $end) 
     {
-        return $this->db
-            ->where("start >=", $start)
-            ->where("end <=", $end)
-            ->get("calendar_events");
+     $teacher_id = $this->session->userdata['logged_in']['teacher_id'];
+       $result = $this->db->query("SELECT * FROM public.events
+                                    ORDER BY id");
+        return $result;       
     }
 
     public function add_event($data) 
-    {
-        $this->db->insert("calendar_events", $data);
-    }
-
-    public function get_event($id) 
-    {
-        return $this->db->where("id", $id)->get("calendar_events");
-    }
-
-    public function update_event($id, $data) 
-    {
-        $this->db->where("id", $id)->update("calendar_events", $data);
+    { 
+             $teacher_id = $this->session->userdata['logged_in']['teacher_id'];
+                 $this->db->insert("events", $data);
+       
     }
 
     public function delete_event($id) 
     {
+             $teacher_id = $this->session->userdata['logged_in']['teacher_id'];
+
         $this->db->where("id", $id)->delete("calendar_events");
     }
 
 }
 
 ?>
+Collapse
+
+
+

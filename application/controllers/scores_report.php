@@ -7,6 +7,8 @@ class Scores_report extends CI_Controller {
       $this->load->model('section_model');
       $this->load->model('behavior_model');
       $this->load->model('scores_report_model');
+      $this->load->model('note_model');
+
     }
     public function index() {
         if(!$this->session->userdata('logged_in')) {
@@ -16,13 +18,16 @@ class Scores_report extends CI_Controller {
             $data['name'] = "SCORES REPORT";
             $data['subjectlist'] = $this->section_model->getsubject();
             $data['uniqueclass'] = $this->section_model->getUniqueclass();
+            $data['notesview'] = $this->note_model->getnotesToday();
             $data['content'] = "reports/scores/index";
             $this->load->view('main/index', $data);
     }
     public function getscores(){
-        $data = $this->scores_report_model->getscores();
-        echo json_encode($data);
+        $data['records'] = $this->scores_report_model->getscores();
+        $this->load->view('reports/scores/records', $data);
     }
+    
+
     // function index(){
     //   $this->load->model("excel_export_model");
     //   $data["employee_data"] = $this->excel_export_model->fetch_data();

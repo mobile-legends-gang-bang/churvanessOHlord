@@ -5,6 +5,7 @@ class Personal_account extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('personal_account_model');
+		$this->load->model('note_model');
 	}
 
 	public function index() {
@@ -14,6 +15,7 @@ class Personal_account extends CI_Controller {
 			$data['title'] = "Edukit - Personal Account";
 			$data['name'] = "PERSONAL ACCOUNT";
 			$data['content'] = "personal_account/index";
+			$data['notesview'] = $this->note_model->getnotesToday();
 			$data['teacherinfo'] = $this->personal_account_model->getTeacherInfo();
 			$this->load->view('main/index', $data);
 	}
