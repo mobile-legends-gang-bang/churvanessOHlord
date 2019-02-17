@@ -76,13 +76,10 @@
           <input id="myInput" type="text" placeholder="Search.." class="form-control">
         </div>
       </div>
-<<<<<<< HEAD
     </div>
   <div class="row row_padding" id="myTable">
-=======
   </div>
   <div class="row row_padding">
->>>>>>> 565d206a434685556355a79ffa55236ad9edd37a
     <div class="col-md-6">
       <h4 align="center">PERSONAL INFORMATION</h4>
       <div class="row row_padding">
