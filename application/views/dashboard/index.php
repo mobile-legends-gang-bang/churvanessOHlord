@@ -46,12 +46,16 @@
               <?php endforeach ?>
             </div>
             <?php foreach ($notesview as $n): ?>
-            <a class="card-footer text-white clearfix small z-1" href="#">
-              <span class="float-left"><?php echo $n->note_description?></span>
-              <span class="float-right"><?php echo $n->note_date?></span>
+            <a class="card-footer text-white" href="#" style="height:10vh;">
+              <span class="float-left"><strong><?php echo $n->note_description?></strong></span>
+              <span class="float-right"><bold><?php echo $n->note_date?></bold></span>
             </a>
             <?php endforeach ?>
           </div>
+        </div>
+
+        <div class="col-xl-3 col-sm-6 mb-3">
+            <img src="<?php echo base_url('images/stat.gif')?>" style="height:100%; display: inline-block;"/>
         </div>
       </div>
     <!-- End of Icon Cards-->
