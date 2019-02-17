@@ -65,11 +65,11 @@ $(document).ready(function() {
     },
     eventClick: function(event, jsEvent, view) {
           $('#name').val(event.title);
-          $('#start_date').val(moment(event.start).format('YYYY/MM/DD HH:mm A'));
+          $('#start_date').val(moment(event.start).format('MM/DD/YYYY HH:mm A'));
           if(event.end) {
-            $('#end_date').val(moment(event.end).format('YYYY/MM/DD HH:mm A'));
+            $('#end_date').val(moment(event.end).format('MM/DD/YYYY HH:mm A'));
           } else {
-            $('#end_date').val(moment(event.start).format('YYYY/MM/DD HH:mm A'));
+            $('#end_date').val(moment(event.start).format('MM/DD/YYYY HH:mm A'));
           }
           $('#event_id').val(event.id);
           $('#editModal').modal('show');
