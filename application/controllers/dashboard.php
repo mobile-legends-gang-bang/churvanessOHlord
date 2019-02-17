@@ -23,6 +23,7 @@ class Dashboard extends CI_Controller {
 			$data['uniqueclass'] = $this->section_model->getUniqueclass();
 			$data['content'] = "dashboard/index";
 			$data['notesview'] = $this->note_model->getnotesToday();
+			$data['countnotes'] = $this->note_model->countnotesToday();
 			$this->load->view('main/index', $data);
 	}
 

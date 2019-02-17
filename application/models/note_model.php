@@ -27,4 +27,11 @@ class Note_model extends CI_Model{
 		$result = $this->db->query("SELECT * FROM public.notes WHERE teacher_id = ".$teacher_id." AND note_date = '".$date_today."'");
 		return $result->result();
 	}
+
+	public function countnotesToday(){
+		$teacher_id = $this->session->userdata['logged_in']['teacher_id'];
+		$date_today = date('Y-m-d');
+		$result = $this->db->query("SELECT count(note_date) as note_date FROM public.notes WHERE teacher_id = ".$teacher_id." AND note_date = '".$date_today."'");
+		return $result->result();
+	}
 }

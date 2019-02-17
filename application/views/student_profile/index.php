@@ -14,6 +14,17 @@
       padding-right: 50px!important;
       text-align: center;
     }
+
+    tr:hover { 
+      background: #98FB98; 
+      font-weight: bold;
+      font-style: italic;
+    }
+    
+    td a { 
+      padding: 16px; 
+      color:black;
+    }
   </style>
  
 </head>
@@ -24,6 +35,7 @@
           <div style="padding-right: 20px; padding-top: 5px; padding-left: 10px;">Class Section</div>
           <div>
             <select class="form-control" name="class_grade" id="class_grade">
+            <option></option>
               <?php foreach($uniqueclass as $c):?>
                 <option><?php echo $c->class_name?></option>
               <?php endforeach?>
@@ -46,12 +58,16 @@
             </span>
         </div>
       </div>
-      <br />
+    <!--   <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <tr>
+            <th>Name</th>
+            <th>Street</th>
+            <th>City</th>
+          </tr>
+        </table>
+     </div> -->
     <div id="result"></div>
-
-    <table>
-    <tbody id="studentrecord"></tbody>
-    </table>
 
   </div>
   <div style="clear:both"></div>
@@ -235,58 +251,40 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-    
+
 
   load_data();
 
-  function load_data(query){
-    var class_grade = $('#class_grade').val();
+  function load_data(query)
+  {
     $.ajax({
       url:"<?php echo base_url(); ?>student_profile/searchStudents",
       method:"POST",
-      data:{query:query, class_grade:class_grade},
+      data:{query:query},
       success:function(data){
         $('#result').html(data);
       }
     })
   }
 
-  $('#search_text').keyup(function(){
-    var search = $(this).val();
-    if(search != '')
-    {
-      load_data(search);
-    }
-    else
-    {
-      load_data();
-    }
-  });
 
-  // $('#class_grade').change(function(){
-  //       var class_grade = $('#class_grade').val();
-  //       $.ajax({
-  //         url: '<?php //echo site_url('student_profile/getstudentsBySection')?>',
-  //         method:'post',
-  //         dataType:'json',
-  //         data: {class_grade:class_grade},
-  //         success : function(data){
-  //           var html = '';
-  //           var i;
-  //           var record_student_grade = "";
-  //           for(i = 0 ; i<data.length; i++){
-  //             // This is ES6 format (new one in jquery) no need for concat 
-  //             record_student_grade += `<tr>
-  //                     <td>${data[i].s_id}</td>
-  //                     <td>${data[i].lname}, ${data[i].fname} ${data[i].mname}</td>
-  //                     <td><input type="hidden" name="student_id[]" id="student_id" value="${data[i].s_id}"></td>
-  //                 </tr>`;
-  //           }
-  //           $('#studentrecord').html(record_student_grade);
-  //         }
-  //       });
-  //   });
 
+
+  $('#class_grade').change(function(){
+    var class_grade = $('#class_grade').val();
+
+        $('#search_text').keyup(function(){
+            var search = $(this).val();
+            if(search != '')
+            {
+              load_data(search);
+            }
+            else
+            {
+              load_data();
+            }
+          });
+      });
 
 });
 </script>

@@ -32,6 +32,7 @@
 	    </ol>
 	<!-- End of Breadcrumbs-->
 
+
 	<!-- Icon Cards-->
       <div class="row">
         <div class="col-xl-3 col-sm-6 mb-3">
@@ -40,14 +41,16 @@
               <div class="card-body-icon">
                 <i class="fa fa-fw fa-list"></i>
               </div>
-              <div class="mr-5">11 New Notes!</div>
+              <?php foreach ($countnotes as $no): ?>
+              <div class="mr-5"><?php echo $no->note_date?> Note/s for today!</div>
+              <?php endforeach ?>
             </div>
+            <?php foreach ($notesview as $n): ?>
             <a class="card-footer text-white clearfix small z-1" href="#">
-              <span class="float-left">View Details</span>
-              <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
+              <span class="float-left"><?php echo $n->note_description?></span>
+              <span class="float-right"><?php echo $n->note_date?></span>
             </a>
+            <?php endforeach ?>
           </div>
         </div>
       </div>

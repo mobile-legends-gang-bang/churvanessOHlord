@@ -134,17 +134,20 @@ class Student_profile extends CI_Controller {
     }
 
     public function searchStudents(){
+            
         $output = '';
         $query = '';
-        
+
         if($this->input->post('query'))
         {
             $query = $this->input->post('query');
         }
-        $data = $this->student_profile_model->fetch_data($query);
+
+        $data = $this->student_profile_model->searchStudents($query);
+
         $output .= '
         <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-bordered">
                         <tr>
                             <th>Name</th>
                             <th>Street</th>
@@ -155,13 +158,27 @@ class Student_profile extends CI_Controller {
         {
             foreach($data->result() as $row)
             {
-                    $output .= '
-                            <tr>
-                                <td>'.$row->fname.'</td>
-                                <td>'.$row->street.'</td>
-                                <td>'.$row->city.'</td>
-                            </tr>
-                    ';
+                $output .= '
+                        <tr>
+                            <td><a href="javascript:void(0); class="student_edit" data-s_id="'.$row->s_id.'" data-fname="'.$row->fname.' data-mname="'.$row->mname.'"
+                                 data-lname="'.$row->lname.'"
+                                 data-extname="'.$row->extname.'"
+                                 data-address="'.$row->address.'"
+                                 data-age="'.$row->age.'"
+                                 data-housenum="'.$row->housenum.'"
+                                 data-street="'.$row->street.'"
+                                 data-barangay="'.$row->barangay.'"
+                                 data-city="'.$row->city.'"
+                                 data-province="'.$row->province.'"
+                                 data-guardianname="'.$row->guardianname.'"
+                                 data-relation="'.$row->relation.'"
+                                 data-contactnum="'.$row->contactnum.'"
+                                 data-birthday="'.$row->birthday.'"
+                                 data-class_name="'.$row->class_name.'"">'.$row->fname.'</a></td>
+                            <td><a>'.$row->street.'</a></td>
+                            <td><a>'.$row->city.'</a></td>
+                        </tr>
+                ';
             }
         }
         else
@@ -173,4 +190,46 @@ class Student_profile extends CI_Controller {
         $output .= '</table>';
         echo $output;
     }
+    
+
+    // public function searchStudents(){
+    //     $output = '';
+    //     $query = '';
+
+    //     if($this->input->post('query'))
+    //     {
+    //         $query = $this->input->post('query');
+    //     }
+    //     $data = $this->student_profile_model->fetch_data($query);
+    //     $output .= '
+    //     <div class="table-responsive">
+    //                 <table class="table table-bordered table-striped">
+    //                     <tr>
+    //                         <th>Name</th>
+    //                         <th>Street</th>
+    //                         <th>City</th>
+    //                     </tr>
+    //     ';
+    //     if($data->num_rows() > 0)
+    //     {
+    //         foreach($data->result() as $row)
+    //         {
+    //                 $output .= '
+    //                         <tr>
+    //                             <td>'.$row->fname.'</td>
+    //                             <td>'.$row->street.'</td>
+    //                             <td>'.$row->city.'</td>
+    //                         </tr>
+    //                 ';
+    //         }
+    //     }
+    //     else
+    //     {
+    //         $output .= '<tr>
+    //                         <td colspan="5">No Data Found</td>
+    //                     </tr>';
+    //     }
+    //     $output .= '</table>';
+    //     echo $output;
+    // }
 }
