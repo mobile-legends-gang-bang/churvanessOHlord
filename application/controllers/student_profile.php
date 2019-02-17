@@ -5,6 +5,7 @@ class Student_profile extends CI_Controller {
       $this->load->model('student_profile_model');
       $this->load->library('excel');
       $this->load->model('note_model');
+      $this->load->model('section_model');
     }
     public function index() {
         if(!$this->session->userdata('logged_in')) {
@@ -12,6 +13,10 @@ class Student_profile extends CI_Controller {
         } else 
             $data['title'] = "Student Profile";
             $data['name'] = "STUDENT PROFILE";
+            $data['classlist'] = $this->section_model->getclasslist();
+            $data['class_id'] = $this->section_model->getclassid();
+            $data['class'] = $this->section_model->getclass();
+            $data['uniqueclass'] = $this->section_model->getUniqueclass();
             $data['content'] = "student_profile/index";
             $data['notesview'] = $this->note_model->getnotesToday();
             $this->load->view('main/index', $data);
@@ -126,5 +131,46 @@ class Student_profile extends CI_Controller {
     public function getstudentsBySection(){
         $data = $this->student_profile_model->getstudentsBySection();
         echo json_encode($data);
+    }
+
+    public function searchStudents(){
+        $output = '';
+        $query = '';
+        
+        if($this->input->post('query'))
+        {
+            $query = $this->input->post('query');
+        }
+        $data = $this->student_profile_model->fetch_data($query);
+        $output .= '
+        <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <th>Name</th>
+                            <th>Street</th>
+                            <th>City</th>
+                        </tr>
+        ';
+        if($data->num_rows() > 0)
+        {
+            foreach($data->result() as $row)
+            {
+                    $output .= '
+                            <tr>
+                                <td>'.$row->fname.'</td>
+                                <td>'.$row->street.'</td>
+                                <td>'.$row->city.'</td>
+                            </tr>
+                    ';
+            }
+        }
+        else
+        {
+            $output .= '<tr>
+                            <td colspan="5">No Data Found</td>
+                        </tr>';
+        }
+        $output .= '</table>';
+        echo $output;
     }
 }

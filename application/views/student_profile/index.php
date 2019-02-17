@@ -15,10 +15,50 @@
       text-align: center;
     }
   </style>
-
+ 
 </head>
 <body>
 <div class="content-wrapper" style="margin-top: 100px!important; margin-left: 300px;">
+  <form method="post" id="attendance_form">
+        <div class="row" style="padding: 20px;">
+          <div style="padding-right: 20px; padding-top: 5px; padding-left: 10px;">Class Section</div>
+          <div>
+            <select class="form-control" name="class_grade" id="class_grade">
+              <?php foreach($uniqueclass as $c):?>
+                <option><?php echo $c->class_name?></option>
+              <?php endforeach?>
+            </select>
+          </div>
+        </div>
+  </form>
+
+
+<!-- search -->
+  <div class="container">
+    <br />
+      <div class="form-group">
+        <div class="input-group">
+          <input type="text" name="search_text" id="search_text" placeholder="Search Student" class="form-control"/>
+            <span class="input-group-append">
+              <div class="btn btn-primary">
+                <i class="fa fa-search"></i>
+              </div>
+            </span>
+        </div>
+      </div>
+      <br />
+    <div id="result"></div>
+
+    <table>
+    <tbody id="studentrecord"></tbody>
+    </table>
+
+  </div>
+  <div style="clear:both"></div>
+  <br />
+  <br />
+  <!-- search -->
+
   <div class="col-md-4 offset-md-4">
       <div class="container" style="padding-bottom: 50px;">
         <img src="<?php echo base_url()?>images/avatar.png" class="center">
@@ -26,7 +66,7 @@
           <h4 class="align_center">Velikkakathu Sankaran Achuthanandan</h4>
         </div>
       </div>
-    </div>
+  </div>
   <div class="row row_padding">
     <div class="col-md-6">
       <h4 align="center">PERSONAL INFORMATION</h4>
@@ -187,48 +227,66 @@
       <div class="col-md-3 offset-md-3">
         <button class="btn bg-primary">Save Information</button>
       </div>
-      <form method="post" id="import_form" enctype="multipart/form-data">
-        <div class="col-md-3">
-          <input type="file" accept=".xls, .xlsx" name="file" id="file" >
-          <br>  
-          <br>
-          <input type="submit" name="import" value="Batch Enroll Student" class="btn bg-success">
-        </div>
-      </form>
     </div>
   </div>
 </div>
 </div>
 </body>
-<script>
+
+<script type="text/javascript">
 $(document).ready(function(){
+    
+
   load_data();
 
-  function load_data(){
+  function load_data(query){
+    var class_grade = $('#class_grade').val();
     $.ajax({
-      url:"<?php echo base_url(); ?>student_profile/fetch",
+      url:"<?php echo base_url(); ?>student_profile/searchStudents",
       method:"POST",
+      data:{query:query, class_grade:class_grade},
       success:function(data){
-        $('#student_data').html(data);
+        $('#result').html(data);
       }
     })
   }
- $('#import_form').on('submit', function(event){
-    event.preventDefault();
-    $.ajax({
-      url:"<?php echo base_url(); ?>student_profile/import",
-      method:"POST",
-      data:new FormData(this),
-      contentType:false,
-      cache:false,
-      processData:false,
-      success:function(data){
 
-        $('#file').val('');
-        load_data();
-        alert(data);
-      }
-    })
+  $('#search_text').keyup(function(){
+    var search = $(this).val();
+    if(search != '')
+    {
+      load_data(search);
+    }
+    else
+    {
+      load_data();
+    }
   });
+
+  // $('#class_grade').change(function(){
+  //       var class_grade = $('#class_grade').val();
+  //       $.ajax({
+  //         url: '<?php //echo site_url('student_profile/getstudentsBySection')?>',
+  //         method:'post',
+  //         dataType:'json',
+  //         data: {class_grade:class_grade},
+  //         success : function(data){
+  //           var html = '';
+  //           var i;
+  //           var record_student_grade = "";
+  //           for(i = 0 ; i<data.length; i++){
+  //             // This is ES6 format (new one in jquery) no need for concat 
+  //             record_student_grade += `<tr>
+  //                     <td>${data[i].s_id}</td>
+  //                     <td>${data[i].lname}, ${data[i].fname} ${data[i].mname}</td>
+  //                     <td><input type="hidden" name="student_id[]" id="student_id" value="${data[i].s_id}"></td>
+  //                 </tr>`;
+  //           }
+  //           $('#studentrecord').html(record_student_grade);
+  //         }
+  //       });
+  //   });
+
+
 });
 </script>
