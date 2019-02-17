@@ -185,6 +185,7 @@
               seat35 : seat35,
               seat36 : seat36, 
               seat37 : seat37,
+              seat38 : seat38,
               seat39 : seat39,
               seat40 : seat40 },
             dataType: 'json',
@@ -295,21 +296,178 @@
         var class_seatcheck = $('#checkseat_form #class_seatcheck').val();
         var attendance_datebyseat = $('#checkseat_form #attendance_datebyseat').val();
         var seat1 = $('#checkseat_form #seat1').val();
+        var seat2 = $('#checkseat_form #seat2').val();
+        var seat3 = $('#checkseat_form #seat3').val();
+        var seat4 = $('#checkseat_form #seat4').val();
+        var seat5 = $('#checkseat_form #seat5').val();
+        var seat6 = $('#checkseat_form #seat6').val();
+        var seat7 = $('#checkseat_form #seat7').val();
+        var seat8 = $('#checkseat_form #seat8').val();
+        var seat9 = $('#checkseat_form #seat9').val();
+        var seat10 = $('#checkseat_form #seat10').val();
+        var seat11 = $('#checkseat_form #seat11').val();
+        var seat12 = $('#checkseat_form #seat12').val();
+        var seat13 = $('#checkseat_form #seat13').val();
+        var seat14 = $('#checkseat_form #seat14').val();
+        var seat15 = $('#checkseat_form #seat15').val();
+        var seat16 = $('#checkseat_form #seat16').val();
+        var seat17 = $('#checkseat_form #seat17').val();
+        var seat18 = $('#checkseat_form #seat18').val();
+        var seat19 = $('#checkseat_form #seat19').val();
+        var seat20 = $('#checkseat_form #seat20').val();
+        var seat21 = $('#checkseat_form #seat21').val();
+        var seat22 = $('#checkseat_form #seat22').val();
+        var seat23 = $('#checkseat_form #seat23').val();
+        var seat24 = $('#checkseat_form #seat24').val();
+        var seat25 = $('#checkseat_form #seat25').val();
+        var seat26 = $('#checkseat_form #seat26').val();
+        var seat27 = $('#checkseat_form #seat27').val();
+        var seat28 = $('#checkseat_form #seat28').val();
+        var seat29 = $('#checkseat_form #seat29').val();
+        var seat30 = $('#checkseat_form #seat30').val();
+        var seat31 = $('#checkseat_form #seat31').val();
+        var seat32 = $('#checkseat_form #seat32').val();
+        var seat33 = $('#checkseat_form #seat33').val();
+        var seat34 = $('#checkseat_form #seat34').val();
+        var seat35 = $('#checkseat_form #seat35').val();
+        var seat36 = $('#checkseat_form #seat36').val();
+        var seat37 = $('#checkseat_form #seat37').val();
+        var seat38 = $('#checkseat_form #seat38').val();
+        var seat39 = $('#checkseat_form #seat39').val();
+        var seat40 = $('#checkseat_form #seat40').val();
         var attend1 = $('#checkseat_form #attend1').val();
-        
+        var attend2 = $('#checkseat_form #attend2').val();
+        var attend3 = $('#checkseat_form #attend3').val();
+        var attend4 = $('#checkseat_form #attend4').val();
+        var attend5 = $('#checkseat_form #attend5').val();
+        var attend6 = $('#checkseat_form #attend6').val();
+        var attend7 = $('#checkseat_form #attend7').val();
+        var attend8 = $('#checkseat_form #attend8').val();
+        var attend9 = $('#checkseat_form #attend9').val();
+        var attend10 = $('#checkseat_form #attend10').val();
+        var attend11 = $('#checkseat_form #attend11').val();
+        var attend12 = $('#checkseat_form #attend12').val();
+        var attend13 = $('#checkseat_form #attend13').val();
+        var attend14 = $('#checkseat_form #attend14').val();
+        var attend15 = $('#checkseat_form #attend15').val();
+        var attend16 = $('#checkseat_form #attend16').val();
+        var attend17 = $('#checkseat_form #attend17').val();
+        var attend18 = $('#checkseat_form #attend18').val();
+        var attend19 = $('#checkseat_form #attend19').val();
+        var attend20 = $('#checkseat_form #attend20').val();
+        var attend21 = $('#checkseat_form #attend21').val();
+        var attend22 = $('#checkseat_form #attend22').val();
+        var attend23 = $('#checkseat_form #attend23').val();
+        var attend24 = $('#checkseat_form #attend24').val();
+        var attend25 = $('#checkseat_form #attend25').val();
+        var attend26 = $('#checkseat_form #attend26').val();
+        var attend27 = $('#checkseat_form #attend27').val();
+        var attend28 = $('#checkseat_form #attend28').val();
+        var attend29 = $('#checkseat_form #attend29').val();
+        var attend30 = $('#checkseat_form #attend30').val();
+        var attend31 = $('#checkseat_form #attend31').val();
+        var attend32 = $('#checkseat_form #attend32').val();
+        var attend33 = $('#checkseat_form #attend33').val();
+        var attend34 = $('#checkseat_form #attend34').val();
+        var attend35 = $('#checkseat_form #attend35').val();
+        var attend36 = $('#checkseat_form #attend36').val();
+        var attend37 = $('#checkseat_form #attend37').val();
+        var attend38 = $('#checkseat_form #attend38').val();
+        var attend39 = $('#checkseat_form #attend39').val();
+        var attend40 = $('#checkseat_form #attend40').val();
+
         $.ajax({
+          type:'post',
           url:'<?php echo base_url('attendance/checkbyseatplan')?>',
+          dataType:'json',
           data:{
-            seat1 : seat1,
             subject_name : subject_name,
             class_seatcheck : class_seatcheck,
             attendance_datebyseat :attendance_datebyseat,
-            attend1 : attend1
+            seat1 : seat1,
+            seat2 : seat2,
+            seat3 : seat3,
+            seat4 : seat4,
+            seat5 : seat5,
+            seat6 : seat6,
+            seat7 : seat7,
+            seat8 : seat8,
+            seat9 : seat9,
+            seat10 :seat10,
+            seat11 : seat11,
+            seat12 : seat12,
+            seat13 : seat13,
+            seat14 : seat14,
+            seat15 : seat15,
+            seat16 : seat16,
+            seat17 : seat17,
+            seat18 : seat18,
+            seat19 : seat19,
+            seat20 : seat20,
+            seat21 : seat21,
+            seat22 : seat22,
+            seat23 : seat23,
+            seat24 : seat24,
+            seat25 : seat25,
+            seat26 : seat26,
+            seat27 : seat27,
+            seat28 : seat28,
+            seat29 : seat29,
+            seat30 : seat30,
+            seat31 : seat31,
+            seat32 : seat32,
+            seat33 : seat33,
+            seat34 : seat34,
+            seat35 : seat35,
+            seat36 : seat36,
+            seat37 : seat37,
+            seat38 : seat38,
+            seat39 : seat39,
+            seat40 : seat40,
+            attend1 : attend1,
+            attend2 : attend2,
+            attend3 : attend3,
+            attend4 : attend4,
+            attend5 : attend5,
+            attend6 : attend6,
+            attend7 : attend7,
+            attend8 : attend8,
+            attend9 : attend9,
+            attend10 : attend10,
+            attend11 : attend11,
+            attend12 : attend12,
+            attend13 : attend13,
+            attend14 : attend14,
+            attend15 : attend15,
+            attend16 : attend16,
+            attend17 : attend17,
+            attend18 : attend18,
+            attend19 : attend19,
+            attend20 : attend20,
+            attend21 : attend21,
+            attend22 : attend22,
+            attend23 : attend23,
+            attend24 : attend24,
+            attend25 : attend25,
+            attend26 : attend26,
+            attend27 : attend27,
+            attend28 : attend28,
+            attend29 : attend29,
+            attend30 : attend30,
+            attend31 : attend31,
+            attend32 : attend32,
+            attend33 : attend33,
+            attend34 : attend34,
+            attend35 : attend35,
+            attend36 : attend36,
+            attend37 : attend37,
+            attend38 : attend38,
+            attend39 : attend39,
+            attend40 : attend40,
           },
-          dataType:'json',
           success: function(response){
               if (response.status) {
-                swal("Successfully saved Scores!", "", "success");
+                swal("Successfully saved Attendance!", "", "success");
                 $('#subject_name').val("");
                 $('#class_seatcheck').val("");
                 $('#attendance_datebyseat').val("");
@@ -688,7 +846,7 @@
         </div>
         <div class="cell">
           <input type="text" disabled id="seat20" name="seat20">
-          <input type="checkbox"  name="attend21" id="attend21" checked="" onclick="$(this).val(this.checked ? true : false)"/>
+          <input type="checkbox"  name="attend20" id="attend20" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
