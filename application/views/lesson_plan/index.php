@@ -1,8 +1,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="<?php echo base_url();?>assets/froala/css/froala_editor.css">
+<!--   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+ -->  <link rel="stylesheet" href="<?php echo base_url();?>assets/froala/css/froala_editor.css">
   <link rel="stylesheet" href="<?php echo base_url();?>assets/froala/css/froala_style.css">
   <link rel="stylesheet" href="<?php echo base_url();?>assets/froala/css/plugins/code_view.css">
   <link rel="stylesheet" href="<?php echo base_url();?>assets/froala/css/plugins/draggable.css">
@@ -20,7 +20,8 @@
   <link rel="stylesheet" href="<?php echo base_url();?>assets/froala/css/plugins/help.css">
   <link rel="stylesheet" href="<?php echo base_url();?>assets/froala/css/third_party/spell_checker.css">
   <link rel="stylesheet" href="<?php echo base_url();?>assets/froala/css/plugins/special_characters.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
+<!--   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
+ -->  <link rel="stylesheet" href="<?php echo base_url();?>assets/froala/css/plugins/code_mirror.min.css">
 
   <style>
       body {
@@ -36,6 +37,10 @@
       .ss {
         background-color: red;
       }
+      #mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item > .nav-link {
+    color: #868e96;
+    text-align: left;
+}
   </style>
 </head>
 
@@ -50,11 +55,13 @@
  
   
 
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
+  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
+  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script> -->
+<!--   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script> -->
   <script type="text/javascript" src="<?php echo base_url();?>assets/froala/js/froala_editor.min.js"></script>
   <script type="text/javascript" src="<?php echo base_url();?>assets/froala/js/plugins/align.min.js"></script>
+  <script type="text/javascript" src="<?php echo base_url();?>assets/froala/js/plugins/xml.min.js"></script>
+  <script type="text/javascript" src="<?php echo base_url();?>assets/froala/js/plugins/codemirror.min.js"></script>
   <script type="text/javascript" src="<?php echo base_url();?>assets/froala/js/plugins/char_counter.min.js"></script>
   <script type="text/javascript" src="<?php echo base_url();?>assets/froala/js/plugins/code_beautifier.min.js"></script>
   <script type="text/javascript" src="<?php echo base_url();?>assets/froala/js/plugins/code_view.min.js"></script>
@@ -65,7 +72,6 @@
   <script type="text/javascript" src="<?php echo base_url();?>assets/froala/js/plugins/file.min.js"></script>
   <script type="text/javascript" src="<?php echo base_url();?>assets/froala/js/plugins/font_size.min.js"></script>
   <script type="text/javascript" src="<?php echo base_url();?>assets/froala/js/plugins/font_family.min.js"></script>
-  <script type="text/javascript" src="<?php echo base_url();?>assets/froala/js/plugins/fullscreen.js"></script>
   <script type="text/javascript" src="<?php echo base_url();?>assets/froala/js/plugins/image.min.js"></script>
   <script type="text/javascript" src="<?php echo base_url();?>assets/froala/js/plugins/image_manager.min.js"></script>
   <script type="text/javascript" src="<?php echo base_url();?>assets/froala/js/plugins/line_breaker.min.js"></script>
