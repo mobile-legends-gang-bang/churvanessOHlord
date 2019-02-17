@@ -28,8 +28,7 @@
                         <td>${data[i].s_id}</td>
                         <td>${data[i].lname}, ${data[i].fname} ${data[i].mname}</td>
                         <td><input type="checkbox" class="form-control" name="attend[]" id="attend" checked data-s_id="${data[i].s_id}" data-class_id="${data[i].class_id}"></td>
-                        <td><input type="text" name="remarks[]" id="remarks class="form-control" data-s_id="${data[i].s_id}" data-class_id="${data[i].class_id} "></td>
-                        <td><input type="hidden" name="student_id[]" id="student_id" value="${data[i].s_id}"></td>
+                        <td><input type="text" class="form-control" name="remarks[]" id="remarks data-s_id="${data[i].s_id}" data-class_id="${data[i].class_id} "><input type="hidden" name="student_id[]" id="student_id" value="${data[i].s_id}"></td>
                     </tr>`;
               }
               $('#student_roster').html(record_student_grade);
@@ -234,7 +233,7 @@
             }
           },
           error:function(request,status,error){ 
-            swal("Successfully saved Scores!", "", "success");
+            swal("Attendance Recorded!", "", "success");
           }
         });
       });

@@ -14,19 +14,68 @@
       padding-right: 50px!important;
       text-align: center;
     }
-  </style>
 
+    tr:hover { 
+      background: #98FB98; 
+      font-weight: bold;
+      font-style: italic;
+    }
+    
+    td a { 
+      padding: 16px; 
+      color:black;
+    }
+  </style>
 </head>
 <body>
 <div class="content-wrapper" style="margin-top: 100px!important; margin-left: 300px;">
+  <form method="post" id="attendance_form">
+        <div class="row" style="padding: 20px;">
+          <div style="padding-right: 20px; padding-top: 5px; padding-left: 10px;">Class Section</div>
+          <div>
+            <select class="form-control" name="class_grade" id="class_grade">
+            <option></option>
+              <?php foreach($uniqueclass as $c):?>
+                <option><?php echo $c->class_name?></option>
+              <?php endforeach?>
+            </select>
+          </div>
+        </div>
+  </form>
+
+
+<!-- search -->
+  <div class="container">
+    <br />
+      <div class="form-group">
+        <div class="input-group">
+          <input type="text" name="search_text" id="search_text" placeholder="Search Student" class="form-control"/>
+            <span class="input-group-append">
+              <div class="btn btn-primary">
+                <i class="fa fa-search"></i>
+              </div>
+            </span>
+        </div>
+      </div>
+    <div id="result"></div>
+
+  </div>
+  <div style="clear:both"></div>
+  <br />
+  <br />
+  <!-- search -->
+
   <div class="col-md-4 offset-md-4">
       <div class="container" style="padding-bottom: 50px;">
         <img src="<?php echo base_url()?>images/avatar.png" class="center">
         <div class="row row_padding" style="margin-top: 30px; border-bottom: 1px black solid;">
           <h4 class="align_center">Velikkakathu Sankaran Achuthanandan</h4>
+          <input id="myInput" type="text" placeholder="Search.." class="form-control">
         </div>
       </div>
     </div>
+  <div class="row row_padding" id="myTable">
+  </div>
   <div class="row row_padding">
     <div class="col-md-6">
       <h4 align="center">PERSONAL INFORMATION</h4>
@@ -187,48 +236,49 @@
       <div class="col-md-3 offset-md-3">
         <button class="btn bg-primary">Save Information</button>
       </div>
-      <form method="post" id="import_form" enctype="multipart/form-data">
-        <div class="col-md-3">
-          <input type="file" accept=".xls, .xlsx" name="file" id="file" >
-          <br>  
-          <br>
-          <input type="submit" name="import" value="Batch Enroll Student" class="btn bg-success">
-        </div>
-      </form>
     </div>
   </div>
 </div>
 </div>
 </body>
-<script>
+
+<script type="text/javascript">
 $(document).ready(function(){
+
+
   load_data();
 
-  function load_data(){
+  function load_data(query)
+  {
     $.ajax({
-      url:"<?php echo base_url(); ?>student_profile/fetch",
+      url:"<?php echo base_url(); ?>student_profile/searchStudents",
       method:"POST",
+      data:{query:query},
       success:function(data){
-        $('#student_data').html(data);
+        $('#result').html(data);
       }
     })
   }
- $('#import_form').on('submit', function(event){
-    event.preventDefault();
-    $.ajax({
-      url:"<?php echo base_url(); ?>student_profile/import",
-      method:"POST",
-      data:new FormData(this),
-      contentType:false,
-      cache:false,
-      processData:false,
-      success:function(data){
 
-        $('#file').val('');
-        load_data();
-        alert(data);
-      }
-    })
-  });
+  $('#class_grade').change(function(){
+    var class_grade = $('#class_grade').val();
+        $('#search_text').keyup(function(){
+            var search = $(this).val();
+            if(search != '')
+            {
+              load_data(search);
+            }
+            else
+            {
+              load_data();
+            }
+          });
+      });
+
+  $('#result').on('click', '.student_edit', function(){
+          alert("daw");
+          return;
+        });
+
 });
 </script>

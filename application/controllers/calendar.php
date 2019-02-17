@@ -4,16 +4,20 @@ class Calendar extends CI_Controller {
     function __construct(){
         parent::__construct();
         $this->load->model('calendar_model');
+        $this->load->model('note_model');
     }
-    public function index() {
-        if(!$this->session->userdata('logged_in')) {
-            redirect('login', 'refresh');
-        } else 
-            $data['title'] = "Edukit - Calendar";
-            $data['name'] = "CALENDAR OF ACTIVITIES AND SCHEDULE";
-            $data['content'] = "calendar/index";
+
+	public function index() {
+		if(!$this->session->userdata('logged_in')) {
+			redirect('login', 'refresh');
+		} else {
+			$data['title'] = "Edukit - Calendar";
+			$data['name'] = "CALENDAR OF ACTIVITIES AND SCHEDULE";
+            $data['notesview'] = $this->note_model->getnotesToday();
+			$data['content'] = "calendar/index";
             $this->load->view('main/index', $data);
     }
+}
     public function get_events() {
      // Our Start and End Dates
      $teacher_id = $this->session->userdata['logged_in']['teacher_id'];

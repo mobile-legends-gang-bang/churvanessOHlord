@@ -9,47 +9,43 @@
     vertical-align: middle!important;
   }
 </style>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#subject_id, #class_grade').change(function(){
+      var subject_id = $('#subject_id').val();
+      var class_grade = $('#class_grade').val();
+      $.ajax({
+          url: '<?php echo base_url('student_record/getabsent')?>',
+          method: 'post',
+          data: {class_grade:class_grade, subject_id:subject_id},
+          success: function(data){
+            $('#records').html(data);
+          }
+        });
+    });
+  })
+</script>
 </head>
 <body id="page-top">
 <div class="content-wrapper" style="margin-top: 100px!important;">
     <div class="container-fluid">
-      <!-- Example DataTables Card-->
       <div class="row" style="padding: 20px;">
         <div style="padding-right: 20px; padding-top: 5px;">Subject Select</div>
         <div>
-          <select class="form-control">
-          <optgroup>
-            <option>
-              Social Science
-            </option>
-            <option>
-              Mathematics
-            </option>
-            <option>
-              English
-            </option>
-          </optgroup>
-        </select>
+          <select class="form-control" name="subject_id" id="subject_id">
+            <option value=""></option>
+            <?php foreach($subjectlist as $s):?>
+              <option value="<?php echo $s->subject_id?>"><?php echo $s->subject_name?></option>
+            <?php endforeach?>
+          </select>
         </div>
         <div style="padding-right: 20px; padding-top: 5px; padding-left: 10px;">Class Section</div>
         <div>
-          <select class="form-control">
-          <optgroup>
-            <option>
-              Einstein
-            </option>
-            <option>
-              Newton
-            </option>
-            <option>
-              Pascal
-            </option>
-          </optgroup>
-        </select>
-        </div>
-        <div style="padding-right: 20px; padding-top: 5px; padding-left: 10px;">Level</div>
-        <div>
-          <input type="text" name="" class="form-control" style="width: 50px!important;">
+          <select class="form-control" name = "class_grade" id="class_grade">
+            <?php foreach($uniqueclass as $c):?>
+              <option><?php echo $c->class_name?></option>
+            <?php endforeach?>
+          </select>
         </div>
         <div style="padding-right: 20px; padding-top: 5px; padding-left: 10px;">Quarter</div>
         <div>
@@ -71,12 +67,7 @@
             </option>
         </select>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4 offset-md-4">
-          <button class="btn btn-primary"> View Student Record</button>
-        </div>
-      </div>
+      </div>  
       <div class="card mb-3" style="padding-top: 10px; margin-top: 10px;">
         <div class="card-header">
           <i class="fa fa-table"> &nbsp;&nbsp;<span></i>Student Record</span></div>
@@ -85,171 +76,21 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
+                  <th>Student ID</th>
                   <th class="center_th">Name</th>
-                  <th class="center_th">Level</th>
-                  <th class="center_th">Section</th>
-                  <th class="center_th">Subject</th>
-                  <th class="center_th">Quarter</th>
                   <th class="center_th" style="width: 120px!important;">Number of Absences Incurred</th>
                   <th class="center_th">Average Grade</th>
                 </tr>
               </thead>
               <tfoot>
                 <tr>
+                  <th>Student ID</th>
                   <th>Name</th>
-                  <th>Level</th>
-                  <th>Section</th>
-                  <th>Subject</th>
-                  <th>Quarter</th>
                   <th style="width: 100px!important;">Number of Absences Incurred</th>
                   <th>Average Grade</th>
                 </tr>
               </tfoot>
-              <tbody>
-                <tr>
-                  <td>Jayzon Cabuenas</td>
-                  <td>4</td>
-                  <td>Einstein</td>
-                  <td>Social Science</td>
-                  <td>1</td>
-                  <td>4</td>
-                  <td>83.23</td>
-                </tr>
-                <tr>
-                  <td>Karystel Alicante</td>
-                  <td>4</td>
-                  <td>Einstein</td>
-                  <td>Social Science</td>
-                  <td>1</td>
-                  <td>6</td>
-                  <td>87.03</td>
-                </tr>
-                <tr>
-                  <td>Bernard Joseph Gutierrez</td>
-                  <td>4</td>
-                  <td>Einstein</td>
-                  <td>Social Science</td>
-                  <td>1</td>
-                  <td>3</td>
-                  <td>81.43</td>
-                </tr>
-                <tr>
-                  <td>Karystel Alicante</td>
-                  <td>4</td>
-                  <td>Einstein</td>
-                  <td>Social Science</td>
-                  <td>1</td>
-                  <td>3</td>
-                  <td>94.26</td>
-                </tr>
-                <tr>
-                  <td>Jayzon Cabuenas</td>
-                  <td>4</td>
-                  <td>Einstein</td>
-                  <td>Social Science</td>
-                  <td>1</td>
-                  <td>4</td>
-                  <td>83.23</td>
-                </tr>
-                <tr>
-                  <td>Karystel Alicante</td>
-                  <td>4</td>
-                  <td>Einstein</td>
-                  <td>Social Science</td>
-                  <td>1</td>
-                  <td>6</td>
-                  <td>87.03</td>
-                </tr>
-                <tr>
-                  <td>Bernard Joseph Gutierrez</td>
-                  <td>4</td>
-                  <td>Einstein</td>
-                  <td>Social Science</td>
-                  <td>1</td>
-                  <td>3</td>
-                  <td>81.43</td>
-                </tr>
-                <tr>
-                  <td>Karystel Alicante</td>
-                  <td>4</td>
-                  <td>Einstein</td>
-                  <td>Social Science</td>
-                  <td>1</td>
-                  <td>3</td>
-                  <td>94.26</td>
-                </tr>
-                <tr>
-                  <td>Jayzon Cabuenas</td>
-                  <td>4</td>
-                  <td>Einstein</td>
-                  <td>Social Science</td>
-                  <td>1</td>
-                  <td>4</td>
-                  <td>83.23</td>
-                </tr>
-                <tr>
-                  <td>Karystel Alicante</td>
-                  <td>4</td>
-                  <td>Einstein</td>
-                  <td>Social Science</td>
-                  <td>1</td>
-                  <td>6</td>
-                  <td>87.03</td>
-                </tr>
-                <tr>
-                  <td>Bernard Joseph Gutierrez</td>
-                  <td>4</td>
-                  <td>Einstein</td>
-                  <td>Social Science</td>
-                  <td>1</td>
-                  <td>3</td>
-                  <td>81.43</td>
-                </tr>
-                <tr>
-                  <td>Karystel Alicante</td>
-                  <td>4</td>
-                  <td>Einstein</td>
-                  <td>Social Science</td>
-                  <td>1</td>
-                  <td>3</td>
-                  <td>94.26</td>
-                </tr>
-                <tr>
-                  <td>Jayzon Cabuenas</td>
-                  <td>4</td>
-                  <td>Einstein</td>
-                  <td>Social Science</td>
-                  <td>1</td>
-                  <td>4</td>
-                  <td>83.23</td>
-                </tr>
-                <tr>
-                  <td>Karystel Alicante</td>
-                  <td>4</td>
-                  <td>Einstein</td>
-                  <td>Social Science</td>
-                  <td>1</td>
-                  <td>6</td>
-                  <td>87.03</td>
-                </tr>
-                <tr>
-                  <td>Bernard Joseph Gutierrez</td>
-                  <td>4</td>
-                  <td>Einstein</td>
-                  <td>Social Science</td>
-                  <td>1</td>
-                  <td>3</td>
-                  <td>81.43</td>
-                </tr>
-                <tr>
-                  <td>Karystel Alicante</td>
-                  <td>4</td>
-                  <td>Einstein</td>
-                  <td>Social Science</td>
-                  <td>1</td>
-                  <td>3</td>
-                  <td>94.26</td>
-                </tr>
+              <tbody id="records">
               </tbody>
             </table>
           </div>

@@ -7,6 +7,8 @@ class Scores_report extends CI_Controller {
       $this->load->model('section_model');
       $this->load->model('behavior_model');
       $this->load->model('scores_report_model');
+      $this->load->model('note_model');
+
     }
     public function index() {
         if(!$this->session->userdata('logged_in')) {
@@ -16,13 +18,16 @@ class Scores_report extends CI_Controller {
             $data['name'] = "SCORES REPORT";
             $data['subjectlist'] = $this->section_model->getsubject();
             $data['uniqueclass'] = $this->section_model->getUniqueclass();
+            $data['notesview'] = $this->note_model->getnotesToday();
             $data['content'] = "reports/scores/index";
             $this->load->view('main/index', $data);
     }
     public function getscores(){
-        $data = $this->scores_report_model->getscores();
-        echo json_encode($data);
+        $data['records'] = $this->scores_report_model->getscores();
+        $this->load->view('reports/scores/records', $data);
     }
+    
+
     // function index(){
     //   $this->load->model("excel_export_model");
     //   $data["employee_data"] = $this->excel_export_model->fetch_data();
@@ -40,30 +45,39 @@ class Scores_report extends CI_Controller {
 
       foreach($table_columns as $field)
       {
-       $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+      $object->getActiveSheet()->setCellValue('A1', "Scores");
        $column++;
       }
 
       $scores = $this->scores_report_model->getscores();
 
       $excel_row = 2;
-
-      foreach($scores as $row)
+  
+      foreach($scores->result() as $row)
       {
+       $maxLength = 10;
+       $scores = explode(' - ', $row->scores);
+       $scoresLength = count($scores);
+
        $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->s_id);
        $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->lname);
        $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->score_type);
-       $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->score);
+       for($i = 0; $i < $scoresLength; $i++){
+        $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->scores[$i]);
+       }
        $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, "yes");
        $excel_row++;
       }
-
-      
-        $this->output->set_content_type('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        $this->output->set_header('Content-Disposition: attachment;filename="' . 'test' . '.xlsx"');
-        $this->output->set_header('Cache-Control: max-age=0');
         $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+        header("Pragma: public");
+        header("Expires: 0");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Content-Type: application/force-download");
+        header("Content-Type: application/octet-stream");
+        header("Content-Type: application/download");;
+        header('Content-Disposition: attachment;filename="data.xls"');
+        header("Content-Transfer-Encoding: binary ");
         $object_writer->save('php://output');
 
     }
-}
+ }

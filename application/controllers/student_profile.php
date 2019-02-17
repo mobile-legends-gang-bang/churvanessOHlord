@@ -4,6 +4,8 @@ class Student_profile extends CI_Controller {
       parent::__construct();
       $this->load->model('student_profile_model');
       $this->load->library('excel');
+      $this->load->model('note_model');
+      $this->load->model('section_model');
     }
     public function index() {
         if(!$this->session->userdata('logged_in')) {
@@ -11,7 +13,12 @@ class Student_profile extends CI_Controller {
         } else 
             $data['title'] = "Student Profile";
             $data['name'] = "STUDENT PROFILE";
+            $data['classlist'] = $this->section_model->getclasslist();
+            $data['class_id'] = $this->section_model->getclassid();
+            $data['class'] = $this->section_model->getclass();
+            $data['uniqueclass'] = $this->section_model->getUniqueclass();
             $data['content'] = "student_profile/index";
+            $data['notesview'] = $this->note_model->getnotesToday();
             $this->load->view('main/index', $data);
     }
     public function fetch(){
@@ -125,4 +132,104 @@ class Student_profile extends CI_Controller {
         $data = $this->student_profile_model->getstudentsBySection();
         echo json_encode($data);
     }
+
+    public function searchStudents(){
+            
+        $output = '';
+        $query = '';
+
+        if($this->input->post('query'))
+        {
+            $query = $this->input->post('query');
+        }
+
+        $data = $this->student_profile_model->searchStudents($query);
+
+        $output .= '
+        <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Name</th>
+                            <th>Street</th>
+                            <th>City</th>
+                        </tr>
+        ';
+        if($data->num_rows() > 0)
+        {
+            foreach($data->result() as $row)
+            {
+                $output .= '
+                        <tr>
+                            <td><a href="javascript:void(0); class="student_edit" data-s_id="'.$row->s_id.'" data-fname="'.$row->fname.' data-mname="'.$row->mname.'"
+                                 data-lname="'.$row->lname.'"
+                                 data-extname="'.$row->extname.'"
+                                 data-address="'.$row->address.'"
+                                 data-age="'.$row->age.'"
+                                 data-housenum="'.$row->housenum.'"
+                                 data-street="'.$row->street.'"
+                                 data-barangay="'.$row->barangay.'"
+                                 data-city="'.$row->city.'"
+                                 data-province="'.$row->province.'"
+                                 data-guardianname="'.$row->guardianname.'"
+                                 data-relation="'.$row->relation.'"
+                                 data-contactnum="'.$row->contactnum.'"
+                                 data-birthday="'.$row->birthday.'"
+                                 data-class_name="'.$row->class_name.'"">'.$row->fname.'</a></td>
+                            <td><a>'.$row->street.'</a></td>
+                            <td><a>'.$row->city.'</a></td>
+                        </tr>
+                ';
+            }
+        }
+        else
+        {
+            $output .= '<tr>
+                            <td colspan="5">No Data Found</td>
+                        </tr>';
+        }
+        $output .= '</table>';
+        echo $output;
+    }
+    
+
+    // public function searchStudents(){
+    //     $output = '';
+    //     $query = '';
+
+    //     if($this->input->post('query'))
+    //     {
+    //         $query = $this->input->post('query');
+    //     }
+    //     $data = $this->student_profile_model->fetch_data($query);
+    //     $output .= '
+    //     <div class="table-responsive">
+    //                 <table class="table table-bordered table-striped">
+    //                     <tr>
+    //                         <th>Name</th>
+    //                         <th>Street</th>
+    //                         <th>City</th>
+    //                     </tr>
+    //     ';
+    //     if($data->num_rows() > 0)
+    //     {
+    //         foreach($data->result() as $row)
+    //         {
+    //                 $output .= '
+    //                         <tr>
+    //                             <td>'.$row->fname.'</td>
+    //                             <td>'.$row->street.'</td>
+    //                             <td>'.$row->city.'</td>
+    //                         </tr>
+    //                 ';
+    //         }
+    //     }
+    //     else
+    //     {
+    //         $output .= '<tr>
+    //                         <td colspan="5">No Data Found</td>
+    //                     </tr>';
+    //     }
+    //     $output .= '</table>';
+    //     echo $output;
+    // }
 }

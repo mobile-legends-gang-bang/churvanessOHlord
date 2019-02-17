@@ -6,6 +6,9 @@ class Attendance extends CI_Controller {
 		$this->load->model('attendance_model');
 		$this->load->model('section_model');
 		$this->load->model('behavior_model');
+
+		$this->load->model('attendance_model');
+		$this->load->model('note_model');
 	}
 
 	public function index() {
@@ -19,6 +22,7 @@ class Attendance extends CI_Controller {
 			$data['class_id'] = $this->section_model->getclassid();
 			$data['class'] = $this->section_model->getclass();
 			$data['uniqueclass'] = $this->section_model->getUniqueclass();
+			$data['notesview'] = $this->note_model->getnotesToday();
 			$data['content'] = "attendance/index";
 			$this->load->view('main/index', $data);
 	}

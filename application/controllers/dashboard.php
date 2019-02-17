@@ -7,6 +7,7 @@ class Dashboard extends CI_Controller {
 		$this->load->model('behavior_model');
 		$this->load->model('attendance_model');
 		$this->load->model('section_model');
+		$this->load->model('note_model');
 	}
 
 	public function index() {
@@ -21,6 +22,8 @@ class Dashboard extends CI_Controller {
 			$data['class'] = $this->section_model->getclass();
 			$data['uniqueclass'] = $this->section_model->getUniqueclass();
 			$data['content'] = "dashboard/index";
+			$data['notesview'] = $this->note_model->getnotesToday();
+			$data['countnotes'] = $this->note_model->countnotesToday();
 			$this->load->view('main/index', $data);
 	}
 
@@ -42,4 +45,10 @@ class Dashboard extends CI_Controller {
 
         echo json_encode($data);
     }
+
+    // public function getstudentRank(){
+    // 	$data['score'] = $this->dashboard_model->getstudentRankScore();
+    // 	$data['namex'] = $this->dashboard_model->getstudentRankName();
+    //     echo json_encode($data);
+    // }
 }

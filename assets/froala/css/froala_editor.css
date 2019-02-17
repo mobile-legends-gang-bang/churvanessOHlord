@@ -135,6 +135,7 @@ iframe.fr-iframe {
 .fr-wrapper {
   position: relative;
   z-index: 1;
+  height: 500px;
 }
 .fr-wrapper::after {
   clear: both;

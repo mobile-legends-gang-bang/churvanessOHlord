@@ -2,7 +2,7 @@
 	<title><?php echo $title?></title>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('#score_subject, #class_grade').change(function(){
+			$('#score_subject, #class_grade, #quarter, #score_type').change(function(){
 				var class_grade = $('#class_grade').val();
 				var score_subject = $('#score_subject').val();
 				var quarter = $('#quarter').val();
@@ -10,22 +10,11 @@
 				$.ajax({
 					url: '<?php echo base_url('scores_report/getscores')?>',
 					method: 'post',
-					dataType: 'json',
+					// dataType: 'json',
 					data: {class_grade:class_grade, score_subject:score_subject, quarter:quarter, score_type:score_type},
 					success: function(data){
-						var html = '';
-			          	var i;
-			          	for(i = 0 ; i<data.length; i++){
-			           		html += '<tr>'+
-		                    '<td>'+data[i].s_id+'</td>'+
-		                    '<td>'+data[i].lname+','+data[i].fname+','+data[i].mname+','+data[i].extname+'</td>'+
-		                    '<td>'+data[i].score_type+'</td>'+
-		                    '<td>'+data[i].score+'</td>'+
-		                    '<td>some totla</td>'+
-		                    '</tr>';
-            			}
-          				$('#scorerecord').html(html);
-          			}
+						$('#scorerecord').html(data);
+					}
 				});
 			});
 			$('#create_report').click(function(){
@@ -45,10 +34,13 @@
 			})
 		});
 	</script>
+	<style>
+		th { text-align: center !important; }
+	</style>
 </head>
 <body>
 	<div class="content-wrapper" style="margin-top: 100px!important; margin-left: 270px!important;">
-		<form method="post" id="scoreform">
+		<form method="post" id="scoreform" action="<?php echo base_url();?>scores_report/action">
 			<div class="row" style="padding: 10px;">
 				<div class="col-md-2"> Subject</div>
 				<div class="col-md-1">:</div>
@@ -107,7 +99,7 @@
 	                      <th>Student ID</th>
 	                      <th>Name</th>
 	                      <th>Score Type</th>
-	                      <th>Score</th>
+	                      <th colspan="10">Score</th>
 	                      <th>Total Score</th>
 	                    </tr>
 	                  </thead>
@@ -116,11 +108,7 @@
 	                </table>
 	              </div>
 	        </div>
+	        <input type="submit" name="export" class="btn btn-success" value="Export">
 		</form>
-		<div class="row" style="padding: 10px;">
-				<div class="col-md-2 offset-md-3">
-					<button class="btn btn-primary" id="create_report" name="create_report" style="float: right!important;">Download Report</button>
-				</div>
-			</div>
 	</div>
 </body>
