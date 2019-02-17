@@ -295,32 +295,30 @@
         var class_seatcheck = $('#checkseat_form #class_seatcheck').val();
         var attendance_datebyseat = $('#checkseat_form #attendance_datebyseat').val();
         var seat1 = $('#checkseat_form #seat1').val();
-        var attend1=$('#checkseat_form #attend1').val();
+        var attend1 = $('#checkseat_form #attend1').val();
         
         $.ajax({
           url:'<?php echo base_url('attendance/checkbyseatplan')?>',
           data:{
+            seat1 : seat1,
             subject_name : subject_name,
             class_seatcheck : class_seatcheck,
-            attendance_datebyseat : attendance_datebyseat,
-            seat1 : seat1,
+            attendance_datebyseat :attendance_datebyseat,
             attend1 : attend1
           },
           dataType:'json',
           success: function(response){
               if (response.status) {
-                // $('#score_form')[0].reset();
                 swal("Successfully saved Scores!", "", "success");
                 $('#subject_name').val("");
-                $('#class_seat').val("");
+                $('#class_seatcheck').val("");
                 $('#attendance_datebyseat').val("");
             } else {
                 swal("FAILED");
               }
            }
-           });
-        
-          });
+        });
+        });
     });
   </script>
 </head>
@@ -589,219 +587,218 @@
             </select>
           </div>
         </div>
-        <div class="container">
-          <div class="row" style="margin-left: 437px;">
-         <div class="cell">Teacher</div>
-         </div>
+    <div class="container">
+        <div class="row" style="margin-left: 437px;">
+        <div class="cell">Teacher</div>
+        </div>
     <div class="row">
         <div class="cell">
           <input type="text" disabled id="seat1" name="seat1"></input>
-          <input type="checkbox" id="attend1" name="attend1" onclick="$(this).val(this.checked ? 1 : 0)"/>
-
+          <input type="checkbox" id="attend1" name="attend1" checked="" onclick="$(this).val(this.checked ? true : false)"/>
         </div>
         <div class="cell">    
           <input type="text" disabled id="seat2" name="seat2">
-          <input type="checkbox" id="attend2" name="attend2" onclick="$(this).val(this.checked ? 1 : 0)"/> 
+          <input type="checkbox" id="attend2" name="attend2" checked="" onclick="$(this).val(this.checked ? true : false)"/> 
         </div>
         <div class="cell">
           <input type="text" disabled id="seat3" name="seat3">
-          <input type="checkbox" id="attend3" name="attend3" onclick="$(this).val(this.checked ? 1 : 0)"/>
+          <input type="checkbox" id="attend3" name="attend3" checked="" onclick="$(this).val(this.checked ? true : false)"/>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat4" name="seat4">
-          <input type="checkbox" id="attend4" name="attend4" onclick="$(this).val(this.checked ? 1 : 0)"/>
+          <input type="checkbox" id="attend4" name="attend4" checked="" onclick="$(this).val(this.checked ? true : false)"/>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat5" name="seat5">
-          <input type="checkbox" id="attend5" name="attend5" onclick="$(this).val(this.checked ? 1 : 0)"/>
+          <input type="checkbox" id="attend5" name="attend5" checked="" onclick="$(this).val(this.checked ? true : false)"/>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat6" name="seat6">
-          <input type="checkbox"  name="attend6" id="attend6" checked="">
+          <input type="checkbox"  name="attend6" id="attend6" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat7" name="seat7">
-          <input type="checkbox" name="attend7" id="attend7" checked="">
+          <input type="checkbox" name="attend7" id="attend7" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat8" name="seat8">
-          <input type="checkbox"  name="attend8" id="attend8" checked="">
+          <input type="checkbox"  name="attend8" id="attend8" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
     </div>
     <div class="row">
         <div class="cell">
           <input type="text" disabled id="seat9" name="seat9">
-          <input type="checkbox"  name="attend9" id="attend9" checked="">
+          <input type="checkbox"  name="attend9" id="attend9" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat10" name="seat10">
-          <input type="checkbox"  name="attend10" id="attend10" checked="">
+          <input type="checkbox"  name="attend10" id="attend10" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat11" name="seat11">
-          <input type="checkbox"  name="attend11" id="attend11" checked="">
+          <input type="checkbox"  name="attend11" id="attend11" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat12" name="seat12">
-          <input type="checkbox"  name="attend12" id="attend12" checked="">
+          <input type="checkbox"  name="attend12" id="attend12" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat13" name="seat13">
-          <input type="checkbox"  name="attend13" id="attend13" checked="">
+          <input type="checkbox"  name="attend13" id="attend13" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat14" name="seat14">
-          <input type="checkbox"  name="attend14" id="attend14" checked="">
+          <input type="checkbox"  name="attend14" id="attend14" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat15" name="seat15">
-          <input type="checkbox"  name="attend15" id="attend15" checked="">
+          <input type="checkbox"  name="attend15" id="attend15" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat16" name="seat16">
-          <input type="checkbox"  name="attend16" id="attend16" checked="">
+          <input type="checkbox"  name="attend16" id="attend16" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
     </div>
     <div class="row">
         <div class="cell">
           <input type="text" disabled id="seat17" name="seat17">
-          <input type="checkbox"  name="attend17" id="attend17" checked="">
+          <input type="checkbox"  name="attend17" id="attend17" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat18" name="seat18">
-          <input type="checkbox"  name="attend18" id="attend18" checked="">
+          <input type="checkbox"  name="attend18" id="attend18" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat19" name="seat19">
-          <input type="checkbox"  name="attend19" id="attend19" checked="">
+          <input type="checkbox"  name="attend19" id="attend19" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat20" name="seat20">
-          <input type="checkbox"  name="attend21" id="attend21" checked="">
+          <input type="checkbox"  name="attend21" id="attend21" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat21" name="seat21">
-          <input type="checkbox"  name="attend21" id="attend21" checked="">
+          <input type="checkbox"  name="attend21" id="attend21" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat22" name="seat22">
-          <input type="checkbox"  name="attend22" id="attend22" checked="">
+          <input type="checkbox"  name="attend22" id="attend22" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat23" name="seat23">
-          <input type="checkbox"  name="attend23" id="attend23" checked="">
+          <input type="checkbox"  name="attend23" id="attend23" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat24" name="seat24">
-          <input type="checkbox"  name="attend24" id="attend24" checked="">
+          <input type="checkbox"  name="attend24" id="attend24" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
     </div>
-      <div class="row">
+    <div class="row">
         <div class="cell">
           <input type="text" disabled id="seat25" name="seat25">
-          <input type="checkbox"  name="attend25" id="attend25" checked=""> 
+          <input type="checkbox"  name="attend25" id="attend25" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat26" name="seat26">
-          <input type="checkbox"  name="attend26" id="attend26" checked="">
+          <input type="checkbox"  name="attend26" id="attend26" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat27" name="seat27">
-          <input type="checkbox"  name="attend27" id="attend27" checked="">
+          <input type="checkbox"  name="attend27" id="attend27" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell"> 
          <input type="text" disabled id="seat28" name="seat28">
-         <input type="checkbox"  name="attend28" id="attend28" checked="">
+         <input type="checkbox"  name="attend28" id="attend28" checked="" onclick="$(this).val(this.checked ? true : false)"/>
          </input>
         </div>
         <div class="cell">
          <input type="text" disabled id="seat29" name="seat29">
-         <input type="checkbox"  name="attend29" id="attend29" checked="">
+         <input type="checkbox"  name="attend29" id="attend29" checked="" onclick="$(this).val(this.checked ? true : false)"/>
          </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat30" name="seat30">
-          <input type="checkbox"  name="attend30" id="attend30" checked="">
+          <input type="checkbox"  name="attend30" id="attend30" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat31" name="seat31">
-          <input type="checkbox"  name="attend31" id="attend31" checked="">
+          <input type="checkbox"  name="attend31" id="attend31" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat32" name="seat32">
-          <input type="checkbox"  name="attend32" id="attend32" checked="">
+          <input type="checkbox"  name="attend32" id="attend32" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
-       </div>
-      <div class="row">
+    </div>
+    <div class="row">
         <div class="cell">
           <input type="text" disabled id="seat33" name="seat33">
-          <input type="checkbox"  name="attend33" id="attend33" checked="">
+          <input type="checkbox"  name="attend33" id="attend33" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat34" name="seat34">
-          <input type="checkbox"  name="attend34" id="attend34" checked="">
+          <input type="checkbox"  name="attend34" id="attend34" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat35" name="seat35">
-          <input type="checkbox"  name="attend35" id="attend35" checked="">
+          <input type="checkbox"  name="attend35" id="attend35" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat36" name="seat36">
-          <input type="checkbox"  name="attend36" id="attend36" checked="">
+          <input type="checkbox"  name="attend36" id="attend36" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat37" name="seat37">
-          <input type="checkbox"  name="attend37" id="attend37" checked="">
+          <input type="checkbox"  name="attend37" id="attend37" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat38" name="seat38">
-          <input type="checkbox"  name="attend38" id="attend38" checked="">
+          <input type="checkbox"  name="attend38" id="attend38" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat39" name="seat39">
-          <input type="checkbox"  name="attend39" id="attend39" checked="">
+          <input type="checkbox"  name="attend39" id="attend39" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
         <div class="cell">
           <input type="text" disabled id="seat40" name="seat40">
-          <input type="checkbox"  name="attend40" id="attend40" checked="">
+          <input type="checkbox"  name="attend40" id="attend40" checked="" onclick="$(this).val(this.checked ? true : false)"/>
           </input>
         </div>
     </div>
     <div class="row">
                 <div class="col-md-12">
-                  <button class="btn btn-primary" style="float: right!important;" name="checkbyseatplan" id="checkbyseatplan">Record Attendance</button>
+                  <input type="button" class="btn btn-primary" style="float: right!important;" name="checkbyseatplan" id="checkbyseatplan" value="Record Attendance"></input>
                 </div>
   </div>
    </div>

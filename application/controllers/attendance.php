@@ -178,38 +178,37 @@ class Attendance extends CI_Controller {
     }
     public function checkbyseatplan(){
     if($this->session->userdata('logged_in')) {
-			$this->form_validation->set_rules('student_id', '', 'required');
+			$this->form_validation->set_rules('seat1', '', 'required');
 			$this->form_validation->set_rules('subject_name', '', 'required');
-			$this->form_validation->set_rules('class_grade', '', 'required');	
+			$this->form_validation->set_rules('class_seatcheck', '', 'required');	
 			if ($this->form_validation->run()) {
 				$teacher_id	= $this->session->userdata['logged_in']['teacher_id'];
-				$student_id = json_decode($this->input->post('student_id'));
-				$class_seat = $this->input->post('class_seatcheck');
+				$seat1 = $this->input->post('seat1');
+				$class_seatcheck = $this->input->post('class_seatcheck');
 				$subject_name = $this->input->post('subject_name');
-				$attendance_date = $this->input->post('attendance_datebyseat');
-				
-				$attend1 =json_decode($this->input->post('attend1'));
+				$attendance_datebyseat = $this->input->post('attendance_datebyseat');
+				$attend1 =$this->input->post('attend1');
 	
-				$data = array();
-				for ($i=0; $i < count($student_id); $i++) { 
-					$data['s_id'] = $student_id[$i];
-					$data['subject_id'] = $subject_name;
-					$data['class_name'] = $class_seat;
-					$data['attendance_date'] = $attendance_datebyseat;
-					$data['teacher_id'] = $teacher_id;
-					$data['present'] = $attend1[$i];
+				$data = array(
+					's_id' => $seat1,
+					'subject_id' => $subject_name,
+					'class_name' => $class_seatcheck,
+					'attendance_date'=> $attendance_datebyseat,
+					'teacher_id'=> $teacher_id,
+					'present' => $attend1
+				     );
+				print_r($data);
+				return;
 					if($data['present']==NULL)
 						$data['present']= "false";
-					$this->db->insert('public.attendance', $data);
-				}
+				    $this->db->insert('public.attendance', $data);
 				$response['status'] = TRUE;
 				$response['message'] = "Successfully saved scores.";
-		} else 
+			} else 
 				$response['message'] = 'Please fill up all required fields';
 			echo json_encode($response);
-    }
-    else 
+    	} else 
 			redirect('login', 'refresh');
-  }
+    } 
 
 }
