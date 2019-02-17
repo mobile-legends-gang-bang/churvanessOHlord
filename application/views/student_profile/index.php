@@ -26,16 +26,6 @@
       color:black;
     }
   </style>
-<script type="text/javascript">
-    $(document).ready(function(){
-      $("#myInput").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#myTable tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-      });
-    });
-  </script>
 </head>
 <body>
 <div class="content-wrapper" style="margin-top: 100px!important; margin-left: 300px;">
@@ -67,15 +57,6 @@
             </span>
         </div>
       </div>
-    <!--   <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-          <tr>
-            <th>Name</th>
-            <th>Street</th>
-            <th>City</th>
-          </tr>
-        </table>
-     </div> -->
     <div id="result"></div>
 
   </div>
@@ -279,12 +260,8 @@ $(document).ready(function(){
     })
   }
 
-
-
-
   $('#class_grade').change(function(){
     var class_grade = $('#class_grade').val();
-
         $('#search_text').keyup(function(){
             var search = $(this).val();
             if(search != '')
@@ -297,6 +274,11 @@ $(document).ready(function(){
             }
           });
       });
+
+  $('#result').on('click', '.student_edit', function(){
+          alert("daw");
+          return;
+        });
 
 });
 </script>
