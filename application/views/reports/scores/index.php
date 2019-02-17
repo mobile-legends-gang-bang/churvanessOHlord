@@ -2,7 +2,7 @@
 	<title><?php echo $title?></title>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('#score_subject, #class_grade').change(function(){
+			$('#score_subject, #class_grade, #quarter, #score_type').change(function(){
 				var class_grade = $('#class_grade').val();
 				var score_subject = $('#score_subject').val();
 				var quarter = $('#quarter').val();
@@ -13,7 +13,6 @@
 					// dataType: 'json',
 					data: {class_grade:class_grade, score_subject:score_subject, quarter:quarter, score_type:score_type},
 					success: function(data){
-						console.log(data);
 						$('#scorerecord').html(data);
 					}
 				});

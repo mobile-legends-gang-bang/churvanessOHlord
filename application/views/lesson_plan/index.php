@@ -41,22 +41,7 @@
 
 <body>
 	<div class="content-wrapper" style="margin-top: 110px!important; margin-left:300px!important;">
-		<div class="row" style="padding: 10px;">
-			<div class="col-md-2">Subject Select </div>
-			<div class="col-md-1">:</div>
-			<div class="col-md-4">
-				<select class="form-control">
-					<option>Subject 1</option>
-					<option>Subject 2</option>
-				</select>
-			</div>
-		</div>
-		<div class="row" style="padding: 10px;">
-			<div class="col-md-2 offset-md-3">
-				<button class="btn bg-primary">View Lesson Plan Record</button>
-			</div>
-		</div>
-	  <h4>
+		<h4>
 	    You may now start creating and editing your lesson plan.
 	  </h4>	
 		<div id="editor">

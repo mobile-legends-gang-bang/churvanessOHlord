@@ -9,7 +9,10 @@ class Scores_report_model extends CI_Model{
 		$score_type = $this->input->post('score_type');
 
 		$sql = "SELECT 		p.s_id, lname, fname, mname, extname, score_type,
-							ARRAY_TO_STRING(array_agg(s.score ORDER BY score_id), ' - ') as scores
+							ARRAY_TO_STRING(array_agg(s.score ORDER BY score_id), ' - ') as scores,
+							ARRAY_TO_STRING(array_agg(s.over ORDER BY score_id), ' - ') as perfect_score,
+							sum(score) as score_sum,
+							sum(over) as score_perfect
 				FROM 		public.student_profile p
 				JOIN 		public.student_scores s
 				ON 			p.s_id = s.s_id

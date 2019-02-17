@@ -19,4 +19,17 @@ class Attendance_model extends CI_Model{
 		return $result->result();		
  
 	}
+	public function getabsent(){
+		$teacher_id = $this->session->userdata['logged_in']['teacher_id'];
+		$result = $this->db->query("SELECT s.s_id, fname, mname, extname,  
+									ARRAY_TO_STRING(array_agg(a.present ORDER BY attendance_id), ' - ') as present,
+									count(present) as count_absent
+									from public.attendance a
+									JOIN public.student_profile s on a.s_id = s.s_id
+									WHERE present= false
+									AND a.teacher_id = ".$teacher_id."
+									GROUP BY s.s_id
+									");
+		return $result->result();
+	}
 }

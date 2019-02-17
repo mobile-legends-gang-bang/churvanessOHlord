@@ -77,6 +77,13 @@
 
 <!--Charts-->
 <?php
+
+// json_decode($rank);
+
+// foreach($rank as $lbl){
+//       array("y" => echo $lbl->score;, "label" => echo $lbl->fname; );
+//     }
+
 $barData = array( 
   array("y" => 3373.64, "label" => "Germany" ),
   array("y" => 2435.94, "label" => "France" ),
@@ -85,11 +92,6 @@ $barData = array(
   array("y" => 1039.99, "label" => "Switzerland" ),
   array("y" => 765.215, "label" => "Japan" ),
   array("y" => 612.453, "label" => "Netherlands" )
-);
-
-$pieData = array( 
-  array("label"=>"Positive", "y"=>126),
-  array("label"=>"Negative", "y"=>232)
 );
 
 $areaData = array(
@@ -139,6 +141,7 @@ var chart = new CanvasJS.Chart("myAreaChart", {
 chart.render();
  
 var chart = new CanvasJS.Chart("myBarChart", {
+  exportEnabled: true,
   animationEnabled: true,
   theme: "light2",
   title:{
@@ -249,27 +252,16 @@ chart.render();
        	 <div class="col-lg-8">
           <div class="card mb-3">
             <div class="card-header">
-              <i class="fa fa-bar-chart"></i> Bar Chart Example</div>
+              <i class="fa fa-bar-chart"></i>Bar Chart Example
+            </div>
             <div class="card-body">
               <div class="row">
-                <div class="col-sm-8 my-auto">
-                  <div id="myBarChart" style="height: 370px; width: 100%;"></div>
-                </div>
-                <div class="col-sm-4 text-center my-auto">
-                  <div class="h4 mb-0 text-primary">$34,693</div>
-                  <div class="small text-muted">YTD Revenue</div>
-                  <hr>
-                  <div class="h4 mb-0 text-warning">$18,474</div>
-                  <div class="small text-muted">YTD Expenses</div>
-                  <hr>
-                  <div class="h4 mb-0 text-success">$16,219</div>
-                  <div class="small text-muted">YTD Margin</div>
-                </div>
+                <div id="myBarChart" style="height: 370px; width: 100%;"></div>
               </div>
             </div>
-              <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-          	  </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
           </div>
+        </div>
 
           <!-- Example Pie Chart Card-->
           <div class="col-lg-4">
