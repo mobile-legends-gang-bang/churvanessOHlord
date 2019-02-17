@@ -22,8 +22,13 @@ class Student_record extends CI_Controller {
 	}
 	public function getabsent(){
 		$data['records'] = $this->student_record_model->getabsent();
-		$data['present'] = $this->student_record_model->getpresent();
+		// $data['present'] = $this->student_record_model->getpresent();
 		$this->load->view('student_record/records', $data);
+	}
+
+	public function getscores(){
+		$data['records'] = $this->student_record_model->getscores();
+		$this->load->view('student_record/scores', $data);
 	}
 
 }
