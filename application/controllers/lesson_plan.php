@@ -24,10 +24,10 @@ class Lesson_plan extends CI_Controller {
 		// $content = $this->input->post('my_editor');
 		// json_encode($content);	
 		$data = array(
-    		'content' => $this->input->post('content'),
-    		'subject_id' => $this->input->post('subject_id')
+    		'content' => $this->input->post('content')
+    		// 'subject_id' => $this->input->post('subject_id')
 		);
-		print_r($data); return;
+		// print_r($data); return;
 		$this->db->insert('lesson_plan', $data);
 	}
 	public function get(){

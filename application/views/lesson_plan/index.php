@@ -114,7 +114,8 @@
         // alert('weee');
       })
       .on('froalaEditor.save.after', function (e, editor, response) {
-        // After successfully save request.
+        swal("Lesson Plan Created!", "", "success");
+        $('#edit').val("Start now...");
       })
       .on('froalaEditor.save.error', function (e, editor, error) {
         // Do something here.
