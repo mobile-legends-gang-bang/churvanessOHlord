@@ -110,4 +110,24 @@ class Dashboard_model extends CI_Model{
 		$result = $this->db->query($sql);
 		return $result;
 	}
+
+	public function rankabsent(){
+		$teacher_id = $this->session->userdata['logged_in']['teacher_id'];
+		$class_name = $this->input->post('class_name');
+		$sql = "SELECT 		p.s_id, lname, fname, mname, extname,
+							ARRAY_TO_STRING(array_agg(s.present ORDER BY attendance_id), ' - ') as absent,
+							count(s.present) as absent
+				FROM 		public.student_profile p
+				JOIN 		public.attendance s
+				ON 			p.s_id = s.s_id
+				WHERE 		s.teacher_id = ".$teacher_id."
+				AND 		present =false
+				AND 		s.class_name = '".$class_name."'
+				GROUP BY 	p.s_id, lname, fname, mname, extname
+				ORDER BY 	lname, fname, mname, p.s_id
+				LIMIT 10
+									";
+		$result = $this->db->query($sql);
+		return $result;
+	}
 }

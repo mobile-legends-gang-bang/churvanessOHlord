@@ -56,16 +56,16 @@ class Scores_report extends CI_Controller {
       foreach($scores->result() as $row)
       {
        $maxLength = 10;
+       $sum = 0;
        $scores = explode(' - ', $row->scores);
        $scoresLength = count($scores);
-
+       $average = ($row->score_sum/$row->score_perfect)*100;
        $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->s_id);
        $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->lname);
        $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->score_type);
-       for($i = 0; $i < $scoresLength; $i++){
-        $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->scores[$i]);
-       }
-       $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, "yes");
+       $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->scores);
+       $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->score_sum);
+        $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, number_format($average,2));
        $excel_row++;
       }
         $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');

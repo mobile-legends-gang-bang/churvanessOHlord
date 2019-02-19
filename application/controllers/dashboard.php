@@ -49,4 +49,9 @@ class Dashboard extends CI_Controller {
         $data['records'] = $this->dashboard_model->rankstudents();
         $this->load->view('dashboard/rank', $data);
     }
+
+    public function rankabsences(){
+        $data['records'] = $this->dashboard_model->rankabsent();
+        $this->load->view('dashboard/absences', $data);
+    }
 }

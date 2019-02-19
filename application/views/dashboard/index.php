@@ -29,6 +29,14 @@
 		        <a href="#">Dashboard</a>
 		    </li>
 		    <li class="breadcrumb-item active">My Dashboard</li>
+        <div style="margin-left: 30px;">
+          <select class="form-control" name="class_grade" id="class_name">
+            <option></option>
+            <?php foreach($uniqueclass as $c):?>
+              <option value="<?php echo $c->class_name?>"><?php echo $c->class_name?></option>
+            <?php endforeach?>
+          </select>
+        </div>
 	    </ol>
 	<!-- End of Breadcrumbs-->
 
@@ -42,7 +50,7 @@
                 <i class="fa fa-fw fa-list"></i>
               </div>
               <?php foreach ($countnotes as $no): ?>
-              <div class="mr-5"><?php echo $no->note_date?> Note/s for today!</div>
+              <div class="mr-5"><?php echo $no->note_date?> <strong>Note/s for today!</strong></div>
               <?php endforeach ?>
             </div>
             <?php foreach ($notesview as $n): ?>
@@ -54,22 +62,16 @@
           </div>
         </div>
         <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card text-white bg-primary o-hidden h-100" style="width: 300px;">
+          <div class="card text-white bg-primary o-hidden h-100">
             <div class="card-body">
               <div class="card-body-icon">
                 <i class="fa fa-fw fa-arrow-circle-up"></i>
               </div>
-              <div class="mr-5">Current Student Ranking! <br>
-                <select class="form-control" name="class_grade" id="class_name">
-                  <option></option>
-                  <?php foreach($uniqueclass as $c):?>
-                    <option value="<?php echo $c->class_name?>"><?php echo $c->class_name?></option>
-                  <?php endforeach?>
-                </select>
+              <div class="mr-5"><strong>Outstanding Students</strong><br>
                 <table width="100%">
                   <thead>
                     <th>Name</th>
-                    <th>Current Average</th>
+                    <th style="padding-left: 50px;">Current Average</th>
                   </thead>
                   <tbody id="rank"></tbody>
                 </table>
@@ -78,9 +80,32 @@
           </div>
         </div>
         <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-success o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fa fa-fw fa-calendar-times-o"></i>
+              </div>
+              <div class="mr-5"><strong>Top Absentees</strong></div>
+              <table width="100%">
+                  <thead>
+                    <th>Name</th>
+                    <th style="padding-left: 50px;">No. of Absences</th>
+                  </thead>
+                  <tbody id="absent"></tbody>
+              </table>
+            </div>
+          </div>
         </div>
 
         <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-danger o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fa fa-fw fa-support"></i>
+              </div>
+              <div class="mr-5"><strong>Less Performing Students</strong></div>
+            </div>
+          </div>
         </div>
         
       </div>
@@ -153,7 +178,7 @@ var chart = new CanvasJS.Chart("myAreaChart", {
     valueFormatString: "DD MMM"
   },
   axisY: {
-    title: "Total Number of Visits",
+    title: "Total Number of Present",
     maximum: 1200
   },
   data: [{
@@ -246,6 +271,19 @@ chart.render();
           }
         });
       });
+      $('#class_name').change(function(){
+        // alert('hurrah');return;
+        var class_name = $('#class_name').val();
+        $.ajax({
+          url: '<?php echo base_url('dashboard/rankabsences')?>',
+          method:'post',
+          data: {class_name:class_name},
+          success : function(data){
+            $('#absent').html(data);
+            // alert('yea');return;
+          }
+        });
+      });
     });
 
   </script>
@@ -254,7 +292,7 @@ chart.render();
       <!-- Area Chart Example-->
       <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-area-chart"></i> Area Chart Example</div>
+          <i class="fa fa-area-chart"></i>Student Attendance Trend</div>
         <div class="card-body">
           <div id="myAreaChart" style="height: 370px; width: 100%;"></div>
         </div>
@@ -282,7 +320,7 @@ chart.render();
           <div class="col-lg-4">
           	<div class="card mb-3">
             	<div class="card-header">
-            		  <i class="fa fa-pie-chart"></i> Pie Chart Example
+            		  <i class="fa fa-pie-chart"></i> Negative and Positive Behavior
             	</div>
 	            <div class="card-body">
 	              <div id="myPieChart" style="height: 370px; width: 100%;"></div>
