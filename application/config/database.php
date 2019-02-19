@@ -75,7 +75,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '192.168.0.40',
+	'hostname' => '192.168.1.8',
 	'username' => 'postgres',
 	'password' => 'edukit',
 	'database' => 'postgres',

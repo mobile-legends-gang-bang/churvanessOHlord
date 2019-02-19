@@ -65,16 +65,13 @@ class Calendar extends CI_Controller {
             redirect('login', 'refresh');
     }
 public function delete_event() {
-         $id = $this->input->get("id");
-         $data =array(
-            ':id' => $_POST['id']
-            );
-          $this->db->delete('public.events',$data);
-
-           redirect(site_url("calendar"));
-
+          $data=$this->calendar_model->delete_event();
+        echo json_encode($data);
         }
 
-
+ public function update_event(){
+    $data=$this->calendar_model->update_event();
+        echo json_encode($data);
+ }
 }
 ?>
