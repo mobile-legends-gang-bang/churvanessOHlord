@@ -45,10 +45,8 @@ class Dashboard extends CI_Controller {
 
         echo json_encode($data);
     }
-
-    // public function getstudentRank(){
-    // 	$data['score'] = $this->dashboard_model->getstudentRankScore();
-    // 	$data['namex'] = $this->dashboard_model->getstudentRankName();
-    //     echo json_encode($data);
-    // }
+    public function rankstudents(){
+        $data['records'] = $this->dashboard_model->rankstudents();
+        $this->load->view('dashboard/rank', $data);
+    }
 }

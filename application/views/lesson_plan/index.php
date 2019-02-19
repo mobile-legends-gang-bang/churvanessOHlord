@@ -1,4 +1,5 @@
 <head>
+  <title>Create Lesson Plan</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0"/>
 <!--   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -46,18 +47,21 @@
 
 <body>
 	<div class="content-wrapper" style="margin-top: 110px!important; margin-left:300px!important;">
+
 		<h4>
 	    You may now start creating and editing your lesson plan.
 	  </h4>	
 		<div id="editor">
-      	<div id='edit' style="margin-top: 30px;" name="area2"></div>
+      	<div ></div>
+        <textarea id='edit' style="margin-top: 30px;" name="area2"></textarea>
   	</div>
+    <input type="submit" name="submit" id="submit" value="Save Lesson Plan">
  
   
 
-  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
-  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script> -->
-<!--   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script> -->
+ <!--  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script> -->
   <script type="text/javascript" src="<?php echo base_url();?>assets/froala/js/froala_editor.min.js"></script>
   <script type="text/javascript" src="<?php echo base_url();?>assets/froala/js/plugins/align.min.js"></script>
   <script type="text/javascript" src="<?php echo base_url();?>assets/froala/js/plugins/xml.min.js"></script>
@@ -93,7 +97,112 @@
   <script type="text/javascript" src="<?php echo base_url();?>assets/froala/js/plugins/word_paste.min.js"></script>
   <script>
     $(function(){
-      $('#edit').froalaEditor()
+      $('#edit').froalaEditor({
+        // Set the save param.
+        saveParam: 'content',
+ 
+        // Set the save URL.
+        saveURL: '<?php echo base_url('lesson_plan/save')?>',
+ 
+        // HTTP request type.
+        saveMethod: 'POST',
+ 
+        // Additional save params.
+        saveParams: {id: 'my_editor'}
+      })
+      .on('froalaEditor.save.before', function (e, editor) {
+        // alert('weee');
+      })
+      .on('froalaEditor.save.after', function (e, editor, response) {
+        // After successfully save request.
+      })
+      .on('froalaEditor.save.error', function (e, editor, error) {
+        // Do something here.
+      });
     });
+
+    $(function(){
+      $('.selector').froalaEditor({
+        // Set the image upload parameter.
+        imageUploadParam: 'image_param',
+
+        // Set the image upload URL.
+        imageUploadURL: 'http//localhost/churvanessohlord/images',
+
+        // Additional upload params.
+        imageUploadParams: {id: 'my_editor'},
+
+        // Set request type.
+        imageUploadMethod: 'POST',
+
+        // Set max image size to 5MB.
+        imageMaxSize: 5 * 1024 * 1024,
+
+        // Allow to upload PNG and JPG.
+        imageAllowedTypes: ['jpeg', 'jpg', 'png']
+      })
+      .on('froalaEditor.image.beforeUpload', function (e, editor, images) {
+        // Return false if you want to stop the image upload.
+      })
+      .on('froalaEditor.image.uploaded', function (e, editor, response) {
+        // Image was uploaded to the server.
+      })
+      .on('froalaEditor.image.inserted', function (e, editor, $img, response) {
+        // Image was inserted in the editor.
+      })
+      .on('froalaEditor.image.replaced', function (e, editor, $img, response) {
+        // Image was replaced in the editor.
+      })
+      .on('froalaEditor.image.error', function (e, editor, error, response) {
+        // Bad link.
+        if (error.code == 1) {  }
+
+        // No link in upload response.
+        else if (error.code == 2) {  }
+
+        // Error during image upload.
+        else if (error.code == 3) {  }
+
+        // Parsing response failed.
+        else if (error.code == 4) {  }
+
+        // Image too text-large.
+        else if (error.code == 5) {  }
+
+        // Invalid image type.
+        else if (error.code == 6) {  }
+
+        // Image can be uploaded only to same domain in IE 8 and IE 9.
+        else if (error.code == 7) {  }
+
+        // Response contains the original server response to the request if available.
+      });
+    });
+
+    $('#submit').click (function () {
+      $('#edit').froalaEditor('save.save')
+    });
+
+    $(document).ready(function(){
+      load();
+      function load(){
+        $.ajax({
+        type  : 'post',
+        url   : '<?php echo site_url('lesson_plan/get')?>',
+        dataType : 'html',
+        success : function(data){
+          // alert("sahdas");return;
+          // $('.fr-wrapper').html(data);
+          $('#edit').froalaEditor('html.set', data);
+        }
+      });
+      }
+    });
+
   </script>
+<!--   <script type="text/javascript">
+    $(document).ready(function(){
+      $('#submit').froalaEditor({toolbarInline:false})
+    });
+  </script> -->
 </body>
