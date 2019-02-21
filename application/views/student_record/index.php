@@ -100,14 +100,14 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Student ID</th>
+                      <th style="width: 120px; text-align: right;">Student ID</th>
                       <th class="center_th">Name</th>
                       <th class="center_th" style="width: 120px!important;">Number of Absences Incurred</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>Student ID</th>
+                      <th style="width: 120px; text-align: right;">Student ID</th>
                       <th>Name</th>
                       <th style="width: 100px!important;">Number of Absences Incurred</th>
                     </tr>

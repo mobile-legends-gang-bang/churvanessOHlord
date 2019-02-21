@@ -75,14 +75,13 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '192.168.0.40',
+	'hostname' => 'localhost',
 	'username' => 'postgres',
 	'password' => 'edukit',
 	'database' => 'postgres',
 	'dbdriver' => 'postgre',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
-	// 'db_debug' => (ENVIRONMENT !== 'production'),
 	'db_debug' => TRUE,
 	'cache_on' => FALSE,
 	'cachedir' => '',

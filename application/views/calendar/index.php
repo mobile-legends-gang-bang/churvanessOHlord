@@ -8,8 +8,8 @@
  <head>
   <title>Calendar</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!--   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css" />
+ -->  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
@@ -17,19 +17,17 @@
    
   $(document).ready(function() {
    var calendar = $('#calendar').fullCalendar({
-        //editable: true;
+    themeSystem: 'bootstrap4',
     header:{
      left:'prev,next today',
      center:'title',
-     right:'month,agendaWeek,agendaDay'
+     right:'month,agendaWeek,agendaDay,listMonth'
     },
     events: function(start, end, timezone, callback) {
     $.ajax({
       url: "<?php echo base_url('calendar/get_events') ?>",
       dataType: 'json',
-      data: {
-        // our hypothetical feed requires UNIX timestamps
-        
+      data: {   
         start: start.unix(),
         end: end.unix()
       },
@@ -40,7 +38,7 @@
       });
   },
     selectable:true,
-    selectHelper:true,
+
       select: function(start, end, allDay)
     {
      var title = prompt("Enter Event Title");
@@ -61,7 +59,40 @@
      }
     },
     editable:true,
+    eventResize:function(event)
+    {
+     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+     var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+     var title = event.title;
+     var id = event.id;
+     $.ajax({
+      url:"<?php echo base_url('calendar/update_event') ?>",
+      type:"POST",
+      data:{title:title, start:start, end:end, id:id},
+      success:function(){
+       calendar.fullCalendar('refetchEvents');
+       alert('Event Update');
+      }
+     })
+    },
 
+    eventDrop:function(event)
+    {
+     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+     var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+     var title = event.title;
+     var id = event.id;
+     $.ajax({
+      url:"<?php echo base_url('calendar/update_event') ?>",
+      type:"POST",
+      data:{title:title, start:start, end:end, id:id},
+      success:function()
+      {
+       calendar.fullCalendar('refetchEvents');
+       alert("Event Updated");
+      }
+     });
+    },
     eventClick:function(event)
     {
      if(confirm("Are you sure you want to remove this event?"))

@@ -18,11 +18,22 @@ class Calendar_Model extends CI_Model
        
     }
 
-    public function delete_event($id) 
-    {
-             $teacher_id = $this->session->userdata['logged_in']['teacher_id'];
+    public function delete_event(){
+        $teacher_id = $this->session->userdata['logged_in']['teacher_id'];
 
-        $this->db->where("id", $id)->delete("calendar_events");
+
+        $sql = "DELETE FROM public.events where id = $id
+                AND teacher_id = $teacher_id";
+        return $this->db->query($sql);
+    }
+    public function update_event(){
+        $id=$this->input->post('id');
+        $title=$this->input->post('title');
+        $start=$this->input->post('start');
+        $end=$this->input->post('end');
+
+        $sql = "  UPDATE public.events SET title=:title, start=:start, end=:end WHERE id=:id ";
+        return $this->db->query($sql);
     }
 
 }
