@@ -43,6 +43,9 @@ class Dashboard extends CI_Controller {
         $data['point2'] =number_format($percent2, 2,'.','');
         $data['name2'] = 'Negative';
 
+        // $date = $this->dashboard_model->getattendancerecord()->row()->dates;
+        // $data['dates'] = array($date);
+
         echo json_encode($data);
     }
     public function rankstudents(){
@@ -53,5 +56,17 @@ class Dashboard extends CI_Controller {
     public function rankabsences(){
         $data['records'] = $this->dashboard_model->rankabsent();
         $this->load->view('dashboard/absences', $data);
+    }
+
+    public function getattendancerecord(){
+
+        $date = trim($this->dashboard_model->getattendancerecord()->row()->dates,"{}");
+        $newdate = explode(',', $date);
+        $count_present = trim($this->dashboard_model->getattendancerecord()->row()->present_count,"{}");
+        $newcount = explode(',', $count_present);
+        $data['dates'] = $newdate;
+        $data['count'] = $newcount;
+
+        echo json_encode($data);
     }
 }

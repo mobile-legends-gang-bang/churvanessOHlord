@@ -168,29 +168,30 @@ $areaData = array(
 <script>
 window.onload = function() {
 var dataPoints = [];
-var chart = new CanvasJS.Chart("myAreaChart", {
-  animationEnabled: true,
-  theme: "light2",
-  title:{
-    text: "Student Attendance"
-  },
-  axisX: {
-    valueFormatString: "DD MMM"
-  },
-  axisY: {
-    title: "Total Number of Present",
-    maximum: 1200
-  },
-  data: [{
-    type: "splineArea",
-    color: "#6599FF",
-    xValueType: "dateTime",
-    xValueFormatString: "DD MMM",
-    yValueFormatString: "#,##0 Visits",
-    dataPoints: <?php echo json_encode($areaData); ?>
-  }]
-});
-chart.render();
+// var chart = new CanvasJS.Chart("myAreaChart", {
+//   animationEnabled: true,
+//   theme: "light2",
+//   title:{
+//     text: "Student Attendance"
+//   },
+//   axisX: {
+//     title: "Attendance Date",
+//     valueFormatString: "DD MMM"
+//   },
+//   axisY: {
+//     title: "Number of Presents",
+//     maximum: 1200
+//   },
+//   data: [{
+//     type: "splineArea",
+//     color: "#6599FF",
+//     xValueType: "dateTime",
+//     xValueFormatString: "DD MMM",
+//     yValueFormatString: "#,##0 Visits",
+//     dataPoints: <?php //echo json_encode($areaData); ?>
+//   }]
+// });
+// chart.render();
  
 var chart = new CanvasJS.Chart("myBarChart", {
   exportEnabled: true,
@@ -216,7 +217,8 @@ chart.render();
 
 <script type="text/javascript">
     $(document).ready(function(){
-      var dataPoints = [];
+      var dataPointspie = [];
+      var dataPointsareachart = [];
       var pieChart = new CanvasJS.Chart("myPieChart", {
         exportEnabled: true,
         animationEnabled: true,
@@ -231,32 +233,71 @@ chart.render();
           showInLegend: true,
           toolTipContent: "{name}: <strong>{y}%</strong>",
           indexLabel: "{name} - {y}%",
-          dataPoints: dataPoints
+          dataPoints: dataPointspie
         }]
       });
-      // chart.render();
-      // }
+      var areachart = new CanvasJS.Chart("myAreaChart", {
+        animationEnabled: true,
+        theme: "light2",
+        title:{
+          text: "Student Attendance"
+        },
+        axisX: {
+          title: "Attendance Date",
+          valueFormatString: "DD MMM"
+        },
+        axisY: {
+          title: "Number of Presents",
+          maximum: 50
+        },
+        data: [{
+          type: "splineArea",
+          color: "#6599FF",
+          xValueType: "dateTime",
+          xValueFormatString: "DD MMM",
+          yValueFormatString: "#,##0 Present",
+          dataPoints: dataPointsareachart
+        }]
+      });
       $('#class_grade, #subject_name').change(function(){
-        if ($('#subject_name').val() != "") {
           var class_grade = $('#class_grade').val();
-          var subject_id = $('#subject_name').val();
+          var subject_name = $('#subject_name').val();
           // alert(subject_id);
           // return;
           $.ajax({
             url: '<?php echo base_url('dashboard/getbehaviorPositive')?>',
             method:'post',
             dataType:'json',
-            data: {class_grade:class_grade, subject_name: subject_id},
+            data: {class_grade:class_grade, subject_name: subject_name},
             success : function(data){
                 console.log(data.point1);
                 console.log(data.name1);
-                dataPoints.push({y: data.point1, name: data.name1});
-                dataPoints.push({y: data.point2, name: data.name2});
+                dataPointspie.push({y: data.point1, name: data.name1});
+                dataPointspie.push({y: data.point2, name: data.name2});
                 pieChart.render();
             }
             });
-          } 
-        else{}
+      }); 
+      $('#class_grade, #subject_name').change(function(){
+          var class_grade = $('#class_grade').val();
+          var subject_name = $('#subject_name').val();
+
+          // alert(subject_id); return;
+          // alert(subject_id);
+          // return;
+          $.ajax({
+            url: '<?php echo base_url('dashboard/getattendancerecord')?>',
+            method:'post',
+            dataType:'json',
+            data: {class_grade:class_grade, subject_name: subject_name},
+            success : function(data){
+
+              for (var i = 0; i < data.length; i++) {
+                dataPointsareachart.push({x: new Date(data[i].dates), y: parseInt(data[i].count)});
+              }
+              areachart.render();
+            }
+          });
       }); 
       $('#class_name').change(function(){
         // alert('hurrah');return;

@@ -47,9 +47,21 @@
 
 <body>
 	<div class="content-wrapper" style="margin-top: 110px!important; margin-left:300px!important;">
-
+    <div class="row" style="margin-left: 100px;">
+      <div class="col-md-3">
+        Select Subject for this lesson Plan : 
+      </div>
+      <div class="col-md-3">
+        <select class="form-control" name="score_subject" id="score_subject" style="width: 100px;">
+        <?php foreach($subjectlist as $s):?>
+          <option value="<?php echo $s->subject_id?>"><?php echo $s->subject_name?></option>
+        <?php endforeach?>
+      </select>
+      </div>
+    </div> 
+    <br>    
 		<h4>
-	    You may now start creating and editing your lesson plan.
+      Your lesson plan on the go.
 	  </h4>	
 		<div id="editor">
       	<div ></div>
@@ -97,8 +109,11 @@
   <script type="text/javascript" src="<?php echo base_url();?>assets/froala/js/plugins/word_paste.min.js"></script>
   <script>
     $(function(){
+      var subject_id = $('#score_subject').val();
+      // alert(subject_id);
       $('#edit').froalaEditor({
         // Set the save param.
+
         saveParam: 'content',
  
         // Set the save URL.
@@ -108,7 +123,7 @@
         saveMethod: 'POST',
  
         // Additional save params.
-        saveParams: {id: 'my_editor'}
+        saveParams: {id: 'my_editor', subject_name:subject_id}
       })
       .on('froalaEditor.save.before', function (e, editor) {
         // alert('weee');
@@ -187,10 +202,12 @@
     $(document).ready(function(){
       load();
       function load(){
+        var score_subject = $('#score_subject').val()
         $.ajax({
         type  : 'post',
         url   : '<?php echo site_url('lesson_plan/get')?>',
         dataType : 'html',
+        data : {subject_id:score_subject},
         success : function(data){
           // alert("sahdas");return;
           // $('.fr-wrapper').html(data);
@@ -198,6 +215,15 @@
         }
       });
       }
+
+      $('#score_subject').on('change', function(){
+        var subject_id = $('#score_subject').val();
+        function load(){
+          $.ajax({
+
+          });
+        }
+      });
     });
 
   </script>

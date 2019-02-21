@@ -36,30 +36,6 @@ class Dashboard_model extends CI_Model{
 		return $result;
 	}
 
-	// public function getstudentRankScore(){
-	// 	$teacher_id = $this->session->userdata['logged_in']['teacher_id'];
-	// 	$subject_id = $this->input->post('subject_name');
-	// 	$class_name = $this->input->post('class_grade');
-	// 	$result = $this->db->query("SELECT score,fname FROM public.student_scores s
-	// 								JOIN public.student_profile p on s.s_id = p.s_id
-	// 								WHERE s.teacher_id = ".$teacher_id."
-	// 								AND subject_id = ".$subject_id."
-	// 								AND s.class_name = '".$class_name."' order by score DESC");
-	// 	return $result;
-	// }
-
-	// public function getstudentRankName(){
-	// 	$teacher_id = $this->session->userdata['logged_in']['teacher_id'];
-	// 	$subject_id = $this->input->post('subject_name');
-	// 	$class_name = $this->input->post('class_grade');
-	// 	$result = $this->db->query("SELECT fname FROM public.student_scores s
-	// 								JOIN public.student_profile p on s.s_id = p.s_id
-	// 								WHERE s.teacher_id = ".$teacher_id."
-	// 								AND subject_id = ".$subject_id."
-	// 								AND s.class_name = '".$class_name."' order by score DESC");
-	// 	return $result;
-	// }
-
 	public function rankstudents(){
 		$teacher_id = $this->session->userdata['logged_in']['teacher_id'];
 		$class_name = $this->input->post('class_name');
@@ -127,6 +103,19 @@ class Dashboard_model extends CI_Model{
 				ORDER BY 	lname, fname, mname, p.s_id
 				LIMIT 10
 									";
+		$result = $this->db->query($sql);
+		return $result;
+	}
+	public function getattendancerecord(){
+		$teacher_id = $this->session->userdata['logged_in']['teacher_id'];
+		$subject_id = $this->input->post('subject_name');
+
+		$sql = "SELECT 	DISTINCT(attendance_date), 
+				ARRAY(select distinct attendance_date FROM public.attendance ORDER BY attendance_date) AS dates,
+				ARRAY(select count(present) FROM public.attendance WHERE present = TRUE GROUP BY attendance_date) AS present_count
+				FROM public.attendance
+				WHERE subject_id = ".$subject_id."
+				AND teacher_id = ".$teacher_id."";
 		$result = $this->db->query($sql);
 		return $result;
 	}
