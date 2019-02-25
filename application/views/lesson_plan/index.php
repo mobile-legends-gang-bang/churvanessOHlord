@@ -139,7 +139,7 @@
         </h4>
         <div id="editor">
           <div></div>
-          <textarea id='update' style="margin-top: 30px;" name="area2" hidden></textarea>
+          <textarea id='update' style="margin-top: 30px;" name="area2" hidden
         </div>
         <input type="submit" name="update" id="update" value="Update Lesson Plan">
       </div>

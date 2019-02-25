@@ -58,6 +58,7 @@ class Calendar extends CI_Controller {
 
                     $data = array();
                         $data['title']  = $title;
+                        $data['teacher_id']  = $teacher_id;
                         $data['start']  = $start;
                         $data['end']  = $end;
                         $this->db->insert('public.events', $data);

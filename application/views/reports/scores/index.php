@@ -32,6 +32,14 @@
 					}
 				})
 			})
+			$('#quarter').on('change', function(){
+				var value = $('#quarter').val();
+				if(value == 'Whole Quarter'){
+					$('#score_type').val("All").prop('disabled','true');
+				}	
+				else
+					$('#score_type').prop('disabled',false);
+			});
 		});
 	</script>
 	<style>
