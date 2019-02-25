@@ -19,6 +19,7 @@ class Student_profile extends CI_Controller {
             $data['uniqueclass'] = $this->section_model->getUniqueclass();
             $data['content'] = "student_profile/index";
             $data['notesview'] = $this->note_model->getnotesToday();
+            $data['deets'] = $this->student_profile_model->getstudentsBySection();
             $this->load->view('main/index', $data);
     }
     public function fetch(){
@@ -160,7 +161,9 @@ class Student_profile extends CI_Controller {
             {
                 $output .= '
                         <tr>
-                            <td><a href="javascript:void(0); class="student_edit" data-s_id="'.$row->s_id.'" data-fname="'.$row->fname.' data-mname="'.$row->mname.'"
+                            <td><a href="javascript:void(0);" class="student_edit" data-s_id="'.$row->s_id.'" 
+                                 data-fname="'.$row->fname.'" 
+                                 data-mname="'.$row->mname.'"
                                  data-lname="'.$row->lname.'"
                                  data-extname="'.$row->extname.'"
                                  data-address="'.$row->address.'"
@@ -173,7 +176,7 @@ class Student_profile extends CI_Controller {
                                  data-guardianname="'.$row->guardianname.'"
                                  data-relation="'.$row->relation.'"
                                  data-contactnum="'.$row->contactnum.'"
-                                 data-birthday="'.$row->birthday.'"
+                                 data-birthday="'.date("m-d-Y",strtotime($row->birthday)).'"
                                  data-class_name="'.$row->class_name.'"">'.$row->fname.'</a></td>
                             <td><a>'.$row->street.'</a></td>
                             <td><a>'.$row->city.'</a></td>
@@ -189,6 +192,55 @@ class Student_profile extends CI_Controller {
         }
         $output .= '</table>';
         echo $output;
+    }
+
+    public function updatedata(){
+        if($this->session->userdata('logged_in')) {
+            $response['status'] = FALSE;
+
+                $s_id = $this->input->post('s_id');
+                $fname = $this->input->post('fname');
+                $mname = $this->input->post('mname');
+                $lname = $this->input->post('lname');
+                $extname = $this->input->post('extname');
+                $address = $this->input->post('address');
+                $age = $this->input->post('age');
+                $housenum = $this->input->post('housenum');
+                $street = $this->input->post('street');
+                $barangay = $this->input->post('barangay');
+                $city = $this->input->post('city');
+                $province = $this->input->post('province');
+                $guardianname = $this->input->post('guardianname');
+                $relation = $this->input->post('relation');
+                $contactnum = $this->input->post('contactnum');
+                $birthday = $this->input->post('birthday');
+
+                $data = array(
+                    'fname' => $fname,
+                    'mname' => $mname,
+                    'lname' => $lname,
+                    'extname' => $extname,
+                    'address' => $address,
+                    'age' => $age,
+                    'housenum' => $housenum,
+                    'street' => $street,
+                    'barangay' => $barangay,
+                    'city' => $city,
+                    'province' => $province,
+                    'guardianname' => $guardianname,
+                    'relation' => $relation,
+                    'contactnum' => $contactnum,
+                    'birthday' => $birthday,
+                );
+
+                $this->db->where('s_id', $s_id);
+                $this->db->update('public.student_profile', $data);
+                $response['status'] = TRUE;
+                $response['message'] = "Successfully updated student profile.";                
+
+            echo json_encode($response);
+        } else 
+            redirect('login', 'refresh');
     }
     
 

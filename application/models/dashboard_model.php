@@ -48,17 +48,19 @@ class Dashboard_model extends CI_Model{
 	// 	return $result;
 	// }
 
-	// public function getstudentRankName(){
-	// 	$teacher_id = $this->session->userdata['logged_in']['teacher_id'];
-	// 	$subject_id = $this->input->post('subject_name');
-	// 	$class_name = $this->input->post('class_grade');
-	// 	$result = $this->db->query("SELECT fname FROM public.student_scores s
-	// 								JOIN public.student_profile p on s.s_id = p.s_id
-	// 								WHERE s.teacher_id = ".$teacher_id."
-	// 								AND subject_id = ".$subject_id."
-	// 								AND s.class_name = '".$class_name."' order by score DESC");
-	// 	return $result;
-	// }
+	public function getstudentRank(){
+		$teacher_id = $this->session->userdata['logged_in']['teacher_id'];
+		$subject_id = $this->input->post('subject_name');
+		$class_name = $this->input->post('class_grade');
+		$type = $this->input->post('score_type');
+		$result = $this->db->query("SELECT fname as name, score as score FROM public.student_scores s
+									JOIN public.student_profile p on s.s_id = p.s_id
+									WHERE s.teacher_id = ".$teacher_id."
+									AND subject_id = ".$subject_id."
+									AND s.class_name = '".$class_name."' 
+									AND s.score_type = '".$type."' order by score DESC");
+		return $result;
+	}
 
 	public function rankstudents(){
 		$teacher_id = $this->session->userdata['logged_in']['teacher_id'];

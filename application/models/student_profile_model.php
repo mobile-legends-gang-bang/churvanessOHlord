@@ -64,5 +64,4 @@ class Student_profile_model extends CI_Model{
 		$this->db->order_by('fname', 'ASC');
 		return $this->db->get();
 	}
-
 }

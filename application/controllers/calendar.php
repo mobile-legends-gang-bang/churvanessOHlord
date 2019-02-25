@@ -20,7 +20,6 @@ class Calendar extends CI_Controller {
 }
     public function get_events() {
      // Our Start and End Dates
-     $teacher_id = $this->session->userdata['logged_in']['teacher_id'];
      $title = $this->input->get("title");
      $start = $this->input->get("start");
      $end = $this->input->get("end");
@@ -43,7 +42,6 @@ class Calendar extends CI_Controller {
  }
  public function add_event() {
         $teacher_id = $this->session->userdata['logged_in']['teacher_id'];
-
         if($this->session->userdata('logged_in')) {
             $this->form_validation->set_rules('title', '', 'required');
             $this->form_validation->set_rules('start', '', 'required');
@@ -57,6 +55,7 @@ class Calendar extends CI_Controller {
                     $data['title']  = $title;
                     $data['start']  = $start;
                     $data['end']  = $end;
+        
                     $this->db->insert('public.events', $data);
                 
             } else 
