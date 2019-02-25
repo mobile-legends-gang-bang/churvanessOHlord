@@ -104,7 +104,11 @@ class Notes extends CI_Controller {
 	}
 
 	public function getnotesToday(){
-		$data = $this->note_model->getnotesToday();
-		echo json_encode($data);
+		if($this->session->userdata('logged_in')){
+			$data = $this->note_model->getnotesToday();
+			echo json_encode($data);
+		}
+		else
+			redirect('login', 'refresh');		
 	}
 }

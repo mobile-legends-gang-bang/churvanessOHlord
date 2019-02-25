@@ -54,7 +54,7 @@
               <a href="<?php echo base_url()?>scores_report/index">Scores</a>
             </li>
             <li>
-              <a href="<?php echo base_url()?>student_record/index">Grades</a>
+              <a href="<?php echo base_url()?>grades_report/index">Grades</a>
             </li>
             <li>
               <a href="<?php echo base_url()?>student_record/index">Attendance</a>

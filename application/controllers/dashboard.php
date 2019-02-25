@@ -29,22 +29,33 @@ class Dashboard extends CI_Controller {
 	}
 
 	public function getstudentsBySection(){
-        $data = $this->dashboard_model->getstudentsBySection();
-        echo json_encode($data);
+        if($this->session->userdata('logged_in')){
+            $data = $this->dashboard_model->getstudentsBySection();
+             echo json_encode($data);
+        }
+        else
+            redirect('login', 'refresh');        
     }
 
     public function getbehaviorPositive(){
-    	$countpositive = $this->dashboard_model->getbehaviorPositive()->row()->behavior_type;
-    	$countnegative = $this->dashboard_model->getbehaviorNegative()->row()->behavior_type;
-    	$percent1 = ($countpositive/($countpositive+$countnegative))*100;
-    	$percent2 = ($countnegative/($countpositive+$countnegative))*100;
+    	if($this->session->userdata('logged_in')){
+            $countpositive = $this->dashboard_model->getbehaviorPositive()->row()->behavior_type;
+            $countnegative = $this->dashboard_model->getbehaviorNegative()->row()->behavior_type;
+            $percent1 = ($countpositive/($countpositive+$countnegative))*100;
+            $percent2 = ($countnegative/($countpositive+$countnegative))*100;
 
-        $data['point1'] = number_format($percent1, 2,'.','');
-        $data['name1'] = 'Positive';
-        $data['point2'] =number_format($percent2, 2,'.','');
-        $data['name2'] = 'Negative';
+            $data['point1'] = number_format($percent1, 2,'.','');
+            $data['name1'] = 'Positive';
+            $data['point2'] =number_format($percent2, 2,'.','');
+            $data['name2'] = 'Negative';
 
-        echo json_encode($data);
+            // $date = $this->dashboard_model->getattendancerecord()->row()->dates;
+            // $data['dates'] = array($date);
+
+            echo json_encode($data);
+        }
+        else
+            redirect('login', 'refresh');
     }
 
     public function getStudRank(){
@@ -56,12 +67,43 @@ class Dashboard extends CI_Controller {
 
 
     public function rankstudents(){
-        $data['records'] = $this->dashboard_model->rankstudents();
-        $this->load->view('dashboard/rank', $data);
+        if($this->session->userdata('logged_in')){
+            $data['records'] = $this->dashboard_model->rankstudents();
+             $this->load->view('dashboard/rank', $data);
+        }
+        else
+            redirect('login', 'refresh');
+    }
+
+    public function lessperforming(){
+        if($this->session->userdata('logged_in')){
+            $data['records'] = $this->dashboard_model->lessperforming();
+            $this->load->view('dashboard/lessperforming', $data);
+        }
+        else
+            redirect('login', 'refresh');
     }
 
     public function rankabsences(){
-        $data['records'] = $this->dashboard_model->rankabsent();
-        $this->load->view('dashboard/absences', $data);
+        if($this->session->userdata('logged_in')){
+            $data['records'] = $this->dashboard_model->rankabsent();
+            $this->load->view('dashboard/absences', $data);
+        }
+        else
+            redirect('login', 'refresh');
+    }
+
+    public function getattendancerecord(){
+        if($this->session->userdata('logged_in')){
+            $date = trim($this->dashboard_model->getattendancerecord()->row()->dates,"{}");
+            $newdate = explode(',', $date);
+            $count_present = trim($this->dashboard_model->getattendancerecord()->row()->present_count,"{}");
+            $newcount = explode(',', $count_present);
+            $data['dates'] = $newdate;
+            $data['count'] = $newcount;    
+            echo json_encode($data);
+        }
+        else
+            redirect('login', 'refresh');
     }
 }

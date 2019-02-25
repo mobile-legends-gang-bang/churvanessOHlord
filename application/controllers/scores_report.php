@@ -26,17 +26,8 @@ class Scores_report extends CI_Controller {
         $data['records'] = $this->scores_report_model->getscores();
         $this->load->view('reports/scores/records', $data);
     }
-    
 
-    // function index(){
-    //   $this->load->model("excel_export_model");
-    //   $data["employee_data"] = $this->excel_export_model->fetch_data();
-    //   $this->load->view("excel_export_view", $data);
-    //  }
     public function action() {
-        // $this->load->model("scores_report_model");
-        // $object = new PHPExcel();
-        // $object->setActiveSheetIndex(0);
 
         $this->excel->setActiveSheetIndex(0);
         $spreadsheet = $this->excel->getActiveSheet();
@@ -48,7 +39,7 @@ class Scores_report extends CI_Controller {
         $header[] = 'Score';
         $header[] = 'Total Score';
 
-        $spreadsheet->setCellValue('A1', "Score's Report");
+        $spreadsheet->setCellValue('A1', "Scores Report");
 
         $spreadsheet->setCellValue('A3', $header[0]);
         $spreadsheet->setCellValue('B3', $header[1]);
@@ -58,6 +49,17 @@ class Scores_report extends CI_Controller {
 
         $cell = 4;
         $records = $this->scores_report_model->getscores();
+        foreach(range('A','Z') as $columnID) {
+            $this->excel->getActiveSheet()->getColumnDimension($columnID)
+                ->setAutoSize(true);
+        }
+        $style = array(
+            'alignment' => array(
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+            )
+        );
+        $spreadsheet->getStyle("D3:M3")->applyFromArray($style);
+
         foreach ($records->result() as $row) {
             $spreadsheet->setCellValue('A'.$cell, $row->s_id);
             $spreadsheet->setCellValue('B'.$cell, $row->lname.", ".$row->fname." ".$row->mname);
@@ -67,7 +69,7 @@ class Scores_report extends CI_Controller {
             $maxLength = 10;
             $scores = explode(' - ', $row->scores);
             $scoresLength = count($scores);
-            $column = 'D';
+            $column = 'C';
             $column++;
             for($i = 0; $i < $scoresLength; $i++) {
                 $spreadsheet->setCellValue($column.$cell, $scores[$i]);
@@ -83,11 +85,11 @@ class Scores_report extends CI_Controller {
             $cell++;
         }
 
-       $filename='scores.xls';
+        $filename='scores.xls';
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="'.$filename.'"');
         header('Cache-Control: max-age=0'); //no cache
-                     
+                 
         $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');  
         $objWriter->save('php://output');
     }

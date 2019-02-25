@@ -103,7 +103,15 @@
               <div class="card-body-icon">
                 <i class="fa fa-fw fa-support"></i>
               </div>
-              <div class="mr-5"><strong>Less Performing Students</strong></div>
+              <div class="mr-5"><strong>Less Performing Students</strong><br>
+                <table width="100%">
+                  <thead>
+                    <th>Name</th>
+                    <th style="padding-left: 50px;">Current Average</th>
+                  </thead>
+                  <tbody id="lessperforming"></tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -111,11 +119,10 @@
       </div>
     <!-- End of Icon Cards-->
 
-<form method="post" id="attendance_form">
         <div class="row" style="padding: 20px; background: #2bb94b; width: 1110px; margin-left: 3px; margin-bottom: 5px;  " >
           <div style="padding-right: 20px; padding-top: 5px;">Subject Select</div>
           <div>
-            <select class="form-control" name="subject_name" id="subject_name">
+            <select class="form-control" name="subject_name" id="subject_id">
               <option></option>
               <?php foreach($subjectlist as $c):?>
                 <option value="<?php echo $c->subject_id?>"><?php echo $c->subject_name?></option>
@@ -124,14 +131,13 @@
           </div>
           <div style="padding-right: 20px; padding-top: 5px; padding-left: 10px;">Class Section</div>
           <div>
-            <select class="form-control" name="class_grade" id="class_grade">
+            <select class="form-control" name="class_grade" id="section">
               <?php foreach($uniqueclass as $c):?>
                 <option><?php echo $c->class_name?></option>
               <?php endforeach?>
             </select>
           </div>
         </div>
-</form>
 
 <!--Charts-->
 <?php
@@ -168,29 +174,30 @@ $areaData = array(
 <script>
 window.onload = function() {
 var dataPoints = [];
-var chart = new CanvasJS.Chart("myAreaChart", {
-  animationEnabled: true,
-  theme: "light2",
-  title:{
-    text: "Student Attendance"
-  },
-  axisX: {
-    valueFormatString: "DD MMM"
-  },
-  axisY: {
-    title: "Total Number of Present",
-    maximum: 1200
-  },
-  data: [{
-    type: "splineArea",
-    color: "#6599FF",
-    xValueType: "dateTime",
-    xValueFormatString: "DD MMM",
-    yValueFormatString: "#,##0 Visits",
-    dataPoints: <?php echo json_encode($areaData); ?>
-  }]
-});
-chart.render();
+// var chart = new CanvasJS.Chart("myAreaChart", {
+//   animationEnabled: true,
+//   theme: "light2",
+//   title:{
+//     text: "Student Attendance"
+//   },
+//   axisX: {
+//     title: "Attendance Date",
+//     valueFormatString: "DD MMM"
+//   },
+//   axisY: {
+//     title: "Number of Presents",
+//     maximum: 1200
+//   },
+//   data: [{
+//     type: "splineArea",
+//     color: "#6599FF",
+//     xValueType: "dateTime",
+//     xValueFormatString: "DD MMM",
+//     yValueFormatString: "#,##0 Visits",
+//     dataPoints: <?php //echo json_encode($areaData); ?>
+//   }]
+// });
+// chart.render();
  
 // var chart = new CanvasJS.Chart("myBarChart", {
 //   exportEnabled: true,
@@ -216,7 +223,8 @@ chart.render();
 
 <script type="text/javascript">
     $(document).ready(function(){
-      var dataPoints = [];
+      var dataPointspie = [];
+      var dataPointsareachart = [];
       var pieChart = new CanvasJS.Chart("myPieChart", {
         exportEnabled: true,
         animationEnabled: true,
@@ -231,9 +239,10 @@ chart.render();
           showInLegend: true,
           toolTipContent: "{name}: <strong>{y}%</strong>",
           indexLabel: "{name} - {y}%",
-          dataPoints: dataPoints
+          dataPoints: dataPointspie
         }]
       });
+<<<<<<< HEAD
 
       // chart.render();
       // }
@@ -241,21 +250,50 @@ chart.render();
         if ($('#subject_name').val() != "") {
           var class_grade = $('#class_grade').val();
           var subject_id = $('#subject_name').val();
+=======
+      var areachart = new CanvasJS.Chart("myAreaChart", {
+        animationEnabled: true,
+        theme: "light2",
+        title:{
+          text: "Student Attendance"
+        },
+        axisX: {
+          title: "Attendance Date",
+          valueFormatString: "DD MMM"
+        },
+        axisY: {
+          title: "Number of Presents",
+          maximum: 50
+        },
+        data: [{
+          type: "splineArea",
+          color: "#6599FF",
+          xValueType: "dateTime",
+          xValueFormatString: "DD MMM",
+          yValueFormatString: "#,##0 Present",
+          dataPoints: dataPointsareachart
+        }]
+      });
+      $('#section, #subject_id').change(function(){
+          var class_grade = $('#section').val();
+          var subject_name = $('#subject_id').val();
+>>>>>>> 610ae3825011b1a0f3631ceb41f243e74910a9dc
           // alert(subject_id);
           // return;
           $.ajax({
             url: '<?php echo base_url('dashboard/getbehaviorPositive')?>',
             method:'post',
             dataType:'json',
-            data: {class_grade:class_grade, subject_name: subject_id},
+            data: {class_grade:class_grade, section: subject_name},
             success : function(data){
                 console.log(data.point1);
                 console.log(data.name1);
-                dataPoints.push({y: data.point1, name: data.name1});
-                dataPoints.push({y: data.point2, name: data.name2});
+                dataPointspie.push({y: data.point1, name: data.name1});
+                dataPointspie.push({y: data.point2, name: data.name2});
                 pieChart.render();
             }
             });
+<<<<<<< HEAD
           } 
         else{}
       });
@@ -303,6 +341,25 @@ chart.render();
         else{}
       });
 
+=======
+      }); 
+      $('#class_grade, #subject_name').change(function(){
+          var class_grade = $('#class_grade').val();
+          var subject_name = $('#subject_name').val();
+          $.ajax({
+            url: '<?php echo base_url('dashboard/getattendancerecord')?>',
+            method:'post',
+            dataType:'json',
+            data: {class_grade:class_grade, subject_name: subject_name},
+            success : function(data){
+              for (var i = 0; i < data.length; i++) {
+                dataPointsareachart.push({x: new Date(data[i].dates), y: parseInt(data[i].count)});
+              }
+              areachart.render();
+            }
+          });
+      }); 
+>>>>>>> 610ae3825011b1a0f3631ceb41f243e74910a9dc
       $('#class_name').change(function(){
         // alert('hurrah');return;
         var class_name = $('#class_name').val();
@@ -312,6 +369,19 @@ chart.render();
           data: {class_name:class_name},
           success : function(data){
             $('#rank').html(data);
+            // alert('yea');return;
+          }
+        });
+      });
+      $('#class_name').change(function(){
+        // alert('hurrah');return;
+        var class_name = $('#class_name').val();
+        $.ajax({
+          url: '<?php echo base_url('dashboard/lessperforming')?>',
+          method:'post',
+          data: {class_name:class_name},
+          success : function(data){
+            $('#lessperforming').html(data);
             // alert('yea');return;
           }
         });

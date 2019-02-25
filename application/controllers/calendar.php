@@ -16,27 +16,32 @@ class Calendar extends CI_Controller {
             $data['notesview'] = $this->note_model->getnotesToday();
 			$data['content'] = "calendar/index";
             $this->load->view('main/index', $data);
+        }
     }
-}
     public function get_events() {
+<<<<<<< HEAD
      // Our Start and End Dates
      $title = $this->input->get("title");
      $start = $this->input->get("start");
      $end = $this->input->get("end");
 
      $events = $this->calendar_model->get_events($title,$start, $end);
+=======
+        if($this->session->userdata('logged_in')){
+            // Our Start and End Dates
+             $teacher_id = $this->session->userdata['logged_in']['teacher_id'];
+             $title = $this->input->get("title");
+             $start = $this->input->get("start");
+             $end = $this->input->get("end");
+>>>>>>> 610ae3825011b1a0f3631ceb41f243e74910a9dc
 
-    $data_events = array();
+             $events = $this->calendar_model->get_events($title,$start, $end);
 
-     foreach($events->result() as $r) {
+            $data_events = array();
 
-         $data_events[] = array(
-             "title" => $r->title,
-             "end" => $r->end,
-             "start" => $r->start
-         );
-     }
+             foreach($events->result() as $r) {
 
+<<<<<<< HEAD
      echo json_encode(array("events" => $data_events));
      exit();
  }
@@ -58,19 +63,56 @@ class Calendar extends CI_Controller {
         
                     $this->db->insert('public.events', $data);
                 
-            } else 
-                echo 'Please fill up all required fields!';
-        } else 
+=======
+                 $data_events[] = array(
+                     "title" => $r->title,
+                     "end" => $r->end,
+                     "start" => $r->start
+                 );
+             }
+
+             echo json_encode(array("events" => $data_events));
+             exit();
+        }
+        else
             redirect('login', 'refresh');
     }
-public function delete_event() {
-          $data=$this->calendar_model->delete_event();
-        echo json_encode($data);
-        }
+    public function add_event() {
+            $teacher_id = $this->session->userdata['logged_in']['teacher_id'];
+            if($this->session->userdata('logged_in')) {
+                $this->form_validation->set_rules('title', '', 'required');
+                $this->form_validation->set_rules('start', '', 'required');
+                $this->form_validation->set_rules('end', '', 'required');
+                if ($this->form_validation->run()) {
+                    $title = $this->input->post('title');
+                    $start = $this->input->post('start');
+                    $end = $this->input->post('end');
 
- public function update_event(){
-    $data=$this->calendar_model->update_event();
-        echo json_encode($data);
- }
+                    $data = array();
+                        $data['title']  = $title;
+                        $data['start']  = $start;
+                        $data['end']  = $end;
+                        $this->db->insert('public.events', $data);
+                    
+                } else 
+                    echo 'Please fill up all required fields!';
+>>>>>>> 610ae3825011b1a0f3631ceb41f243e74910a9dc
+            } else 
+                redirect('login', 'refresh');
+    }
+    public function delete_event() {
+        if($this->session->userdata('logged_in')){
+            $data=$this->calendar_model->delete_event();
+            echo json_encode($data);
+        }
+        else
+            redirect('login', 'refresh');
+    } 
+    public function update_event(){
+        if($this->userdata('logged_in')){
+            $data=$this->calendar_model->update_event();
+            echo json_encode($data);
+        }
+    }
 }
 ?>

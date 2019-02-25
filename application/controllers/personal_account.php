@@ -66,18 +66,9 @@ class Personal_account extends CI_Controller {
 					'email' => $personal_email
 				);
 
-				// $query = $this->db->get_where('public.register', array('teacher_id' => $teacher_id, 'username' => $personal_username, 'fname' => $personal_fname, 'mname' => $personal_mname,'lname' => $personal_lname, 'extname' => $personal_exname, 'birthday' => $personal_bday, 'age' => $personal_age, 'housenumber' => $personal_hnum, 'street' => $personal_stnum, 'barangay' => $personal_brgy, 'city' => $personal_city, 'province' => $personal_prov, 'degree_attained' => $personal_degree, 'institution_name' => $personal_instname, 'year_grad'	=> $personal_yrgrad, 'mob_number' => $personal_num, 'tel_number' => $personal_telnum, 
-				// 	'email' => $personal_email));
-
-				// if($query->num_rows() > 0){
-				// 	$response['status'] = FALSE;
-				// 	$response['message'] = "Nothing's been updated";
-				// }
-				// else{
 					$data = $this->personal_account_model->updatePersonalInfo();
 					$response['status'] = TRUE;
 					$response['message'] = "Successfully updated personal account details.";
-				// }				
 			} else 
 				$response['message'] = 'Please fill up all required fields';
 			echo json_encode($response);

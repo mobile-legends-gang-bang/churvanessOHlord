@@ -21,6 +21,7 @@
             $quiz = ((($row->quiz_scores/$row->quiz_perfect)*100)*0.15);
             $seatwork = ((($row->seatwork_scores/$row->seatwork_perfect)*100)*0.05);
             $average = $assignment+$project+$quarterexam+$quiz+$seatwork;
+
         ?>
         <tr>
             <td><?php echo $row->s_id ?></td>

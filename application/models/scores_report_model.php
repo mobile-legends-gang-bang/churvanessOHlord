@@ -23,7 +23,6 @@ class Scores_report_model extends CI_Model{
 				AND 		score_type = ".$this->db->escape($score_type)."
 				GROUP BY 	p.s_id, lname, fname, mname, extname, score_type
 				ORDER BY 	lname, fname, mname, p.s_id";
-
 		$result = $this->db->query($sql);
 		return $result;
 	}

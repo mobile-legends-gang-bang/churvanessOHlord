@@ -7,24 +7,19 @@ class Personal_info_report extends CI_Controller {
       $this->load->model('section_model');
       $this->load->model('behavior_model');
       $this->load->model('scores_report_model');
+      $this->load->model('personal_info_report_model');
     }
-    public function index() {
-        if(!$this->session->userdata('logged_in')) {
-            redirect('login', 'refresh');
-        } else 
-            $data['title'] = "Personal Information Report";
-            $data['name'] = "STUDENTS PERSONAL INFORMATION";
-            $data['uniqueclass'] = $this->section_model->getUniqueclass();
-            $data['content'] = "reports/personal_info/index";
-            $this->load->view('main/index', $data);
-    }
-    // function index(){
-    //   $this->load->model("excel_export_model");
-    //   $data["employee_data"] = $this->excel_export_model->fetch_data();
-    //   $this->load->view("excel_export_view", $data);
-    //  }
-
-    public function action(){
+  public function index() {
+    if(!$this->session->userdata('logged_in')) {
+        redirect('login', 'refresh');
+    } else 
+      $data['title'] = "Personal Information Report";
+      $data['name'] = "STUDENTS PERSONAL INFORMATION";
+      $data['uniqueclass'] = $this->section_model->getUniqueclass();
+      $data['content'] = "reports/personal_info/index";
+      $this->load->view('main/index', $data);
+  }
+  public function action(){
       $this->load->model("student_profile_model");
       $object = new PHPExcel();
       $object->setActiveSheetIndex(0);
@@ -58,6 +53,7 @@ class Personal_info_report extends CI_Controller {
        $excel_row++;
       }
         $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+        ob_end_clean();
         header("Pragma: public");
         header("Expires: 0");
         header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
@@ -68,5 +64,10 @@ class Personal_info_report extends CI_Controller {
         header("Content-Transfer-Encoding: binary ");
         $object_writer->save('php://output');
 
+    }
+
+  public function getstudentsBySection(){
+        $data = $this->personal_info_report_model->getstudentsBySection();
+        echo json_encode($data);
     }
  }
