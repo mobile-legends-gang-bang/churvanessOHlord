@@ -240,7 +240,11 @@ class Lesson_log extends CI_Controller {
 	}
 
 	public function getLessonLog(){
-        $data = $this->lesson_log_model->getLessonLog();
-        echo json_encode($data);
+		if($this->session->userdata('logged_in')){
+			$data = $this->lesson_log_model->getLessonLog();
+        	echo json_encode($data);
+		}
+		else
+			redirect('login','refresh');    
     }
 }

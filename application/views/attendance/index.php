@@ -223,10 +223,9 @@
           success: function(response){
             if (response.status) {
                 // $('#score_form')[0].reset();
-                swal("Successfully saved Scores!", "", "success");
+                swal("Attendance Recorded!", "", "success");
                 $('#subject_name').val("");
                 $('#class_grade').val("");
-                $('#attendance_date').val("");
                 $('#remarks').val("");
             } else {
                 swal("Attendance Recorded!", "", "success");

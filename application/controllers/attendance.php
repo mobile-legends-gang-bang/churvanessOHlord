@@ -63,8 +63,12 @@ class Attendance extends CI_Controller {
 			redirect('login', 'refresh');
 	}
 	public function getstudentsBySection(){
-        $data = $this->attendance_model->getstudentsBySection();
-        echo json_encode($data);
+		if($this->session->userdata('logged_in')){
+	        $data = $this->attendance_model->getstudentsBySection();
+	        echo json_encode($data);
+    	}
+    	else
+    		redirect('login', 'refresh');
     }
     public function saveseatplan(){
     	if($this->session->userdata('logged_in')) {
@@ -161,9 +165,10 @@ class Attendance extends CI_Controller {
 
 					$query = $this->db->get_where('public.seatplan', array('class_name' => $class_seat, 
 						'teacher_id' => $teacher_id));
+					// $student_id = $query()
 				if($query->num_rows()>0){
 					$response['status'] = FALSE;
-					$response['message'] = "Log already exists. Please consider viewing and editing the log. Thank you";
+					$response['message'] = "Student ID exists";
 				}
 				else{
 					$this->db->insert('public.seatplan', $data);
@@ -177,8 +182,12 @@ class Attendance extends CI_Controller {
 			redirect('login', 'refresh');
     }
     public function getseat(){
-        $data = $this->attendance_model->getseat();
-        echo json_encode($data);
+    	if($this->session->userdata('logged_in')){
+	        $data = $this->attendance_model->getseat();
+	        echo json_encode($data);
+	    }
+	    else
+	    	redirect('login', 'refresh');
     }
     public function checkbyseatplan(){
     if($this->session->has_userdata('logged_in')) {

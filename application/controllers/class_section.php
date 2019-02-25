@@ -29,79 +29,103 @@ class Class_section extends CI_Controller {
 	}
 
 	public function saveclass(){
-		$teacher_id	= $this->session->userdata['logged_in']['teacher_id'];
-		$classname = $this->input->post('classname');
-		$subject_name = $this->input->post('subject_name');
-		$query = $this->db->get_where('public.class', array('teacher_id' => $teacher_id, 'subject_id' => $subject_name, 'class_name' => $classname));
-		if($query->num_rows()>0){
-			$response['status'] = FALSE;
-			$response['message'] = "This subject name already exists.";
+		if($this->session->userdata('logged_in')){
+			$teacher_id	= $this->session->userdata['logged_in']['teacher_id'];
+			$classname = $this->input->post('classname');
+			$subject_name = $this->input->post('subject_name');
+			$query = $this->db->get_where('public.class', array('teacher_id' => $teacher_id, 'subject_id' => $subject_name, 'class_name' => $classname));
+			if($query->num_rows()>0){
+				$response['status'] = FALSE;
+				$response['message'] = "This subject name already exists.";
+			}
+			elseif(!empty($classname) && !empty($subject_name)) {
+				$data = array(
+					'teacher_id'	=> $teacher_id,
+					'classname'	=> $classname,
+					'subject_name'	=> $subject_name
+				);
+				$data = $this->section_model->saveclass();
+				$response['status'] = TRUE;
+				$response['message'] = "Successfully added class section.";
+				$response['data'] = $data;
+			} else {
+				$response['status'] = FALSE;
+				$response['message'] = "Please fill up all required fields!";
+			}
+			echo json_encode($response);
 		}
-		elseif(!empty($classname) && !empty($subject_name)) {
-			$data = array(
-				'teacher_id'	=> $teacher_id,
-				'classname'	=> $classname,
-				'subject_name'	=> $subject_name
-			);
-			$data = $this->section_model->saveclass();
-			$response['status'] = TRUE;
-			$response['message'] = "Successfully added class section.";
-			$response['data'] = $data;
-		} else {
-			$response['status'] = FALSE;
-			$response['message'] = "Please fill up all required fields!";
-		}
-		echo json_encode($response);
+		else
+			redirect('login', 'refresh');
 	}
 
 	public function updateclass(){
-		$data=$this->section_model->updateclass();
-		echo json_encode($data);
+		if($this->session->userdata('logged')){
+			$data=$this->section_model->updateclass();
+			echo json_encode($data);
+		}
+		else
+			redirect('login', 'refresh');
 	}
 
 	public function deleteclass(){
-		$data=$this->section_model->deleteclass();
-		echo json_encode($data);
+		if($this->session->userdata('logged_in')){
+			$data=$this->section_model->deleteclass();
+			echo json_encode($data);
+		}
+		else
+			redirect('login', 'refresh');
 	}
 
 	public function getclass(){
-		$data = $this->section_model->getclass();
-		echo json_encode($data);
+		if($this->session->userdata('logged_in')){
+			$data = $this->section_model->getclass();
+			echo json_encode($data);
+		}
+		else
+			redirect('login', 'refresh');
 	}
 
 	public function getsubject(){
-		$data = $this->section_model->getsubject();
-		echo json_encode($data);
+		if($this->session->userdata('logged_in')){
+			$data = $this->section_model->getsubject();
+			echo json_encode($data);
+		}
+		else
+			redirect('login', 'refresh');	
 	}
 	
 	public function savesubject(){
-		$teacher_id	= $this->session->userdata['logged_in']['teacher_id'];
-		$subject_name = $this->input->post('subject_name');
-		$subject_description = $this->input->post('subject_description');
-		$sched_from = $this->input->post('sched_from');
-		$sched_to = $this->input->post('sched_to');
-		$query = $this->db->get_where('public.subject', array('teacher_id' => $teacher_id, 'subject_name' => $subject_name));
-		if($query->num_rows()>0){
-			$response['status'] = FALSE;
-			$response['message'] = "This subject name already exists.";
+		if($this->session->userdata('logged_in')){
+			$teacher_id	= $this->session->userdata['logged_in']['teacher_id'];
+			$subject_name = $this->input->post('subject_name');
+			$subject_description = $this->input->post('subject_description');
+			$sched_from = $this->input->post('sched_from');
+			$sched_to = $this->input->post('sched_to');
+			$query = $this->db->get_where('public.subject', array('teacher_id' => $teacher_id, 'subject_name' => $subject_name));
+			if($query->num_rows()>0){
+				$response['status'] = FALSE;
+				$response['message'] = "This subject name already exists.";
+			}
+			elseif(!empty($subject_name) && !empty($sched_from) && !empty($sched_to)) {
+				$data = array(
+					'teacher_id'	=> $teacher_id,
+					'subject_name'	=> $subject_name,
+					'subject_description'	=> $subject_description,
+					'sched_from' => $sched_from,
+					'sched_to' => $sched_to
+				);
+				$data = $this->section_model->savesubject();
+				$response['status'] = TRUE;
+				$response['message'] = "Successfully added class section.";
+				$response['data'] = $data;
+			} else {
+				$response['status'] = FALSE;
+				$response['message'] = "Please fill up all required fields!";
+			}
+			echo json_encode($response);
 		}
-		elseif(!empty($subject_name) && !empty($sched_from) && !empty($sched_to)) {
-			$data = array(
-				'teacher_id'	=> $teacher_id,
-				'subject_name'	=> $subject_name,
-				'subject_description'	=> $subject_description,
-				'sched_from' => $sched_from,
-				'sched_to' => $sched_to
-			);
-			$data = $this->section_model->savesubject();
-			$response['status'] = TRUE;
-			$response['message'] = "Successfully added class section.";
-			$response['data'] = $data;
-		} else {
-			$response['status'] = FALSE;
-			$response['message'] = "Please fill up all required fields!";
-		}
-		echo json_encode($response);
+		else
+			redirect('login', 'refresh');
 	}
 
 	public function savescore() {

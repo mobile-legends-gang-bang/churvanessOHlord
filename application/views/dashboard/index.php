@@ -103,7 +103,15 @@
               <div class="card-body-icon">
                 <i class="fa fa-fw fa-support"></i>
               </div>
-              <div class="mr-5"><strong>Less Performing Students</strong></div>
+              <div class="mr-5"><strong>Less Performing Students</strong><br>
+                <table width="100%">
+                  <thead>
+                    <th>Name</th>
+                    <th style="padding-left: 50px;">Current Average</th>
+                  </thead>
+                  <tbody id="lessperforming"></tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -111,11 +119,10 @@
       </div>
     <!-- End of Icon Cards-->
 
-<form method="post" id="attendance_form">
         <div class="row" style="padding: 20px; background: #2bb94b; width: 1110px; margin-left: 3px; margin-bottom: 5px;  " >
           <div style="padding-right: 20px; padding-top: 5px;">Subject Select</div>
           <div>
-            <select class="form-control" name="subject_name" id="subject_name">
+            <select class="form-control" name="subject_name" id="subject_id">
               <option></option>
               <?php foreach($subjectlist as $c):?>
                 <option value="<?php echo $c->subject_id?>"><?php echo $c->subject_name?></option>
@@ -124,14 +131,13 @@
           </div>
           <div style="padding-right: 20px; padding-top: 5px; padding-left: 10px;">Class Section</div>
           <div>
-            <select class="form-control" name="class_grade" id="class_grade">
+            <select class="form-control" name="class_grade" id="section">
               <?php foreach($uniqueclass as $c):?>
                 <option><?php echo $c->class_name?></option>
               <?php endforeach?>
             </select>
           </div>
         </div>
-</form>
 
 <!--Charts-->
 <?php
@@ -259,16 +265,16 @@ chart.render();
           dataPoints: dataPointsareachart
         }]
       });
-      $('#class_grade, #subject_name').change(function(){
-          var class_grade = $('#class_grade').val();
-          var subject_name = $('#subject_name').val();
+      $('#section, #subject_id').change(function(){
+          var class_grade = $('#section').val();
+          var subject_name = $('#subject_id').val();
           // alert(subject_id);
           // return;
           $.ajax({
             url: '<?php echo base_url('dashboard/getbehaviorPositive')?>',
             method:'post',
             dataType:'json',
-            data: {class_grade:class_grade, subject_name: subject_name},
+            data: {class_grade:class_grade, section: subject_name},
             success : function(data){
                 console.log(data.point1);
                 console.log(data.name1);
@@ -281,17 +287,12 @@ chart.render();
       $('#class_grade, #subject_name').change(function(){
           var class_grade = $('#class_grade').val();
           var subject_name = $('#subject_name').val();
-
-          // alert(subject_id); return;
-          // alert(subject_id);
-          // return;
           $.ajax({
             url: '<?php echo base_url('dashboard/getattendancerecord')?>',
             method:'post',
             dataType:'json',
             data: {class_grade:class_grade, subject_name: subject_name},
             success : function(data){
-
               for (var i = 0; i < data.length; i++) {
                 dataPointsareachart.push({x: new Date(data[i].dates), y: parseInt(data[i].count)});
               }
@@ -308,6 +309,19 @@ chart.render();
           data: {class_name:class_name},
           success : function(data){
             $('#rank').html(data);
+            // alert('yea');return;
+          }
+        });
+      });
+      $('#class_name').change(function(){
+        // alert('hurrah');return;
+        var class_name = $('#class_name').val();
+        $.ajax({
+          url: '<?php echo base_url('dashboard/lessperforming')?>',
+          method:'post',
+          data: {class_name:class_name},
+          success : function(data){
+            $('#lessperforming').html(data);
             // alert('yea');return;
           }
         });

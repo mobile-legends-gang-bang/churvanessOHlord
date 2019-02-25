@@ -26,8 +26,7 @@ class Student_profile_model extends CI_Model{
 		$class_name = $this->input->post('class_grade');
 		$result = $this->db->query("SELECT * FROM public.student_profile
 									WHERE teacher_id = ".$teacher_id."
-									AND class_name = '".$class_name."'
-									ORDER BY lname");
+									AND class_name = '".$class_name."'");
 		return $result->result();
 	}
 

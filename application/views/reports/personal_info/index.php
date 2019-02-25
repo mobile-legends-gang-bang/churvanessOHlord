@@ -7,7 +7,7 @@
 				var quarter = $('#quarter').val();
 				var score_type = $('#score_type').val();
 				$.ajax({
-					url: '<?php echo base_url('student_profile/getstudentsBySection')?>',
+					url: '<?php echo base_url('personal_info_report/getstudentsBySection')?>',
 					method: 'post',
 					dataType: 'json',
 					data: {class_grade:class_grade, quarter:quarter, score_type:score_type},
