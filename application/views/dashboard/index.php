@@ -268,13 +268,11 @@ chart.render();
       $('#section, #subject_id').change(function(){
           var class_grade = $('#section').val();
           var subject_name = $('#subject_id').val();
-          // alert(subject_id);
-          // return;
           $.ajax({
             url: '<?php echo base_url('dashboard/getbehaviorPositive')?>',
             method:'post',
             dataType:'json',
-            data: {class_grade:class_grade, section: subject_name},
+            data: {class_name:class_grade, subject_id: subject_name},
             success : function(data){
                 console.log(data.point1);
                 console.log(data.name1);

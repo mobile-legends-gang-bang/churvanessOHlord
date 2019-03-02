@@ -12,15 +12,28 @@ class Dashboard_model extends CI_Model{
 
 	public function getbehaviorPositive(){
 		$teacher_id = $this->session->userdata['logged_in']['teacher_id'];
-		$subject_id = $this->input->post('subject_name');
-		$class_name = $this->input->post('class_grade');
+		$subject_id = $this->input->post('subject_id');
+		$class_name = $this->input->post('class_name');
 		$result = $this->db->query("SELECT count(behavior_type) as behavior_type FROM public.behavior b
 									JOIN public.behavior_record r on b.behavior_id = r.behavior_id
 									WHERE b.teacher_id = ".$teacher_id."
 									AND behavior_type = 'Positive'
 									AND subject_id = ".$subject_id."
-									AND class_name = '".$class_name."'");
-		return $result->result();
+									AND class_name ='".$class_name."'");
+		return $result;
+	}
+
+	public function getbehaviorNegative(){
+		$teacher_id = $this->session->userdata['logged_in']['teacher_id'];
+		$subject_id = $this->input->post('subject_id');
+		$class_name = $this->input->post('class_name');
+		$result = $this->db->query("SELECT count(behavior_type) as behavior_type FROM public.behavior b
+									JOIN public.behavior_record r on b.behavior_id = r.behavior_id
+									WHERE b.teacher_id = ".$teacher_id."
+									AND behavior_type = 'Negative'
+									AND subject_id = ".$subject_id."
+									AND class_name ='".$class_name."'");
+		return $result;
 	}
 
 	public function rankstudents(){
@@ -66,9 +79,7 @@ class Dashboard_model extends CI_Model{
 				ON 			p.s_id = s.s_id
 				WHERE 		s.teacher_id = ".$teacher_id."
 				AND 		s.class_name = '".$class_name."'
-				GROUP BY 	p.s_id, lname, fname, mname
-				LIMIT 10
-									";
+				GROUP BY 	p.s_id, lname, fname, mname									";
 		$result=$this->db->query($sql);
 		return $result->result();	
 	}
@@ -136,7 +147,6 @@ class Dashboard_model extends CI_Model{
 				WHERE 		s.teacher_id = ".$teacher_id."
 				AND 		s.class_name = '".$class_name."'
 				GROUP BY 	p.s_id, lname, fname, mname
-				ORDER BY 	sum_of_all_scores ASC
 				LIMIT 10
 									";
 		$result = $this->db->query($sql);
