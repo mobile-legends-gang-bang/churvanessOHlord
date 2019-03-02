@@ -42,81 +42,81 @@
 
 
 	<!-- Icon Cards-->
-      <div class="row">
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card text-white bg-warning o-hidden h-100">
-            <div class="card-body">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-list"></i>
-              </div>
-              <?php foreach ($countnotes as $no): ?>
-              <div class="mr-5"><?php echo $no->note_date?> <strong>Note/s for today!</strong></div>
-              <?php endforeach ?>
-            </div>
-            <?php foreach ($notesview as $n): ?>
-            <a class="card-footer text-white" href="#" style="height:10vh;">
-              <span class="float-left"><strong><?php echo $n->note_description?></strong></span>
-              <span class="float-right"><bold><?php echo $n->note_date?></bold></span>
-            </a>
-            <?php endforeach ?>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card text-white bg-primary o-hidden h-100">
-            <div class="card-body">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-arrow-circle-up"></i>
-              </div>
-              <div class="mr-5"><strong>Outstanding Students</strong><br>
-                <table width="100%">
-                  <thead>
-                    <th>Name</th>
-                    <th style="padding-left: 50px;">Current Average</th>
-                  </thead>
-                  <tbody id="rank"></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card text-white bg-success o-hidden h-100">
-            <div class="card-body">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-calendar-times-o"></i>
-              </div>
-              <div class="mr-5"><strong>Top Absentees</strong></div>
-              <table width="100%">
-                  <thead>
-                    <th>Name</th>
-                    <th style="padding-left: 50px;">No. of Absences</th>
-                  </thead>
-                  <tbody id="absent"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-xl-3 col-sm-6 mb-3">
-          <div class="card text-white bg-danger o-hidden h-100">
-            <div class="card-body">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-support"></i>
-              </div>
-              <div class="mr-5"><strong>Less Performing Students</strong><br>
-                <table width="100%">
-                  <thead>
-                    <th>Name</th>
-                    <th style="padding-left: 50px;">Current Average</th>
-                  </thead>
-                  <tbody id="lessperforming"></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-      </div>
+    <div class="row">
+	    <div class="col-xl-6 col-sm-6 mb-3">
+	      <div class="card text-white bg-warning o-hidden h-100">
+	        <div class="card-body">
+	          <div class="card-body-icon">
+	            <i class="fa fa-fw fa-list"></i>
+	          </div>
+	          <?php foreach ($countnotes as $no): ?>
+	          <div class="mr-5"><?php echo $no->note_date?> <strong>Note/s for today!</strong></div>
+	          <?php endforeach ?>
+	        </div>
+	        <?php foreach ($notesview as $n): ?>
+	        <a class="card-footer text-white" href="#" style="height:10vh;">
+	          <span class="float-left"><strong><?php echo $n->note_description?></strong></span>
+	          <span class="float-right"><bold><?php echo $n->note_date?></bold></span>
+	        </a>
+	        <?php endforeach ?>
+	      </div>
+	    </div>
+	    <div class="col-xl-6 col-sm-6 mb-3">
+	      <div class="card text-white bg-primary o-hidden h-100">
+	        <div class="card-body">
+	          <div class="card-body-icon">
+	            <i class="fa fa-fw fa-arrow-circle-up"></i>
+	          </div>
+	          <div class="mr-5"><strong>Outstanding Students</strong><br>
+	            <table width="100%">
+	              <thead>
+	                <th>Name</th>
+	                <th style="padding-left: 50px;">Current Average</th>
+	              </thead>
+	              <tbody id="rank"></tbody>
+	            </table>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+    </div>
+    <div class="row">
+	    <div class="col-xl-6 col-sm-6 mb-3">
+	      <div class="card text-white bg-success o-hidden h-100">
+	        <div class="card-body">
+	          <div class="card-body-icon">
+	            <i class="fa fa-fw fa-calendar-times-o"></i>
+	          </div>
+	          <div class="mr-5"><strong>Top Absentees</strong></div>
+	          <table width="100%">
+	              <thead>
+	                <th>Name</th>
+	                <th style="padding-left: 50px;">No. of Absences</th>
+	              </thead>
+	              <tbody id="absent"></tbody>
+	          </table>
+	        </div>
+	      </div>
+	    </div>
+	    <div class="col-xl-6 col-sm-6 mb-3">
+	      <div class="card text-white bg-danger o-hidden h-100">
+	        <div class="card-body">
+	          <div class="card-body-icon">
+	            <i class="fa fa-fw fa-support"></i>
+	          </div>
+	          <div class="mr-5"><strong>Less Performing Students</strong><br>
+	            <table width="100%">
+	              <thead>
+	                <th>Name</th>
+	                <th style="padding-left: 50px;">Current Average</th>
+	              </thead>
+	              <tbody id="lessperforming"></tbody>
+	            </table>
+	          </div>
+	        </div>
+	      </div>
+	    </div> 
+    </div>
     <!-- End of Icon Cards-->
 
         <div class="row" style="padding: 20px; background: #2bb94b; width: 1110px; margin-left: 3px; margin-bottom: 5px;  " >
@@ -142,15 +142,15 @@
 <!--Charts-->
 <?php
 
-// $barData = array( 
-//   array("y" => 3373.64, "label" => "Germany" ),
-//   array("y" => 2435.94, "label" => "France" ),
-//   array("y" => 1842.55, "label" => "China" ),
-//   array("y" => 1828.55, "label" => "Russia" ),
-//   array("y" => 1039.99, "label" => "Switzerland" ),
-//   array("y" => 765.215, "label" => "Japan" ),
-//   array("y" => 612.453, "label" => "Netherlands" )
-// );
+$barData = array( 
+  array("y" => 3373.64, "label" => "Germany" ),
+  array("y" => 2435.94, "label" => "France" ),
+  array("y" => 1842.55, "label" => "China" ),
+  array("y" => 1828.55, "label" => "Russia" ),
+  array("y" => 1039.99, "label" => "Switzerland" ),
+  array("y" => 765.215, "label" => "Japan" ),
+  array("y" => 612.453, "label" => "Netherlands" )
+);
 
 $areaData = array(
   array("x" => 1483381800000 , "y" => 650),
@@ -199,23 +199,23 @@ var dataPoints = [];
 // });
 // chart.render();
  
-// var chart = new CanvasJS.Chart("myBarChart", {
-//   exportEnabled: true,
-//   animationEnabled: true,
-//   theme: "light2",
-//   title:{
-//     text: "Student Record"
-//   },
-//   axisY: {
-//     title: "Gold Reserves (in tonnes)"
-//   },
-//   data: [{
-//     type: "column",
-//     yValueFormatString: "#,##0.## tonnes",
-//     dataPoints: <?php //echo json_encode($barData, JSON_NUMERIC_CHECK); ?>
-//   }]
-// });
-// chart.render();
+var chart = new CanvasJS.Chart("myBarChart", {
+  exportEnabled: true,
+  animationEnabled: true,
+  theme: "light2",
+  title:{
+    text: "Student Record"
+  },
+  axisY: {
+    title: "Gold Reserves (in tonnes)"
+  },
+  data: [{
+    type: "column",
+    yValueFormatString: "#,##0.## tonnes",
+    dataPoints: <?php echo json_encode($barData, JSON_NUMERIC_CHECK); ?>
+  }]
+});
+chart.render();
 
 }
 </script>
@@ -242,15 +242,6 @@ var dataPoints = [];
           dataPoints: dataPointspie
         }]
       });
-<<<<<<< HEAD
-
-      // chart.render();
-      // }
-      $('#class_grade, #subject_name').change(function(){
-        if ($('#subject_name').val() != "") {
-          var class_grade = $('#class_grade').val();
-          var subject_id = $('#subject_name').val();
-=======
       var areachart = new CanvasJS.Chart("myAreaChart", {
         animationEnabled: true,
         theme: "light2",
@@ -277,7 +268,6 @@ var dataPoints = [];
       $('#section, #subject_id').change(function(){
           var class_grade = $('#section').val();
           var subject_name = $('#subject_id').val();
->>>>>>> 610ae3825011b1a0f3631ceb41f243e74910a9dc
           // alert(subject_id);
           // return;
           $.ajax({
@@ -293,55 +283,6 @@ var dataPoints = [];
                 pieChart.render();
             }
             });
-<<<<<<< HEAD
-          } 
-        else{}
-      });
-
-
-      var barChart = new CanvasJS.Chart("myBarChart", {
-        exportEnabled: true,
-        animationEnabled: true,
-        theme: "light2",
-        title:{
-          text: "Student Record"
-        },
-        axisY: {
-          title: "Ranking"
-        },
-        data: [{
-          type: "column",
-          indexLabel: "{x} - {y}%",
-          showInLegend: true,
-          dataPoints: dataPoints
-        }]
-      });
-
-      $('#class_grade, #subject_name, #score_type').change(function(){
-        if ($('#subject_name').val() != "" && $('#score_type').val() != "") {
-          var class_grade = $('#class_grade').val();
-          var subject_id = $('#subject_name').val();
-          var score_type = $('#score_type').val();
-          // alert(subject_id);
-          // return;
-          $.ajax({
-            url: '<?php echo base_url('dashboard/getStudRank')?>',
-            method:'post',
-            dataType:'json',
-            data: {class_grade:class_grade, subject_name: subject_id, score_type: score_type},
-            success : function(data){
-                console.log(data.namaste);
-                console.log(data.numberste);
-
-                dataPoints.push({x: data.namaste, y: data.numberste});
-                barChart.render();
-            }
-            });
-          } 
-        else{}
-      });
-
-=======
       }); 
       $('#class_grade, #subject_name').change(function(){
           var class_grade = $('#class_grade').val();
@@ -359,7 +300,6 @@ var dataPoints = [];
             }
           });
       }); 
->>>>>>> 610ae3825011b1a0f3631ceb41f243e74910a9dc
       $('#class_name').change(function(){
         // alert('hurrah');return;
         var class_name = $('#class_name').val();
@@ -417,21 +357,13 @@ var dataPoints = [];
 
        <!-- Example Bar Chart Card-->
 		<div class="row">
-       	<div class="col-lg-8">
+       	 <div class="col-lg-8">
           <div class="card mb-3">
             <div class="card-header">
               <i class="fa fa-bar-chart"></i>Bar Chart Example
             </div>
             <div class="card-body">
               <div class="row">
-                <div style="margin-left: 280px; padding-bottom: 20px;">
-                    <select class="form-control" name="score_type" id="score_type">
-                    <option></option>
-                    <?php foreach($scorez as $core):?>
-                           <option value="<?php echo $core->score_type?>"><?php echo $core->score_type?></option>
-                    <?php endforeach?>
-                    </select>
-                </div>
                 <div id="myBarChart" style="height: 370px; width: 100%;"></div>
               </div>
             </div>

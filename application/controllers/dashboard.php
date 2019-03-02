@@ -69,7 +69,7 @@ class Dashboard extends CI_Controller {
     public function rankstudents(){
         if($this->session->userdata('logged_in')){
             $data['records'] = $this->dashboard_model->rankstudents();
-             $this->load->view('dashboard/rank', $data);
+            $this->load->view('dashboard/rank', $data);
         }
         else
             redirect('login', 'refresh');
