@@ -8,10 +8,7 @@
     }
     array_multisort($average, SORT_DESC, $records);
     $records = array_chunk($records, $limit);
-   	$array_rec = array(
-        'average' => $average,
-        'names' => $names
-    ); 
+ 
     foreach($records as $aa){
     	for($i = 0; $i < 10; $i++){
     		echo "<tr><td style='width: 200px;'>".$aa[$i]->lname.', '.$aa[$i]->fname.', '.$aa[$i]->mname."</td><td style='padding-left:80px'>".number_format($average[$i],2)."</td></tr>";

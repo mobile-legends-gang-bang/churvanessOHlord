@@ -724,7 +724,7 @@
         <div class="row" style="padding: 20px;">
           <div style="padding-right: 20px; padding-top: 5px;">Date</div>
           <div>
-            <input name="attendance_datebyseat" id="attendance_datebyseat" class="form-control" value="<?php echo date('m/d/Y')?>" disabled>
+            <input type="date" name="attendance_datebyseat" id="attendance_datebyseat" class="form-control" value="<?php echo date('m/d/Y')?>" >
           </div>
           <div style="padding-right: 20px; padding-top: 5px;">Subject Select</div>
           <div>

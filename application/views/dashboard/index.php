@@ -254,7 +254,7 @@ chart.render();
         },
         axisY: {
           title: "Number of Presents",
-          maximum: 50
+          maximum: 80
         },
         data: [{
           type: "splineArea",
@@ -282,17 +282,17 @@ chart.render();
             }
             });
       }); 
-      $('#class_grade, #subject_name').change(function(){
-          var class_grade = $('#class_grade').val();
-          var subject_name = $('#subject_name').val();
+      $('#section, #subject_id').change(function(){
+          var class_grade = $('#section').val();
+          var subject_name = $('#subject_id').val();
           $.ajax({
             url: '<?php echo base_url('dashboard/getattendancerecord')?>',
             method:'post',
             dataType:'json',
             data: {class_grade:class_grade, subject_name: subject_name},
             success : function(data){
-              for (var i = 0; i < data.length; i++) {
-                dataPointsareachart.push({x: new Date(data[i].dates), y: parseInt(data[i].count)});
+              for (var i = 0; i < data.dates.length; i++) {
+                dataPointsareachart.push({x: new Date(data.dates[i]), y: parseInt(data.count[i])});
               }
               areachart.render();
             }
