@@ -113,7 +113,11 @@ class Final_average_report extends CI_Controller {
             redirect('login','refresh');
     }
     public function getfinalaverage(){
-        $data['records'] = $this->final_average_report_model->getfinalaverage();
-        $this->load->view('reports/final_average/final_average', $data);
+        if(!$this->session->userdata('logged_in')) {
+            redirect('login', 'refresh');
+        } else{
+            $data['records'] = $this->final_average_report_model->getfinalaverage();
+            $this->load->view('reports/final_average/final_average', $data);
+        }
     }
 }

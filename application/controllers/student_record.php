@@ -21,8 +21,11 @@ class Student_record extends CI_Controller {
 			$this->load->view('main/index', $data);
 	}
 	public function getabsent(){
-		$data['records'] = $this->student_record_model->getabsent();
-		$this->load->view('student_record/records', $data);
+		if(!$this->session->userdata('logged_in')) {
+			redirect('login', 'refresh');
+		} else 
+			$data['records'] = $this->student_record_model->getabsent();
+			$this->load->view('student_record/records', $data);
 	}
 
 	public function getscores(){
