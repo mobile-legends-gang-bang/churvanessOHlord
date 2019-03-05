@@ -189,12 +189,10 @@
       <div class="container">
         <img src="<?php echo base_url()?>images/avatar.png" class="center">
         <div class="row row_padding" style="margin-top: 30px; border-bottom: 1px black solid;">
-          <h4 class="align_center"><?php echo $row->fname?>&nbsp;<?php echo $row->lname?></h4>
+          <h4 class="align_center" style="padding-left: 240px!important"><?php echo $row->fname?>&nbsp;<?php echo $row->lname?></h4>
         </div>
       </div>
-      <div class="row">
-        <h5 class="align_center">A Graduate of Bachelor of Science in General Eucation</h5>
-      </div>
+
       <div class="row row_padding" style="padding-top: 50px;">
         <div class="col-md-6" align="right">
         </div>

@@ -45,7 +45,7 @@ class Personal_account_model extends CI_Model{
 		$personal_email = $this->input->post('personal_email');
 
 		$sql = "UPDATE public.register
-				SET fname='".$personal_fname."', mname ='".$personal_mname."', lname ='".$personal_lname."', extname ='".$personal_exname."', birthday ='".$personal_bday."', age =".$personal_age.", housenumber =".$personal_hnum.", street ='".$personal_stnum."', barangay ='".$personal_brgy."', city ='".$personal_city."', province ='".$personal_prov."', degree_attained ='".$personal_degree."', institution_name ='".$personal_instname."', year_grad ='".$personal_yrgrad."', mob_number ='".$personal_num."', tel_number ='".$personal_telnum."', email ='".$personal_email."'
+				SET username = '".$personal_username."', fname='".$personal_fname."', mname ='".$personal_mname."', lname ='".$personal_lname."', extname ='".$personal_exname."', birthday ='".$personal_bday."', age =".$personal_age.", housenumber =".$personal_hnum.", street ='".$personal_stnum."', barangay ='".$personal_brgy."', city ='".$personal_city."', province ='".$personal_prov."', degree_attained ='".$personal_degree."', institution_name ='".$personal_instname."', year_grad ='".$personal_yrgrad."', mob_number ='".$personal_num."', tel_number ='".$personal_telnum."', email ='".$personal_email."'
 				WHERE teacher_id=".$teacher_id."";
 		return $this->db->query($sql);
 	}

@@ -216,7 +216,7 @@ var dataPoints = [];
         },
         axisY: {
           title: "Number of Presents",
-          maximum: 80
+          maximum: 45
         },
         data: [{
           type: "splineArea",
