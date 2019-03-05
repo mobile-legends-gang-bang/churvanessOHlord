@@ -257,7 +257,7 @@
               record_student_grade += `<tr>
                       <td>${data[i].s_id}</td>
                       <td>${data[i].lname}, ${data[i].fname} ${data[i].mname}</td>
-                      <td><input type="hidden" name="student_id[]" id="student_id" value="${data[i].s_id}"><input type="text" onkeypress="return isNumber(event)" name="score[]" id="score" class="form-control" data-s_id="${data[i].s_id}" data-class_id="${data[i].s_id}"></td>
+                      <td><input type="hidden" name="student_id[]" id="student_id" value="${data[i].s_id}"><input type="text" onkeyup="var x = $('#over').val(); var input = (this.value); if(input > x){ alert('This score exceeds the perfect score.'); value='';}" onkeypress="return isNumber(event)" name="score[]" id="score" class="form-control" data-s_id="${data[i].s_id}" data-class_id="${data[i].s_id}"></td>
                   </tr>`;
             }
             $('#record_student_grade').html(record_student_grade);
@@ -303,6 +303,11 @@
           alert('ahhaha sayup yot');
         }
       });
+    });
+
+    $('#record_student_grade #score').keyup(function(){
+      var score = 12;
+      alert(score);
     });
 
     $('#behavior_class, #behavior_subject').change(function(){
@@ -391,7 +396,7 @@
           <a class="nav-link active" id="class-list-tab" data-toggle="pill" href="#tab-class-list" role="tab" aria-controls="tab-class-list" aria-selected="true">Class List</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="record-grades-tab" data-toggle="pill" href="#record_grades" role="tab" aria-controls="record_grades" aria-selected="false">Record Grades</a>
+          <a class="nav-link" id="record-grades-tab" data-toggle="pill" href="#record_grades" role="tab" aria-controls="record_grades" aria-selected="false">Record Scores</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="behavior-tab" data-toggle="pill" href="#student_behavior_tab" role="tab" aria-controls="student_behavior_tab" aria-selected="false">Note Students Behavior</a>

@@ -1,5 +1,6 @@
-   
+   <?php error_reporting(0); ?>
     <?php
+    
     $limit = 45;
     foreach($records as $key => $row){
     

@@ -1,3 +1,4 @@
+<?php error_reporting(0); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -174,48 +175,8 @@ $areaData = array(
 <script>
 window.onload = function() {
 var dataPoints = [];
-// var chart = new CanvasJS.Chart("myAreaChart", {
-//   animationEnabled: true,
-//   theme: "light2",
-//   title:{
-//     text: "Student Attendance"
-//   },
-//   axisX: {
-//     title: "Attendance Date",
-//     valueFormatString: "DD MMM"
-//   },
-//   axisY: {
-//     title: "Number of Presents",
-//     maximum: 1200
-//   },
-//   data: [{
-//     type: "splineArea",
-//     color: "#6599FF",
-//     xValueType: "dateTime",
-//     xValueFormatString: "DD MMM",
-//     yValueFormatString: "#,##0 Visits",
-//     dataPoints: <?php //echo json_encode($areaData); ?>
-//   }]
-// });
-// chart.render();
  
-var chart = new CanvasJS.Chart("myBarChart", {
-  exportEnabled: true,
-  animationEnabled: true,
-  theme: "light2",
-  title:{
-    text: "Student Record"
-  },
-  axisY: {
-    title: "Gold Reserves (in tonnes)"
-  },
-  data: [{
-    type: "column",
-    yValueFormatString: "#,##0.## tonnes",
-    dataPoints: <?php echo json_encode($barData, JSON_NUMERIC_CHECK); ?>
-  }]
-});
-chart.render();
+
 
 }
 </script>
@@ -243,6 +204,7 @@ chart.render();
         }]
       });
       var areachart = new CanvasJS.Chart("myAreaChart", {
+        exportEnabled: true,
         animationEnabled: true,
         theme: "light2",
         title:{
@@ -263,6 +225,22 @@ chart.render();
           xValueFormatString: "DD MMM",
           yValueFormatString: "#,##0 Present",
           dataPoints: dataPointsareachart
+        }]
+      });
+      var chart = new CanvasJS.Chart("myBarChart", {
+        exportEnabled: true,
+        animationEnabled: true,
+        theme: "light2",
+        title:{
+          text: "Student Record"
+        },
+        axisY: {
+          title: "Gold Reserves (in tonnes)"
+        },
+        data: [{
+          type: "column",
+          yValueFormatString: "#,##0.## tonnes",
+          dataPoints: <?php echo json_encode($barData, JSON_NUMERIC_CHECK); ?>
         }]
       });
       $('#section, #subject_id').change(function(){
@@ -291,10 +269,13 @@ chart.render();
             dataType:'json',
             data: {class_grade:class_grade, subject_name: subject_name},
             success : function(data){
+              console.log(data.dates);
+              console.log(data.count);
               for (var i = 0; i < data.dates.length; i++) {
                 dataPointsareachart.push({x: new Date(data.dates[i]), y: parseInt(data.count[i])});
               }
               areachart.render();
+
             }
           });
       }); 

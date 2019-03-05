@@ -147,6 +147,7 @@ class Class_section extends CI_Controller {
 				$score_type = $this->input->post('score_type');
 				$score = json_decode($this->input->post('score'));
 				$over = $this->input->post('over');
+				
 				$data = array();
 				for ($i=0; $i < count($student_id); $i++) { 
 					$data['s_id'] = $student_id[$i];

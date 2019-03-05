@@ -57,6 +57,9 @@
               <a href="<?php echo base_url()?>grades_report/index">Grades</a>
             </li>
             <li>
+              <a href="<?php echo base_url()?>final_average_report/index">Subject Final Average</a>
+            </li>
+            <li>
               <a href="<?php echo base_url()?>personal_info_report/index">Personal Information</a>
             </li>
           </ul>
@@ -96,6 +99,9 @@
             <li>
               <a href="<?php echo base_url()?>behavior/index">Behavior</a>
             </li>
+           <!--  <li>
+              <a href="<?php //echo base_url()?>class_list/index">Class List</a>
+            </li> -->
             <li>
               <a href="<?php echo base_url()?>personal_account/index">Personal Account</a>
             </li>
@@ -129,7 +135,7 @@
             <a class="dropdown-item" href="<?php echo base_url()?>class_section/index">
               <span class="text-success">
                 <strong>
-                  <i class="fa fa-fw"></i>Status Update</strong>
+                  <i class="fa fa-fw"></i>Reminder</strong>
               </span>
               <div class="dropdown-message small"><?php echo $n->note_description?></div>
               <span class="small float-right text-muted"><?php echo $n->note_date?></span>
@@ -144,16 +150,13 @@
         <li class="nav-item">
           <form class="form-inline my-2 my-lg-0 mr-lg-2">
             <div class="input-group">
-              <input class="form-control" type="text" placeholder="Search for...">
-              <span class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fa fa-search"></i>
-                </button>
+
+
               </span>
             </div>
           </form>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" style="margin-right: 170px;">
           <a class="nav-link" data-toggle="modal" data-target="#logoutmodal" data-dismiss="modal">
             <i class="fa fa-fw fa-sign-out"></i>Logout</a>
         </li>
