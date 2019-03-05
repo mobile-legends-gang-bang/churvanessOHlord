@@ -335,23 +335,9 @@ var dataPoints = [];
       <!-- End of Area Chart Example-->
 
        <!-- Example Bar Chart Card-->
-		<div class="row">
-       	 <div class="col-lg-8">
-          <div class="card mb-3">
-            <div class="card-header">
-              <i class="fa fa-bar-chart"></i>Bar Chart Example
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div id="myBarChart" style="height: 370px; width: 100%;"></div>
-              </div>
-            </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-          </div>
-        </div>
 
           <!-- Example Pie Chart Card-->
-          <div class="col-lg-4">
+          <div class="col-lg-4" style="margin-left: 350px;">
           	<div class="card mb-3">
             	<div class="card-header">
             		  <i class="fa fa-pie-chart"></i> Negative and Positive Behavior
