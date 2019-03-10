@@ -1,3 +1,4 @@
+<?php error_reporting(0); ?>
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 class Grades_report extends CI_Controller {
     public function __construct(){
@@ -16,7 +17,7 @@ class Grades_report extends CI_Controller {
             redirect('login', 'refresh');
         } else 
             $data['title'] = "Grades Report";
-            $data['name'] = "GADES REPORT";
+            $data['name'] = "GRADES REPORT";
             $data['subjectlist'] = $this->section_model->getsubject();
             $data['uniqueclass'] = $this->section_model->getUniqueclass();
             $data['notesview'] = $this->note_model->getnotesToday();
@@ -52,6 +53,7 @@ class Grades_report extends CI_Controller {
 
             $cell = 4;
             $records = $this->grades_report_model->getscores();
+            $formula = $this->grades_report_model->getformula();
             foreach(range('A','Z') as $columnID) {
                 $this->excel->getActiveSheet()->getColumnDimension($columnID)
                     ->setAutoSize(true);
@@ -65,11 +67,11 @@ class Grades_report extends CI_Controller {
             
 
             foreach ($records->result() as $row) {
-                $assignment = ((($row->assignment_scores/$row->assignment_perfect)*100)*0.1);
-                $project = ((($row->project_scores/$row->project_perfect)*100)*0.3);
-                $quarterexam = ((($row->quarterexam_scores/$row->quarterexam_perfect)*100)*0.4);
-                $quiz = ((($row->quiz_scores/$row->quiz_perfect)*100)*0.15);
-                $seatwork = ((($row->seatwork_scores/$row->seatwork_perfect)*100)*0.05);
+                $assignment = ((($row->assignment_scores/$row->assignment_perfect)*100)*($formula->row()->assignment_percentage));
+                $project = ((($row->project_scores/$row->project_perfect)*100)*($formula->row()->project_percentage));
+                $quarterexam = ((($row->quarterexam_scores/$row->quarterexam_perfect)*100)*($formula->row()->quarter_exam_percentage));
+                $quiz = ((($row->quiz_scores/$row->quiz_perfect)*100)*($formula->row()->quiz_percentage));
+                $seatwork = ((($row->seatwork_scores/$row->seatwork_perfect)*100)*($formula->row()->seatwork_percentage));
                 $average = $assignment+$project+$quarterexam+$quiz+$seatwork;
                 $spreadsheet->setCellValue('A'.$cell, $row->s_id);
                 $spreadsheet->setCellValue('B'.$cell, $row->lname.", ".$row->fname." ".$row->mname);

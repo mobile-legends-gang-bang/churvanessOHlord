@@ -99,9 +99,9 @@
             <li>
               <a href="<?php echo base_url()?>behavior/index">Behavior</a>
             </li>
-           <!--  <li>
-              <a href="<?php //echo base_url()?>class_list/index">Class List</a>
-            </li> -->
+            <li>
+              <a href="<?php echo base_url()?>formula/index">Grade Formula</a>
+            </li>
             <li>
               <a href="<?php echo base_url()?>personal_account/index">Personal Account</a>
             </li>

@@ -19,11 +19,13 @@ class Scores_report extends CI_Controller {
             $data['subjectlist'] = $this->section_model->getsubject();
             $data['uniqueclass'] = $this->section_model->getUniqueclass();
             $data['notesview'] = $this->note_model->getnotesToday();
+            $data['records'] = $this->scores_report_model->getscores();
             $data['content'] = "reports/scores/index";
             $this->load->view('main/index', $data);
     }
     public function getscores(){
         $data['records'] = $this->scores_report_model->getscores();
+        $data['labels'] = $this->scores_report_model->getlabel();
         $this->load->view('reports/scores/records', $data);
     }
 

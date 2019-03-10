@@ -15,11 +15,11 @@
                   </thead>
     <?php foreach ($records->result() as $row):?>
       <?php 
-          $assignment = ((($row->assignment_scores/$row->assignment_perfect)*100)*0.1);
-          $project = ((($row->project_scores/$row->project_perfect)*100)*0.3);
-          $quarterexam = ((($row->quarterexam_scores/$row->quarterexam_perfect)*100)*0.4);
-          $quiz = ((($row->quiz_scores/$row->quiz_perfect)*100)*0.15);
-          $seatwork = ((($row->seatwork_scores/$row->seatwork_perfect)*100)*0.05);
+          $assignment = ((($row->assignment_scores/$row->assignment_perfect)*100)*($formula->row()->assignment_percentage));
+          $project = ((($row->project_scores/$row->project_perfect)*100)*($formula->row()->project_percentage));
+          $quarterexam = ((($row->quarterexam_scores/$row->quarterexam_perfect)*100)*($formula->row()->quarter_exam_percentage));
+          $quiz = ((($row->quiz_scores/$row->quiz_perfect)*100)*($formula->row()->quiz_percentage));
+          $seatwork = ((($row->seatwork_scores/$row->seatwork_perfect)*100)*($formula->row()->seatwork_percentage));
           $average = $assignment+$project+$quarterexam+$quiz+$seatwork;
       ?>
         <tr>

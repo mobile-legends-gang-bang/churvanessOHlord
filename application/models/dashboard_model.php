@@ -1,3 +1,4 @@
+
 <?php
 class Dashboard_model extends CI_Model{
 
@@ -8,6 +9,12 @@ class Dashboard_model extends CI_Model{
 									WHERE teacher_id = ".$teacher_id."
 									AND class_name = '".$class_name."'");
 		return $result->result();
+	}
+	public function getformula(){
+		$teacher_id = $this->session->userdata['logged_in']['teacher_id'];
+		$sql = "SELECT * FROM public.formula where teacher_id = ".$teacher_id."";
+		$result = $this->db->query($sql);
+		return $result;
 	}
 
 	public function getbehaviorPositive(){

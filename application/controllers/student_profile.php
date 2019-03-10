@@ -7,6 +7,7 @@ class Student_profile extends CI_Controller {
       $this->load->model('note_model');
       $this->load->model('section_model');
     }
+    
     public function index() {
         if(!$this->session->userdata('logged_in')) {
             redirect('login', 'refresh');
@@ -22,6 +23,7 @@ class Student_profile extends CI_Controller {
             $data['deets'] = $this->student_profile_model->getstudentsBySection();
             $this->load->view('main/index', $data);
     }
+
     public function fetch(){
         $data = $this->student_profile_model->select();
         $output = '
@@ -242,46 +244,4 @@ class Student_profile extends CI_Controller {
         } else 
             redirect('login', 'refresh');
     }
-    
-
-    // public function searchStudents(){
-    //     $output = '';
-    //     $query = '';
-
-    //     if($this->input->post('query'))
-    //     {
-    //         $query = $this->input->post('query');
-    //     }
-    //     $data = $this->student_profile_model->fetch_data($query);
-    //     $output .= '
-    //     <div class="table-responsive">
-    //                 <table class="table table-bordered table-striped">
-    //                     <tr>
-    //                         <th>Name</th>
-    //                         <th>Street</th>
-    //                         <th>City</th>
-    //                     </tr>
-    //     ';
-    //     if($data->num_rows() > 0)
-    //     {
-    //         foreach($data->result() as $row)
-    //         {
-    //                 $output .= '
-    //                         <tr>
-    //                             <td>'.$row->fname.'</td>
-    //                             <td>'.$row->street.'</td>
-    //                             <td>'.$row->city.'</td>
-    //                         </tr>
-    //                 ';
-    //         }
-    //     }
-    //     else
-    //     {
-    //         $output .= '<tr>
-    //                         <td colspan="5">No Data Found</td>
-    //                     </tr>';
-    //     }
-    //     $output .= '</table>';
-    //     echo $output;
-    // }
 }

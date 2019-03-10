@@ -3,7 +3,7 @@
     $limit = 45;
     foreach($records as $key => $row){
     
-        $average[$key] = ((($row->assignment_scores/$row->assignment_perfect)*100)*0.1) + ((($row->project_scores/$row->project_perfect)*100)*0.3) + ((($row->quarterexam_scores/$row->quarterexam_perfect)*100)*0.4) + ((($row->quiz_scores/$row->quiz_perfect)*100)*0.15) + ((($row->seatwork_scores/$row->seatwork_perfect)*100)*0.05);
+        $average[$key] = ((($row->assignment_scores/$row->assignment_perfect)*100)*($formula->row()->assignment_percentage)) + ((($row->project_scores/$row->project_perfect)*100)*($formula->row()->project_percentage)) + ((($row->quarterexam_scores/$row->quarterexam_perfect)*100)*($formula->row()->quarter_exam_percentage)) + ((($row->quiz_scores/$row->quiz_perfect)*100)*($formula->row()->quiz_percentage)) + ((($row->seatwork_scores/$row->seatwork_perfect)*100)*($formula->row()->seatwork_percentage));
         $names[$key] = $row->lname;
     }
     array_multisort($average, SORT_ASC, $records);

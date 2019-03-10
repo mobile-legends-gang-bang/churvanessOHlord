@@ -31,10 +31,12 @@ class Student_record extends CI_Controller {
 	public function getscores(){
 		if($this->input->post('quarter') == "Whole Quarter"){
 			$data['records'] = $this->student_record_model->getfinalaverage();
+			$data['formula'] = $this->student_record_model->getformula();
 			$this->load->view('student_record/scoresfinal', $data);
 		}
 		else{
 			$data['records'] = $this->student_record_model->getscores();
+			$data['formula'] = $this->student_record_model->getformula();
 			$this->load->view('student_record/scores', $data);
 		}
 	}

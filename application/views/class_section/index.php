@@ -273,6 +273,7 @@
       var scoretype = $('#score_form #score_type').val();
       var class_name = $('#score_form #class_grade').val();
       var over = $('#score_form #over').val();
+      var label = $('#score_form #label').val();
       student_id = $('input[name^="student_id"]').map(function(){
                 return this.value;
             }).get();
@@ -283,7 +284,7 @@
       $.ajax({
         type: 'post',
         url: '<?php echo base_url('class_section/savescore')?>',
-        data: {score_subject: subject_name, score_quarter:score_quarter, class_grade:class_name, over:over, score_type:scoretype, student_id:JSON.stringify(student_id), score:JSON.stringify(score)},
+        data: {score_subject: subject_name, score_quarter:score_quarter, class_grade:class_name, over:over, label:label, score_type:scoretype, student_id:JSON.stringify(student_id), score:JSON.stringify(score)},
         dataType: 'json',
         success: function(response){
           if (response.status) {
@@ -295,6 +296,7 @@
               $('#score_type').val("");
               $('#class_grade').val("");
               $('#over').val("");
+              $('#label').val("");
           } else {
               alert(response.message);
           }
@@ -490,6 +492,13 @@
               <div class="col-md-1">:</div>
               <div class="col-md-4">
                 <input type="number" name="over" id="over" class="form-control">
+              </div>
+            </div>
+            <div class="row row_padding">
+              <div class="col-md-2">Score Description/Label</div>
+              <div class="col-md-1">:</div>
+              <div class="col-md-4">
+                <input type="text" name="label" id="label" class="form-control">
               </div>
             </div>
             <div class="card-header">

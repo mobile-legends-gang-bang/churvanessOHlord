@@ -102,15 +102,7 @@
 			<div class="card-body">
 	              <div class="table-responsive">
 	                <table class="table table-bordered" id="score" width="100%" cellspacing="0">
-	                  <thead>
-	                    <tr>
-	                      <th>Student ID</th>
-	                      <th>Name</th>
-	                      <th>Score Type</th>
-	                      <th colspan="10">Score</th>
-	                      <th>Total Score</th>
-	                    </tr>
-	                  </thead>
+	                  
 	                  <tbody id="scorerecord">
 	                  </tbody>
 	                </table>

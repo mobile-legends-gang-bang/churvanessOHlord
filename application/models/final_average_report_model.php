@@ -1,5 +1,11 @@
 <?php
 class Final_average_report_model extends CI_Model{
+	public function getformula(){
+		$teacher_id = $this->session->userdata['logged_in']['teacher_id'];
+		$sql = "SELECT * FROM public.formula where teacher_id = ".$teacher_id."";
+		$result = $this->db->query($sql);
+		return $result;
+	}
 
 	public function getfinalaverage(){
 		$teacher_id = $this->session->userdata['logged_in']['teacher_id'];

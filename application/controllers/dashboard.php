@@ -66,6 +66,7 @@ class Dashboard extends CI_Controller {
     public function rankstudents(){
         if($this->session->userdata('logged_in')){
             $data['records'] = $this->dashboard_model->rankstudents();
+            $data['formula'] = $this->dashboard_model->getformula();
             $this->load->view('dashboard/rank', $data);
         }
         else
@@ -75,6 +76,7 @@ class Dashboard extends CI_Controller {
     public function lessperforming(){
         if($this->session->userdata('logged_in')){
             $data['records'] = $this->dashboard_model->rankstudents();
+            $data['formula'] = $this->dashboard_model->getformula();
             $this->load->view('dashboard/lessperforming', $data);
         }
         else
