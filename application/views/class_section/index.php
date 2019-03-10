@@ -305,6 +305,45 @@
       });
     });
 
+    $('#savestudent').click(function(){
+        var s_id = $('#s_id1').val();
+        var fname = $('#fname').val();
+        var mname = $('#mname').val();
+        var lname = $('#lname').val();
+        var extname =  $('#extname').val();
+        var address = $('#address').val();
+        var age = $('#age').val();
+        var housenum = $('#housenum').val();
+        var street = $('#street').val();
+        var barangay = $('#barangay').val();
+        var city = $('#city').val();
+        var province =  $('#province').val();
+        var guardianname = $('#guardianname').val();
+        var relation =  $('#relation').val();
+        var contactnum =  $('#contactnum').val();
+        var birthday = $('#birthday').val();
+        var class_name = $('#classname1').val();
+
+        $.ajax({
+          type: 'post',
+          url: '<?php echo base_url('class_section/savestudent')?>',
+          data: { s_id:s_id, fname:fname, mname:mname, lname:lname, extname:extname, address:address, age:age, housenum:housenum, street:street, barangay:barangay, city:city, province:province, guardianname:guardianname, relation:relation, contactnum:contactnum, birthday:birthday, classname1:class_name},
+          dataType: 'json',
+          success: function(response){
+                if (response.status) {
+                  swal("Saved Student Profile!", "", "success");
+                    getnote();
+                } else {
+                    alert(response.message);
+                }
+              },
+              error:function(request,status,error){ 
+                alert('ahhaha sayup yot');
+              }
+        });
+      });
+
+
     $('#record_student_grade #score').keyup(function(){
       var score = 12;
       alert(score);
@@ -413,6 +452,7 @@
               <button class="btn btn-success btn_right" data-toggle="modal" data-target="#enrollstudentsmodal">Enroll Students in a Class</button>
               <button class="btn btn-success btn_right" data-toggle="modal" data-target="#addClassModal"> Add Class </button>
               <button class="btn btn-success btn_right" data-toggle="modal" data-target="#addSubjectsModal"> Add Subjects Handled </button>
+              <button class="btn btn-success btn_right" data-toggle="modal" data-target="#addStudentModal"> Add Transferee</button>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -628,7 +668,114 @@
         </div>
       </div>
     </div>
+
+    <!-- Transferee Modal-->
+    <div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="classModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addStudentModal">Add Transferee</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="form_class1" method="post" accept-charset = "utf-8">
+              <input type="hidden" name="class_id1" id="class_id1">
+              <div> Class Name : </div>
+              <div>
+                <select class="form-control" name="classname1" id="classname1">
+                  <?php foreach ($classlist as $row1): ?>
+                    <option><?php echo $row1->classname?></option>  
+                  <?php endforeach ?>
+                </select>
+              </div>
   
+              <div class="row row_padding">
+                <input type="hidden" name="s_id1" id="s_id1">
+                  <div>
+                    <h4 align="center">PERSONAL INFORMATION</h4>
+                    <div class="row row_padding">
+                      <div class="col-md-5">First Name</div>
+                      <div class="col-md-1">:</div>
+                      <div class="col-md-6"><input type="text" class="form-control" name="fname" id="fname"></div>
+                    </div>
+                    <div class="row row_padding">
+                      <div class="col-md-5">Middle Name</div>
+                      <div class="col-md-1">:</div>
+                      <div class="col-md-6"><input type="text" class="form-control" name="mname" id="mname" ></div>
+                    </div>
+                    <div class="row row_padding">
+                      <div class="col-md-5">Last Name</div>
+                      <div class="col-md-1">:</div>
+                      <div class="col-md-6"><input type="text" class="form-control" name="lname" id="lname"></div>
+                    </div>
+                    <div class="row row_padding">
+                      <div class="col-md-5">Extension Name</div>
+                      <div class="col-md-1">:</div>
+                      <div class="col-md-6"><input type="text" class="form-control" name="extname" id="extname"></div>
+                    </div>
+                    <div class="row row_padding">
+                      <div class="col-md-2">Birthday</div>
+                      <div class="col-md-1">:</div>
+                      <div class="col-md-5"><input type="date" class="form-control" name="birthday" id="birthday"></div>
+                      <div class="col-md-1">Age</div>
+                      <div class="col-md-1">:</div>
+                      <div class="col-md-2"><input type="text" class="form-control" name="age" id="age"></div>
+                    </div>
+                    <div class="row row_padding">
+                      <div class="col-md-5">House Number</div>
+                      <div class="col-md-1">:</div>
+                      <div class="col-md-6"><input type="text" class="form-control" name="housenum" id="housenum"></div>
+                    </div>
+                    <div class="row row_padding">
+                      <div class="col-md-5">Street Number</div>
+                      <div class="col-md-1">:</div>
+                      <div class="col-md-6"><input type="text" class="form-control" name="street" id="street"></div>
+                    </div>
+                    <div class="row row_padding">
+                      <div class="col-md-5">Barangay</div>
+                      <div class="col-md-1">:</div>
+                      <div class="col-md-6"><input type="text" class="form-control" name="barangay" id="barangay"></div>
+                    </div>
+                    <div class="row row_padding">
+                      <div class="col-md-5">City</div>
+                      <div class="col-md-1">:</div>
+                      <div class="col-md-6"><input type="text" class="form-control" name="city" id="city"></div>
+                    </div>
+                    <div class="row row_padding">
+                      <div class="col-md-5">Province</div>
+                      <div class="col-md-1">:</div>
+                      <div class="col-md-6"><input type="text" class="form-control" name="province" id="province"></div>
+                    </div>
+                    <h4 align="center">GUARDIAN'S INFORMATION</h4>
+                    <div class="row row_padding">
+                      <div class="col-md-5">Full Name</div>
+                      <div class="col-md-1">:</div>
+                      <div class="col-md-6"><input type="text" class="form-control" name="guardianname" id="guardianname"></div>
+                    </div>
+                    <div class="row row_padding">
+                      <div class="col-md-5">Contact Number</div>
+                      <div class="col-md-1">:</div>
+                      <div class="col-md-6"><input type="text" class="form-control" name="contactnum" id="contactnum"></div>
+                    </div>
+                    <div class="row row_padding">
+                      <div class="col-md-5">Relationship</div>
+                      <div class="col-md-1">:</div>
+                      <div class="col-md-6"><input type="text" class="form-control" name="relation" id="relation"></div>
+                    </div>
+                  </div>
+                </div>
+
+              <div class="modal-footer">
+                <button type = "submit" class="btn btn-primary" data-dismiss="modal" id="savestudent"> Save </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Class Modal-->
     <div class="modal fade" id="addClassModal" tabindex="-1" role="dialog" aria-labelledby="classModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
