@@ -122,9 +122,9 @@
   <br />
   <style type="text/css">
     #calendar{
-      margin-left: 20px;
+      margin-left: 5px;
       margin-top: 70px;
-      width: 1000px;
+      width: 1350px;
     }
   </style>
   <div class="container">

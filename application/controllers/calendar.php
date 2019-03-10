@@ -69,13 +69,14 @@ class Calendar extends CI_Controller {
                 redirect('login', 'refresh');
     }
     public function delete_event() {
-        if($this->session->userdata('logged_in')){
-            $data=$this->calendar_model->delete_event();
+       if($this->session->userdata('logged_in')){
+            $data = $this->calendar_model->delete_event();
+            $response['status'] = TRUE;
+            $response['message'] = "Successfully saved behavior.";
             echo json_encode($data);
-        }
-        else
-            redirect('login', 'refresh');
-    } 
+        } else
+            redirect('login', 'refresh');       
+    }
     public function update_event(){
         if($this->userdata('logged_in')){
             $data=$this->calendar_model->update_event();
