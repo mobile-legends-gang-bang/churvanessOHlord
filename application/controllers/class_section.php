@@ -212,4 +212,54 @@ class Class_section extends CI_Controller {
 			redirect('login', 'refresh');
 	}
 
+	public function savestudent(){
+        if($this->session->userdata('logged_in')) {
+            $response['status'] = FALSE;
+            $teacher_id = $this->session->userdata['logged_in']['teacher_id'];
+                $fname = $this->input->post('fname');
+                $mname = $this->input->post('mname');
+                $lname = $this->input->post('lname');
+                $extname = $this->input->post('extname');
+                $address = $this->input->post('address');
+                $age = $this->input->post('age');
+                $housenum = $this->input->post('housenum');
+                $street = $this->input->post('street');
+                $barangay = $this->input->post('barangay');
+                $city = $this->input->post('city');
+                $province = $this->input->post('province');
+                $guardianname = $this->input->post('guardianname');
+                $relation = $this->input->post('relation');
+                $contactnum = $this->input->post('contactnum');
+                $birthday = $this->input->post('birthday');
+                $class_name = $this->input->post('classname1');
+
+                $data = array(
+                	'teacher_id' => $teacher_id,
+                    'fname' => $fname,
+                    'mname' => $mname,
+                    'lname' => $lname,
+                    'extname' => $extname,
+                    'address' => $address,
+                    'age' => $age,
+                    'housenum' => $housenum,
+                    'street' => $street,
+                    'barangay' => $barangay,
+                    'city' => $city,
+                    'province' => $province,
+                    'guardianname' => $guardianname,
+                    'relation' => $relation,
+                    'contactnum' => $contactnum,
+                    'birthday' => $birthday,
+                    'class_name' => $class_name,
+                );
+
+                $this->db->insert('public.student_profile', $data);
+                $response['status'] = TRUE;
+                $response['message'] = "Successfully insert into student profile.";                
+
+            echo json_encode($response);
+        } else 
+            redirect('login', 'refresh');
+    }
+
 }
