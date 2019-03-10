@@ -255,7 +255,7 @@ $(document).ready(function(){
           dataType: 'json',
           success: function(response){
                 if (response.status) {
-                  swal("Updated Note!", "", "success");
+                  swal("Updated Student Profile!", "", "success");
                     getnote();
                 } else {
                     alert(response.message);

@@ -18,3 +18,8 @@ function tConvert(time) {
   }
   return time.join (''); // return adjusted time or original string
 }
+
+function checkifexceed(evt){
+  evt = $('#score').val();
+  return evt;
+}

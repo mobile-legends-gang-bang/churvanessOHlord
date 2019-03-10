@@ -6,6 +6,7 @@ class Grades_report extends CI_Controller {
       $this->load->library('excel');
       $this->load->model('section_model');
       $this->load->model('behavior_model');
+      $this->load->model('student_record_model');
       $this->load->model('grades_report_model');
       $this->load->model('note_model');
 
@@ -19,16 +20,8 @@ class Grades_report extends CI_Controller {
             $data['subjectlist'] = $this->section_model->getsubject();
             $data['uniqueclass'] = $this->section_model->getUniqueclass();
             $data['notesview'] = $this->note_model->getnotesToday();
-            $data['content'] = "reports/scores/index";
+            $data['content'] = "reports/grades/index";
             $this->load->view('main/index', $data);
-    }
-    public function getscores(){
-        if($this->session->userdata('logged_in')){
-            $data['records'] = $this->grades_report_model->getscores();
-             $this->load->view('reports/scores/records', $data);
-        }
-        else
-            redirect('login', 'refresh');        
     }
 
     public function action() {
@@ -39,17 +32,23 @@ class Grades_report extends CI_Controller {
             $header = array();
             $header[] = 'Student ID';
             $header[] = 'Name';
-            $header[] = 'Score Type';
-            $header[] = 'Score';
-            $header[] = 'Total Score';
+            $header[] = 'Assignment Score';
+            $header[] = 'Project Score';
+            $header[] = 'Quarter Exam Score';
+            $header[] = 'Quiz Score';
+            $header[] = 'Seatwork Score';
+            $header[] = 'Average';
 
-            $spreadsheet->setCellValue('A1', "Scores Report");
+            $spreadsheet->setCellValue('A1', "Grade Report");
 
             $spreadsheet->setCellValue('A3', $header[0]);
             $spreadsheet->setCellValue('B3', $header[1]);
             $spreadsheet->setCellValue('C3', $header[2]);
-            $spreadsheet->setCellValue('D3', $header[3])->mergeCells('D3:M3');
-            $spreadsheet->setCellValue('N3', $header[4]);
+            $spreadsheet->setCellValue('D3', $header[3]);
+            $spreadsheet->setCellValue('E3', $header[4]);
+            $spreadsheet->setCellValue('F3', $header[5]);
+            $spreadsheet->setCellValue('G3', $header[6]);
+            $spreadsheet->setCellValue('H3', $header[7]);
 
             $cell = 4;
             $records = $this->grades_report_model->getscores();
@@ -62,34 +61,28 @@ class Grades_report extends CI_Controller {
                     'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
                 )
             );
-            $spreadsheet->getStyle("D3:M3")->applyFromArray($style);
+            $spreadsheet->getStyle("A3:H3")->applyFromArray($style);
+            
 
             foreach ($records->result() as $row) {
+                $assignment = ((($row->assignment_scores/$row->assignment_perfect)*100)*0.1);
+                $project = ((($row->project_scores/$row->project_perfect)*100)*0.3);
+                $quarterexam = ((($row->quarterexam_scores/$row->quarterexam_perfect)*100)*0.4);
+                $quiz = ((($row->quiz_scores/$row->quiz_perfect)*100)*0.15);
+                $seatwork = ((($row->seatwork_scores/$row->seatwork_perfect)*100)*0.05);
+                $average = $assignment+$project+$quarterexam+$quiz+$seatwork;
                 $spreadsheet->setCellValue('A'.$cell, $row->s_id);
                 $spreadsheet->setCellValue('B'.$cell, $row->lname.", ".$row->fname." ".$row->mname);
-                $spreadsheet->setCellValue('C'.$cell, $row->score_type);
-                // $object->getActiveSheet()->setCellValue('D'.$cell, $row->score_sum);
-
-                $maxLength = 10;
-                $scores = explode(' - ', $row->scores);
-                $scoresLength = count($scores);
-                $column = 'C';
-                $column++;
-                for($i = 0; $i < $scoresLength; $i++) {
-                    $spreadsheet->setCellValue($column.$cell, $scores[$i]);
-                    $column++;
-                }
-                for($i = $scoresLength; $i < $maxLength; $i++) {
-                    $spreadsheet->setCellValue($column.$cell, '0');
-                    $column++;
-                }
-
-                // $object->getActiveSheet()->setCellValue('D3', $header[3])->mergeCells('D3:M3');
-                $spreadsheet->setCellValue('N'.$cell, $row->score_sum);
+                $spreadsheet->setCellValue('C'.$cell, $row->assignment_scores);
+                $spreadsheet->setCellValue('D'.$cell, $row->project_scores);
+                $spreadsheet->setCellValue('E'.$cell, $row->quarterexam_scores);
+                $spreadsheet->setCellValue('F'.$cell, $row->quiz_scores);
+                $spreadsheet->setCellValue('G'.$cell, $row->seatwork_scores);
+                $spreadsheet->setCellValue('H'.$cell, number_format($average,2));
                 $cell++;
             }
 
-           $filename='scores.xls';
+           $filename='grade_report.xls';
             header('Content-Type: application/vnd.ms-excel');
             header('Content-Disposition: attachment;filename="'.$filename.'"');
             header('Cache-Control: max-age=0'); //no cache

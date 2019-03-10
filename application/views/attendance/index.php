@@ -27,7 +27,7 @@
                 record_student_grade += `<tr>
                         <td>${data[i].s_id}</td>
                         <td>${data[i].lname}, ${data[i].fname} ${data[i].mname}</td>
-                        <td><input type="checkbox" class="form-control" name="attend[]" id="attend" checked data-s_id="${data[i].s_id}" data-class_id="${data[i].class_id}"></td>
+                        <td><input type="checkbox" class="form-control" name="attend[]" id="attend" checked data-s_id="${data[i].s_id}" data-class_id="${data[i].class_id}" value="true"></td>
                         <td><input type="text" class="form-control" name="remarks[]" id="remarks data-s_id="${data[i].s_id}" data-class_id="${data[i].class_id} "><input type="hidden" name="student_id[]" id="student_id" value="${data[i].s_id}"></td>
                     </tr>`;
               }
@@ -226,13 +226,14 @@
                 swal("Attendance Recorded!", "", "success");
                 $('#subject_name').val("");
                 $('#class_grade').val("");
+                $('#attendance_date').val("");
                 $('#remarks').val("");
             } else {
                 swal("Attendance Recorded!", "", "success");
             }
           },
           error:function(request,status,error){ 
-            swal("Attendance Recorded!", "", "success");
+            swal("Successfully saved Scores!", "", "success");
           }
         });
       });
@@ -723,7 +724,7 @@
         <div class="row" style="padding: 20px;">
           <div style="padding-right: 20px; padding-top: 5px;">Date</div>
           <div>
-            <input name="attendance_datebyseat" id="attendance_datebyseat" class="form-control" value="<?php echo date('m/d/Y')?>" disabled>
+            <input type="date" name="attendance_datebyseat" id="attendance_datebyseat" class="form-control" value="<?php echo date('m/d/Y')?>" >
           </div>
           <div style="padding-right: 20px; padding-top: 5px;">Subject Select</div>
           <div>

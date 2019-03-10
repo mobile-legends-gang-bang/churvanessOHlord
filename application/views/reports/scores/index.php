@@ -95,8 +95,8 @@
 	                  <option>Quarter Exam</option>
 	                  <option>Quiz</option>
 	                  <option>Seatwork</option>
-	                  <option>All</option>
-	                </select>
+<!-- 	                  <option>All</option>
+ -->	                </select>
 				</div>
 			</div>
 			<div class="card-body">
