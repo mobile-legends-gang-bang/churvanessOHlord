@@ -148,7 +148,8 @@ class Class_section extends CI_Controller {
 				$score = json_decode($this->input->post('score'));
 				$over = $this->input->post('over');
 				$label = $this->input->post('label');
-				
+				$date = date('Y-m-d');
+				$date_recorded = $date;
 				$data = array();
 				for ($i=0; $i < count($student_id); $i++) { 
 					$data['s_id'] = $student_id[$i];
@@ -159,6 +160,7 @@ class Class_section extends CI_Controller {
 					$data['score'] = $score[$i];
 					$data['over'] = $over;
 					$data['label'] = $label;
+					$data['date_recorded'] = $date_recorded;
 					$data['score_type'] = $score_type;
 					$this->db->insert('public.student_scores', $data);
 				}

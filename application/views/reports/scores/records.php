@@ -20,9 +20,7 @@
                     <?php for($i = 0; $i < $scoresLength; $i++): ?>
                         <td align="right"><?php echo $labels[$i]?></td>
                     <?php endfor; ?>
-                    <?php for ($i = $scoresLength; $i < $maxLength; $i++) : ?>
-                        <td align="right"></td>
-                    <?php endfor; ?>
+                    
                 <?php endforeach;?>
                 <td></td>
             </tr>
